@@ -1,0 +1,18 @@
+r 0-255 background
+g 0-255
+b 0-255
+a 0-100
+r 0-255 border
+g 0-255
+b 0-255
+a 0-100
+Corner radius
+Border width
+Shadow radius
+Shadow opacity
+picture 1 - color 0
+picture opacity 0-100
++width
++height
++x position
++y position

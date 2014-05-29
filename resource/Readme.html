@@ -1,0 +1,192 @@
+----------------------------------------------------------------------------------------------------
+
+v4.2
+
+- Updated Credits
+- Updated Launchagent script
+- launchagent returned to com.w0lf.cDock
+- Altered way cDock installs Launchagent
+- Added new pre-made dock configs
+- Fixed bug preventing app from checking for updates
+- Misc bug fixes
+
+----------------------------------------------------------------------------------------------------
+
+v4.1
+
+Fixed:		Misc bugs
+
+----------------------------------------------------------------------------------------------------
+
+v4.0
+
+New:		Automatic updates (beta)
+			Dock monitor (Re-applies cDock if dock crashes or quits)
+			Dock Reload (menubar) app
+				Click black cube in menubar to reload cDock (and apply changes to custom dock)
+			Customizable Picture Background
+				( ~/Library/Application Support/cDock/background.jpg )
+			Customizable Separator
+				( ~/Library/Application Support/cDock/separator.jpg )
+
+			Customizable Dock Settings
+				( ~/Library/Application Support/cDock/dock_settings.txt )
+				
+				Background Color
+					red 	0-255 
+					green 	0-255
+					blue	0-255
+					alpha	0-100
+				Border Color
+					red 	0-255 
+					green 	0-255
+					blue	0-255
+					alpha	0-100
+				Corner radius
+				Border width
+				Shadow radius
+				Shadow opacity
+				Picture 1 - Color 0 (background)
+				Picture Opacity 0-100
+				Width
+				Height
+				X Position
+				Y Position
+
+Fixed:		Misc bugs
+			Reloading dock		
+			Positioning of side dock if border or corner radius where above 0
+			Trimmed unnecessary code
+			Updates uninstalling custom dock if nothing new was installed
+			Improved update dialog
+			Improved logging
+				~/Library/Preferences/wUpdater/logs/"${applicationName}"_update.log
+				~/Library/Preferences/wUpdater/logs/"${applicationName}"_install.log
+				~/Library/Preferences/cDock/logs/(1-5).log
+				
+Updated:	launchagent from com.w0lf.cDock to org.w0lf.cDock
+			Credits now include donators
+
+Removed:	Some pre-made docks
+
+***
+
+If you make a custom dock that you think is interesting and isn't already one 
+of the pre-made docks, feel free to send me the dock_settings you made to include 
+in future versions. My e-mail is located in the about page.
+
+***
+
+----------------------------------------------------------------------------------------------------
+
+v3.3
+
+New:		Automatically disables DockMod
+New:		Restore Finder option
+New:		Dock bundle
+				10.8(blackdock) no border
+
+Fixed:		Restore Dock not removing Finder Bundle
+Fixed:		Restore leaving files
+
+----------------------------------------------------------------------------------------------------
+
+v3.2
+
+New:		Finder Colored sidebar icons
+
+Updated:		Removed completion ding
+Updated:		Trimmed out some unnecessary stuff in cocoaDialog
+
+Fixed:		An issue where dock would not apply if com.apple.dock hide-mirror is set to true
+Fixed:		Failing to run launch agent	
+Fixed: 		SIMBL Agent not restarting
+Fixed:		Proper complete removal of all app files with "Reset Dock"
+
+----------------------------------------------------------------------------------------------------
+
+v3.1
+
+Fixed:		Failing to update old files
+Fixed:		Better removal of obsolete files/folders
+
+----------------------------------------------------------------------------------------------------
+
+v3.0
+
+New:		Uses EasySIMBL
+New:		No longer requires password
+New:		More dock options
+New:		Significantly faster
+	
+----------------------------------------------------------------------------------------------------
+
+v2.3
+
+New: 		Custom bundle installer
+New: 		Updated about page
+New: 		Donation link added to about page
+New: 		First time update page
+
+Updated:		All instances of BlackDock > cDock
+Updated:		cocoaDialog 2.0.1 > 3.0-beta7
+
+Fixed: 		Misc bugs
+
+----------------------------------------------------------------------------------------------------
+
+v2.1
+
+New:		---
+
+Updated: 		Logging
+Updated: 		Removal of old files
+Updated: 		Appearance of dock mods
+				10.9	- higher alpha, small shadow
+				square	- higher alpha, small shadow
+				rainbow	- higher alpha
+	
+Fixed:		Misc bugs
+
+----------------------------------------------------------------------------------------------------
+
+v2.0
+
+New: 		Merged installer and uninstaller into one app cDock
+
+Updated: 		Readme
+Updated: 		Notes
+
+Fixed: 		Failing to launch if the path it was located in contained spaces
+Fixed: 		Failing to install if account didn’t have a LaunchAgents folder
+Fixed: 		Custom docks are now per-user so different accounts on the same machine can have different docks
+Fixed: 		Not installing properly on non-admin accounts
+
+----------------------------------------------------------------------------------------------------
+
+v1.2
+ 
+New: 		Rainbow dock (changes color each boot or dock restart)
+New: 		Check for SIMBL
+New: 		Option to only uninstall cDock
+New: 		Logging added
+
+Updated: 		cocoaDialog credits
+Updated: 		Changes to uninstall process
+
+Fixed: 		SIMBL uninstaller not closing itself
+Fixed: 		Loop not ending properly
+
+----------------------------------------------------------------------------------------------------
+
+v1.1
+
+New: 		4 dock versions to pick from installing
+
+----------------------------------------------------------------------------------------------------
+
+v1.0
+
+New: 		Initial release
+
+----------------------------------------------------------------------------------------------------

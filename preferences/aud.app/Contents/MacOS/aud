@@ -1,0 +1,4 @@
+#!/bin/bash
+
+defaults write ~/Library/Preferences/org.w0lf.cDock autoCheck 0
+osascript -e 'tell application "cDock" to activate'

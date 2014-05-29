@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>13B35</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>EasySIMBL</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.github.norio-nomura.EasySIMBL.osax</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>EasySIMBL</string>
+	<key>CFBundlePackageType</key>
+	<string>osax</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.10.8</string>
+	<key>CFBundleSignature</key>
+	<string>ascr</string>
+	<key>CFBundleVersion</key>
+	<string>0.10.8</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>5A3005</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>13A595</string>
+	<key>DTSDKName</key>
+	<string>macosx10.9</string>
+	<key>DTXcode</key>
+	<string>0502</string>
+	<key>DTXcodeBuild</key>
+	<string>5A3005</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.7</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>EasySIMBL 0.10.8, ©2003-2009 Mike Solomon, 2012 Norio Nomura</string>
+	<key>NSPrincipalClass</key>
+	<string>SIMBL</string>
+	<key>OSAXHandlers</key>
+	<dict>
+		<key>Events</key>
+		<dict>
+			<key>ESIMload</key>
+			<dict>
+				<key>Context</key>
+				<string>User</string>
+				<key>Handler</key>
+				<string>InjectEventHandler</string>
+				<key>ThreadSafe</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>
