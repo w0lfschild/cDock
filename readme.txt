@@ -28,7 +28,18 @@ Thanks go out to those who have been kind enough to donate money in support of t
 
 Amy Lumet
 Jean-Guy Niquet
-Julie Lindsey-Halls Niyi Afelumo Chen Yap Jim Elsworth John Knoerr Anon Bree Lassen Lei Feng Ross Green Robert Bailey Howard Katz Wolbe, Inc.
+Julie Lindsey-Halls 
+Niyi Afelumo
+ Chen Yap 
+Jim Elsworth 
+John Knoerr
+ Anon 
+Bree Lassen 
+Lei Feng 
+Ross Green
+ Robert Bailey
+ Howard Katz 
+Wolbe, Inc.
 
 Donate:
 
