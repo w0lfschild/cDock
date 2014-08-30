@@ -6,35 +6,29 @@ https://www.youtube.com/watch?v=wVwQ8sKsdtE
 	
 General:
 
-- The install/uninstall is for the current user only.
-- cDock works for both the Bottom Dock and Side dock.	
-- cDock installs part of EasySIMBL if it is not already installed.
+cDock installs part of EasySIMBL if it is not already installed.
+The install/uninstall is for the current user only.
+cDock works for both the Bottom Dock and Side dock.	
 
 Credits:
 
-http://github.com/norio-nomura/EasySIMBL		Bundle loader
-http://mstratman.github.io/cocoadialog/			Parts of the cocoa interface
-http://www.bluem.net/en/mac/pashua/			Parts of the cocoa interface
-http://cooviewerzoom.web.fc2.com/blackdock.html		Base 2D dock code
-https://github.com/b3ll/DarkDock			Yosemite indicator code
-http://cooviewerzoom.web.fc2.com/colorfulsidebar.html	Colored sidebar bundle
-http://forums.macrumors.com/member.php?u=134877		Idea for multiple Dock styles
-http://sveinbjorn.org/platypus				App builder
-http://hasseg.org/trash					Updater trash script
-http://stackoverflow.com/questions/4023830		Bash numeric version comp
-http://github.com/petroules/CocoaBackports		OSX system version check
-http://atopsy.deviantart.com				Icon
+github.com/norio-nomura/EasySIMBL		Bundle loader
+mstratman.github.io/cocoadialog/		Cocoa interface
+www.bluem.net/en/mac/pashua/			Cocoa interface
+cooviewerzoom.web.fc2.com/blackdock.html	Base 2D dock code
+github.com/b3ll/DarkDock			10.10 indicator code
+cooviewerzoom.web.fc2.com/colorfulsidebar.html	Colored sidebar
+sveinbjorn.org/platypus				App builder
+hasseg.org/trash				Updater trash script
+stackoverflow.com/questions/4023830		Version comp
+github.com/petroules/CocoaBackports		System version check
+atopsy.deviantart.com				Icon
 
 Thanks go out to those who have been kind enough to donate money in support of this project:
-- Jim Elsworth
-- John Knoerr
-- Anon
-- Bree Lassen
-- Lei Feng
-- Ross Green
-- Robert Bailey
-- Howard Katz
-- Wolbe, Inc.
+
+Amy Lumet
+Jean-Guy Niquet
+Julie Lindsey-Halls Niyi Afelumo Chen Yap Jim Elsworth John Knoerr Anon Bree Lassen Lei Feng Ross Green Robert Bailey Howard Katz Wolbe, Inc.
 
 Donate:
 
