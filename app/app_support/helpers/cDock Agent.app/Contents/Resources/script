@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# dockmonitor v2.2
+# Wolfgang Baird 
+# Build Date : Jul / 30 / 2014
+
+# Restart SIMBL Agent
+restart_SIMBL()
+{
+	restart_count=$(more /tmp/dmpipe)
+	if [[ "$restart_count" == "QUIT" ]]; then
+		echo "Shutting down process"
+		sleep 2
+		exit
+	else
+		restart_count=$((restart_count + 1))
+		echo $restart_count >/tmp/dmpipe
+		echo "restart count is now : "$restart_count
+		killall "SIMBL Agent"
+		sleep 1
+		exec ~/Library/Application\ Support/cDock/helpers/SIMBL.app/Contents/MacOS/SIMBL\ Agent &
+	fi	
+}
+
+# Watch for crash loop
+crash_monitor()
+{
+	echo "Starting crash loop monitoring"
+	sleep 35	
+	rs_count=$(more /tmp/dmpipe)
+	if [[ $rs_count -gt 5 ]]; then
+		echo "QUIT" >/tmp/dmpipe
+	else
+		echo 0 >/tmp/dmpipe
+	fi 
+	echo "Stopping crash loop monitoring"
+}
+
+total_count=0
+restart_count=0
+dockpid=0
+echo $restart_count >/tmp/dmpipe
+exec ~/Library/Application\ Support/cDock/helpers/SIMBL.app/Contents/MacOS/SIMBL\ Agent &
+
+# Main monitor loop
+while [ 1 ]; do
+	# Grab dockID
+	newid=$(ps ax | grep [M]acOS/Dock | sed -e 's/^[ \t]*//' | cut -f1 -d" ")
+	
+	# If dock has been restarted it will have a new ID
+	if [[ $newid != $dockpid ]]; then
+		dockpid=$newid
+		restart_SIMBL
+		
+		if [[ $restart_count -eq 1 ]]; then
+			crash_monitor
+		fi &
+		
+		sleep 4
+	else
+		# Sleep time between checks
+		sleep 2
+	fi
+done
+
+# END
