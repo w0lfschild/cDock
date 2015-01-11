@@ -1,10 +1,5 @@
 # cDock
 
-![Preview](example.png)
-
-### Tutorial:
-<video src="video.mp4" width="320" height="200" controls preload></video>
-
 ### Information:
 * cDock installs part of EasySIMBL if it is not already installed.
 * The install/uninstall is for the current user only.
