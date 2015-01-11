@@ -1,0 +1,143 @@
+pashua_run() {
+
+	# Write config file
+	pashua_configfile=`/usr/bin/mktemp /tmp/pashua_XXXXXXXXX`
+	echo "$1" > $pashua_configfile
+
+	# Find Pashua binary. We do search both . and dirname "$0"
+	# , as in a doubleclickable application, cwd is /
+	bundlepath="Pashua.app/Contents/MacOS/Pashua"
+	if [ "$3" = "" ]
+	then
+		mypath=$(dirname "$0")
+		for searchpath in "$mypath/Pashua" "$mypath/$bundlepath" "./$bundlepath" \
+						  "/Applications/$bundlepath" "$HOME/Applications/$bundlepath"
+		do
+			if [ -f "$searchpath" -a -x "$searchpath" ]
+			then
+				pashuapath=$searchpath
+				break
+			fi
+		done
+	else
+		# Directory given as argument
+		pashuapath="$3/$bundlepath"
+	fi
+
+	if [ ! "$pashuapath" ]
+	then
+		echo "Error: Pashua could not be found"
+		exit 1
+	fi
+
+	# Manage encoding
+	if [ "$2" = "" ]
+	then
+		encoding=""
+	else
+		encoding="-e $2"
+	fi
+
+	# Get result
+	result=$("$pashuapath" $encoding $pashua_configfile | perl -pe 's/ /;;;/g;')
+
+	# Remove config file
+	rm $pashua_configfile
+
+	# Parse result
+	for line in $result
+	do
+		key=$(echo $line | sed 's/^\([^=]*\)=.*$/\1/')
+		value=$(echo $line | sed 's/^[^=]*=\(.*\)$/\1/' | sed 's/;;;/ /g')
+		varname=$key
+		varvalue="$value"
+		eval $varname='$varvalue'
+	done
+
+}
+
+draw_loop() {
+	welcomedb=0
+	welcome="
+		*.transparency = 1
+		*.floating = 1
+		*.title = Welcome to cDock
+		*.autosavekey = cDock Welcome
+
+		img.type = image
+		img.path = /Applications/cDock.app/Contents/Resources/appIcon.icns
+		img.maxwidth = 72
+		img.border = 0
+		img.x = 0
+		img.y = 135
+			
+		# Introductory text
+		welcomet0.type = text
+		welcomet0.default = $txt1
+		welcomet0.width = 500
+		welcomet0.x = 80
+		welcomet0.y = 140
+			
+		welcometb0.type = textbox
+		welcometb0.default = $txt2
+		welcometb0.disabled = 1
+		welcometb0.width = 570
+		welcometb0.height = 100
+		welcometb0.x = 0
+		welcometb0.y = 30
+
+		# Accept button
+		welcomedb.type = defaultbutton
+		welcomedb.label = Continue
+	"
+	pashua_run "$welcome" 'utf8'
+	if [[ $welcomedb = "1" ]]; then 
+			exec ~/Desktop/c
+	fi
+}
+
+txt1="\
+cDock is an application for customizing your dock on OSX Mavericks and Yosemite. Thanks for using cDock![return][return]\
+Programming & Design : Wolfgang Baird"
+
+txt2="\
+Many thanks to those who have been kind enough to donate in support of this project:[return][return]\
+4LE Media, L.L.C.[return]\
+Anonymous x1[return]\
+Barton Poulson[return]\
+Bree Lassen[return]\
+Carles Escudero Diaz[return]\
+Chen Yap[return]\
+David Bluestone[return]\
+David Hirsh[return]\
+Denny Forster[return]\
+Edgar Kraus[return]\
+Gregory A Petsko[return]\
+Gregory Pitta[return]\
+Howard Katz[return]\
+Jan Wade[return]\
+Jean-Guy Niquet[return]\
+Jim Elsworth[return]\
+Johan Sorensson[return]\
+John Knoerr[return]\
+John Mueller[return]\
+Julie Lindsey-Halls[return]\
+Justin Dailey[return]\
+Kennett Sargent[return]\
+Lei Feng[return]\
+Leslie Layton[return]\
+Li Lu[return]\
+Lorne Hobbs[return]\
+Marten Claridge[return]\
+Niels van Kruiningen[return]\
+Niyi Afelumo[return]\
+Petr Smrz[return]\
+Richard Tolbert[return]\
+Robert Bailey[return]\
+Robert Nace[return]\
+Ross Green[return]\
+Warren Avny[return]\
+William Griffith[return]\
+Wolbe, Inc."
+
+draw_loop 

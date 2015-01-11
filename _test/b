@@ -1,0 +1,3 @@
+source ~/GitHub/cDock/app/windows/welcome.txt
+
+echo $welcome
