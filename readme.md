@@ -22,7 +22,7 @@ http://github.com/petroules/CocoaBackports	System version check
 http://scafer31000.deviantart.com			Icon    
 
 ### Donate:  http://goo.gl/vF92sf
-*Many thanks go out to those who have been kind enough to donate in support of this project: *    
+*Many thanks go out to those who have been kind enough to donate in support of this project:*    
 4LE Media, L.L.C.    
 Anonymous x1    
 Barton Poulson    
