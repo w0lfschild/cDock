@@ -1,0 +1,48 @@
+Change log -- 6.3.2.1
+
+------------------------------------------------
+
+This is a beta build. 
+Let me know if issues arise:
+
+aguywithlonghair@gmail.com
+https://sourceforge.net/p/cdock/tickets/new
+
+------------------------------------------------
+
+Todo:
+
+Fix automatic updates not WORKING gosh darn it...
+
+change saving and loading window state
+options on home retain state after viewing settings
+settings window should draw/close faster
+checks for broken symbolic links to bundles
+updater for launch agent needs changing
+beta icon needed
+beta label on main window?
+'Import Theme' button
+	Novice friendly way to add a theme created by someone else
+	Possibly just drop folder on cDock icon to import
+customization option 'Use Custom Separator' - 0 (Off) / 1 (On)
+customizable left/right separator
+customizable indicator lights (I wish I knew where to start with this one...)
+
+------------------------------------------------
+
+6.3.3.1 -- Jan / 8 / 2015
+
+none
+
+------------------------------------------------
+
+Issue tracking:
+
+completed:
+	
+partial:
+	
+todo:
+	Issue 34 : https://sourceforge.net/p/cdock/tickets/34/
+
+------------------------------------------------

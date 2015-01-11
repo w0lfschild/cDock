@@ -1,0 +1,32 @@
+red				0-255 background color
+green				0-255
+blue				0-255
+alpha				0-100
+red				0-255 border color
+green				0-255
+blue				0-255
+alpha				0-100
+corner radius			0-10 (pixels)
+border width			0-10 (pixels)
+shadow radius			0-10 (pixels)
+shadow opacity		0-100 (percent)
+background			0 (color) / 1 (picture)
+picture opacity 		0-100 (percent)
++dock width 			0-10000 (pixels)
++dock height			0-10000 (pixels)
++x Position 			0-10000 (pixels)
++y Position 			0-10000 (pixels)
+indicators (Yosemite)		0 (black) / 1 (white)
+3D dock (Yosemite)		0 (off) / 1 (on)
+picture fit			0 (stretched) / 1 (tiled)
+fill screen			0 (off) / 1 (on)
+draw separator (Yosemite)	0 (off) / 1 (on)
+
+DO NOT EDIT THIS DOCUMENT
+
+Additional Info:
+Finding the perfect red/green/blue/alpha values - http://www.css3maker.com/css-3-rgba.html
+Determining border size and radius - http://www.css3maker.com/border-radius.html
+Video tutorial - https://www.youtube.com/watch?v=wVwQ8sKsdtE
+
+Thanks for using cDock.

@@ -1,0 +1,32 @@
+Change log
+
+------------------------------------------------
+
+6.3.3
+
+Fixed updater not re-opening cDock if it was not in /Applications
+Settings window opens and closes faster
+Updated window shown on first run
+Pusha 0.9.5.1 -> 0.10
+Minor changes and fixes
+
+------------------------------------------------
+
+NOTES: 
+
+If automatic updates are not working. 
+You can manually download updates here: 
+
+https://sourceforge.net/projects/cdock
+
+I do not have Mavericks installed. 
+Things are subject to randomly breaking on 10.9.X. 
+Let me know if issues arise:
+
+aguywithlonghair@gmail.com
+https://sourceforge.net/p/cdock/tickets/new
+
+BUGS: 
+
+"iCloud Drive" icon does not display properly on Yosemite with colorfulsidebar option enabled
+Custom separators do not work on Yosemite

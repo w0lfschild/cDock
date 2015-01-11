@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8865014B-8087-4CF2-9482-6EEE19F5433D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>cDock</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1DB366C4F5664152D12680EB713D0114A26098C4</key>
+		<string>https://github.com/w0lfschild/cDock.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>bundles/cdock/cDock.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1DB366C4F5664152D12680EB713D0114A26098C4</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/w0lfschild/cDock.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1DB366C4F5664152D12680EB713D0114A26098C4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1DB366C4F5664152D12680EB713D0114A26098C4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>cDock</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,433 @@
+#!/bin/bash
+
+pashua_run() {
+
+	# Write config file
+	pashua_configfile=`/usr/bin/mktemp /tmp/pashua_XXXXXXXXX`
+	echo "$1" > $pashua_configfile
+
+	# Find Pashua binary. We do search both . and dirname "$0"
+	# , as in a doubleclickable application, cwd is /
+	bundlepath="Pashua.app/Contents/MacOS/Pashua"
+	if [ "$3" = "" ]
+	then
+		mypath=$(dirname "$0")
+		for searchpath in "$mypath/Pashua" "$mypath/$bundlepath" "./$bundlepath" \
+						  "/Applications/$bundlepath" "$HOME/Applications/$bundlepath"
+		do
+			if [ -f "$searchpath" -a -x "$searchpath" ]
+			then
+				pashuapath=$searchpath
+				break
+			fi
+		done
+	else
+		# Directory given as argument
+		pashuapath="$3/$bundlepath"
+	fi
+
+	if [ ! "$pashuapath" ]
+	then
+		echo "Error: Pashua could not be found"
+		exit 1
+	fi
+
+	# Manage encoding
+	if [ "$2" = "" ]
+	then
+		encoding=""
+	else
+		encoding="-e $2"
+	fi
+
+	# Get result
+	result=$("$pashuapath" $encoding $pashua_configfile | perl -pe 's/ /;;;/g;')
+
+	# Remove config file
+	rm $pashua_configfile
+
+	# Parse result
+	for line in $result
+	do
+		key=$(echo $line | sed 's/^\([^=]*\)=.*$/\1/')
+		value=$(echo $line | sed 's/^[^=]*=\(.*\)$/\1/' | sed 's/;;;/ /g')
+		varname=$key
+		varvalue="$value"
+		eval $varname='$varvalue'
+	done
+
+}
+
+win_add()
+{
+	for var in "$@"; do
+# 		echo "$var"
+		main_window="${main_window}""\
+		$var
+		"
+	done
+}
+
+evaltxt(){ txty=$((txty - 24)); }
+evalsel(){ sely=$((sely - 24)); }
+evalchx(){ chxy=$((chxy - 20)); }
+
+
+# Settings Window
+dsw()
+{
+	swOK=0
+	swchk0=0
+	swchk2=0
+	
+	autoCheck=$(defaults read "${plist}" autoCheck)
+	autoInstall=$(defaults read "${plist}" autoInstall)
+	
+	set_window="
+	*.title = cDock Settings
+	*.floating = 1
+	*.autosavekey = cDock_settings
+	
+	# Appearance text
+	swtb0.type = text
+	swtb0.default = Settings:
+	swtb0.rely = -10
+	
+	# Auto check for updates
+	swchk0.type = checkbox
+	swchk0.label = Automatically check for updates
+	swchk0.rely = -18
+	swchk0.default = $autoCheck
+	
+	# Check for BETA updates
+	swchk3.type = checkbox
+	swchk3.label = Include BETA updates
+	swchk3.rely = -18
+	swchk3.relx = 25
+	swchk3.default = 0
+	
+	# Auto install updates
+	swchk2.type = checkbox
+	swchk2.label = Automatically install updates
+	swchk2.rely = -18
+	swchk2.default = $autoInstall
+	
+	# Restore
+	swchk4.type = checkbox
+	swchk4.label = Restore Dock
+	swchk4.rely = -18
+	swchk4.default = 0
+	
+	# Check for updates now
+	swchk1.type = checkbox
+	swchk1.label = Check for updates now
+	swchk1.rely = -10
+	swchk1.default = 0
+	
+	# Accept button
+	swOK.type = defaultbutton
+	swOK.label = Apply
+	
+	# Cancel button
+	swcb.type = cancelbutton
+	swcb.label = Cancel
+	"
+	
+	pashua_run "$set_window" 'utf8'
+	
+	if [[ $swOK -eq 1 ]]; then
+		defaults write "${plist}" autoCheck $swchk0
+		defaults write "${plist}" autoInstall $swchk2
+		if [[ $swchk1 -eq 1 ]]; then
+			defaults write "${plist}" "lastupdateCheck" 0
+			updates
+		fi
+	fi
+}
+
+# Main Window
+dmw()
+{
+	main_window=""
+	txty=185
+	sely=180
+	chxy=185
+
+	# Window Appearance
+	win_add "*.title = cDock" \
+			"*.floating = 1" \
+			"*.transparency=0.95" \
+			"*.autosavekey = cDock"
+	
+	# Theme
+	win_add	"tb0.type = text" \
+			"tb0.default = Dock theme:" \
+			"tb0.height = 0" \
+			"tb0.width = 150" \
+			"tb0.x = 0" \
+			"tb0.y = $txty"
+			
+	win_add	"pop0.type = popup" \
+			"pop0.width = 120" \
+			"pop0.option = None" \
+			"pop0.x = 80" \
+			"pop0.y = $sely"
+			
+	cur_theme=$(defaults read $HOME/Library/Application\ Support/cDock/settings.plist theme)
+	if [[ "$cur_theme" = "" ]]; then win_add "pop0.default = None";
+	else win_add "pop0.default = $cur_theme"; fi
+	evaltxt
+	evalsel
+	
+	# Dock position
+	mvr=$(verres $ver "10.10")
+	#	echo -e "\n$mvr\n"
+	if [[  $mvr != "<" ]]; then
+		win_add "tb4.type = text" \
+				"tb4.default = Dock position:" \
+				"tb4.height = 0" \
+				"tb4.width = 150" \
+				"tb4.x = 0" \
+				"tb4.y = $txty"
+		
+		win_add "pop4.type = popup" \
+				"pop4.width = 75" \
+				"pop4.option = start" \
+				"pop4.option = middle" \
+				"pop4.option = end" \
+				"pop4.default = $dpos" \
+				"pop4.x = 125" \
+				"pop4.y = $sely"
+		evaltxt
+		evalsel
+	fi
+	
+	# Magnification
+	win_add	"tb11.type = text" \
+			"tb11.default = Magnification:" \
+			"tb11.height = 0" \
+			"tb11.width = 150" \
+			"tb11.x = 0" \
+			"tb11.y = $txty"
+				
+	win_add	"pop91.type = popup" \
+			"pop91.width = 60" \
+			"pop91.x = 140" \
+			"pop91.y = $sely"
+			
+	for val in {16..248}; do win_add "pop91.option = $val"; done
+	tsize=$(defaults read com.apple.dock largesize)
+	win_add "pop91.default = $tsize"
+	evaltxt
+	evalsel
+	
+	# Tile Size
+	win_add	"tb10.type = text" \
+			"tb10.default = Tile Size:" \
+			"tb10.height = 0" \
+			"tb10.width = 150" \
+			"tb10.x = 0" \
+			"tb10.y = $txty"
+				
+	win_add	"pop90.type = popup" \
+			"pop90.width = 60" \
+			"pop90.x = 140" \
+			"pop90.y = $sely"
+			
+	for val in {16..128}; do win_add "pop90.option = $val"; done
+	tsize=$(defaults read com.apple.dock tilesize)
+	win_add "pop90.default = $tsize"
+	evaltxt
+	evalsel
+	
+	main_window=$main_window"
+	# App spacers text
+	tb1.type = text
+	tb1.default = Add app spacers:
+	tb1.height = 0
+	tb1.width = 150
+	tb1.x = 0
+	tb1.y = $txty
+	"
+	evaltxt
+	
+	main_window=$main_window"
+	# App spacers
+	pop1.type = popup
+	pop1.width = 50
+	pop1.option = 0
+	pop1.option = 1
+	pop1.option = 2
+	pop1.option = 3
+	pop1.option = 4
+	pop1.option = 5
+	pop1.default = 0
+	pop1.x = 150
+	pop1.y = $sely
+	"
+	evalsel
+	
+	main_window=$main_window"
+	# Doc spacers text
+	tb2.type = text
+	tb2.default = Add doc spacers:
+	tb2.height = 0
+	tb2.width = 150
+	tb2.x = 0
+	tb2.y = $txty
+	"
+	evaltxt
+	
+	main_window=$main_window"
+	# Doc spacers
+	pop2.type = popup
+	pop2.width = 50
+	pop2.option = 0
+	pop2.option = 1
+	pop2.option = 2
+	pop2.option = 3
+	pop2.option = 4
+	pop2.option = 5
+	pop2.default = 0
+	pop2.x = 150
+	pop2.y = $sely
+	"
+	evalsel
+	
+	main_window=$main_window"	
+	# Recent items stack text
+	tb3.type = text
+	tb3.default = Add recents folder:
+	tb3.height = 0
+	tb3.width = 150
+	tb3.x = 0
+	tb3.y = $txty
+	"
+	evaltxt
+	
+	main_window=$main_window"
+	# Recent items stack
+	pop3.type = popup
+	pop3.width = 50
+	pop3.option = No
+	pop3.option = Yes
+	pop3.default = No
+	pop3.x = 150
+	pop3.y = $sely
+	"
+	evalsel
+	
+	main_window=$main_window"
+	# Active applications
+	chk2.type = checkbox
+	chk2.label = Show only active applications
+	chk2.default = $staticO
+	chk2.x = 225
+	chk2.y = $chxy
+	"
+	evalchx
+	
+	main_window=$main_window"
+	# Dim hidden items
+	chk3.type = checkbox
+	chk3.label = Dim hidden items
+	chk3.default = $dhi
+	chk3.x = 225
+	chk3.y = $chxy
+	"
+	evalchx
+	
+	main_window=$main_window"
+	# Lock dock contents
+	chk4.type = checkbox
+	chk4.label = Lock dock contents
+	chk4.default = $ldc
+	chk4.x = 225
+	chk4.y = $chxy
+	"
+	evalchx
+	
+	main_window=$main_window"
+	# Mouse over highlight
+	chk5.type = checkbox
+	chk5.label = Mouse over highlight
+	chk5.default = $mohs
+	chk5.x = 225
+	chk5.y = $chxy
+	"
+	evalchx
+	
+	main_window=$main_window"
+	# Colored Finder sidebar
+	chk1.type = checkbox
+	chk1.label = Colored Finder sidebar
+	chk1.default = $cfsb
+	chk1.x = 225
+	chk1.y = $chxy
+	"
+	evalchx
+	
+	main_window=$main_window"
+	# Magnification
+	chk6.type = checkbox
+	chk6.label = Magnification enabled
+	chk6.default = $(defaults read com.apple.dock magnification)
+	chk6.x = 225
+	chk6.y = $chxy
+	"
+	evalchx
+	
+	main_window=$main_window"
+	# Settings button
+	settingb.type = button
+	settingb.label = cDock Settings
+	"
+	
+	main_window=$main_window"
+	# Donate button
+	donateb.type = button
+	donateb.label = Donate
+	"
+	
+	main_window=$main_window"
+	# Cancel button
+	cb.type = cancelbutton
+	cb.label = Quit
+	"
+	
+	main_window=$main_window"
+	# Accept button
+	db.type = defaultbutton
+	db.label = Apply
+	"
+
+# 	rsync -ruv "$app_support"/themes/ "$my_themes"
+	if ! [[ -e "$my_themes" ]]; then echo "Oh shit!"; fi
+	for f in $HOME/Library/'Application Support'/cDock/themes/*
+	do
+# 		echo "$f"
+		yolo=$(basename "$f")
+		win_add "pop0.option = $yolo"
+	done
+
+	pashua_run "$main_window" 'utf8'
+
+	# Settings button clicked
+	if [[ $settingb -eq 1 ]]; then
+		settingb=0
+		
+		# Open settings window
+		dsw
+		
+		if [[ $swOK -eq 1 ]]; then
+			update_settings
+		fi
+		
+		# Reopen main window when settings window closes
+		dmw
+	fi
+}
+
+main_window=""
+my_themes=$HOME/Library/'Application Support'/cDock/themes
+dmw

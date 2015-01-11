@@ -1,7 +1,53 @@
 #!/bin/bash
 
-#	VERSION: 3.1
-#	cDock edition
+# # # # # # # # # # # # # # # # # # # # 
+#
+# Maintained By	: Wolfgang Baird
+# Version		: 3.2
+# Updated		: Jan / 7 / 2014
+#
+# # # # # # # # # # # # # # # # # # # # 
+
+vercomp() {
+    if [[ $1 == $2 ]]
+    then
+        return 0
+    fi
+    local IFS=.
+    local i ver1=($1) ver2=($2)
+    # fill empty fields in ver1 with zeros
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++))
+    do
+        ver1[i]=0
+    done
+    for ((i=0; i<${#ver1[@]}; i++))
+    do
+        if [[ -z ${ver2[i]} ]]
+        then
+            # fill empty fields in ver2 with zeros
+            ver2[i]=0
+        fi
+        if ((10#${ver1[i]} > 10#${ver2[i]}))
+        then
+            return 1
+        fi
+        if ((10#${ver1[i]} < 10#${ver2[i]}))
+        then
+            return 2
+        fi
+    done
+    return 0
+}
+
+verres() {
+	vercomp "$1" "$2"
+	case $? in
+		0) output='=';;
+        1) output='>';;
+        2) output='<';;
+	esac
+	echo $output
+}
 
 pashua_run() {
 
@@ -61,28 +107,29 @@ pashua_run() {
 
 }
 
-install_app()
-{
-#	result_value=0
-# 	number=$(ps -acx | grep "${applicationName}" | wc -l)
-# 	if [ $number -gt 0 ]; then		
-# 		result_value=$("${cocoaDirectory}" msgbox --no-newline \
-# 		--float \
-# 		--title "${applicationName}" \
-# 		--text "You must quit ${applicationName} in order to install updates." \
-# 		--informative-text "Would you like to close and install now?" \
-# 		--button1 "Quit ${applicationName}" \
-# 		--button2 "Cancel") &
-# 		if [[ $result_value -eq 1 ]]; then
-# 			echo ""
-# 			echo "Force closing and installing..."
-# 			killall -KILL "${applicationName}"
-# 			STEPONE=false
-# 		else
-# 			echo ""
-# 			echo "Waiting for app to close..."
-# 		fi
-# 	fi
+install_app() {
+	
+	#	result_value=0
+	# 	number=$(ps -acx | grep "${applicationName}" | wc -l)
+	# 	if [ $number -gt 0 ]; then		
+	# 		result_value=$("${cocoaDirectory}" msgbox --no-newline \
+	# 		--float \
+	# 		--title "${applicationName}" \
+	# 		--text "You must quit ${applicationName} in order to install updates." \
+	# 		--informative-text "Would you like to close and install now?" \
+	# 		--button1 "Quit ${applicationName}" \
+	# 		--button2 "Cancel") &
+	# 		if [[ $result_value -eq 1 ]]; then
+	# 			echo ""
+	# 			echo "Force closing and installing..."
+	# 			killall -KILL "${applicationName}"
+	# 			STEPONE=false
+	# 		else
+	# 			echo ""
+	# 			echo "Waiting for app to close..."
+	# 		fi
+	# 	fi
+
 	echo -n ""
 	"$resourceDirectory"/trash "$oldDirectory"
 	sleep 1
@@ -93,8 +140,7 @@ install_app()
 	open -a "$oldDirectory"
 }
 
-ping_test() 
-{
+ping_test() {
 	# Ping www.google.com to check internet connection
 	myurl=www.google.com
 	results=$(ping -c 1 -t 5 "$myurl" 2>/dev/null || echo "Unable to connect to internet")
@@ -110,19 +156,18 @@ ping_test()
 	fi
 }
 
-ping_success() 
-{
+ping_success() {
 	# Get latest version
-	if [ -e /tmp/version.txt ]; then rm /tmp/version.txt; fi
-	curl -\# -L -o /tmp/version.txt "$versionURL" 2> /dev/null
-	latestVersion=$(cat /tmp/version.txt)
-	rm /tmp/version.txt
+	latestVersion=$(curl -\# -L "$versionURL")
+	max_version=$(verres ${currentVersion} ${latestVersion})
 	
 	echo ""
 	echo "Local version: ${currentVersion}" 
 	echo "Latest version: ${latestVersion}"
 	
-	if [[ "$currentVersion" != "$latestVersion" ]]; then
+	if [[ $max_version = "<" ]]; then
+		echo ""
+		echo "An update to version ${latestVersion} is available"
 		if [[ $autoInstall -eq 1 ]]; then
 			update_confimed
 		else
@@ -134,8 +179,7 @@ ping_success()
 	fi
 }
 
-update_prompt() 
-{
+update_prompt() {
 	# Get change log and prompt for user response
 	curl -\# -L -o /tmp/wUpdater_log.txt "$logURL" 2> /dev/null
 
@@ -217,8 +261,7 @@ update_prompt()
 	fi
 }
 
-update_confimed() 
-{
+update_confimed() {
 	echo "Downloading update..."
 	if [ -e /tmp/"$applicationName".zip ]; then rm /tmp/"$applicationName".zip; fi
 	download_wprogress
@@ -235,8 +278,7 @@ update_confimed()
 	exec /tmp/"$applicationName".app/Contents/Resources/updates/wUpdater.app/Contents/MacOS/wUpdater "i" "$oldDirectory" &
 }
 
-download_wprogress()
-{
+download_wprogress() {
 	curl -\# -L -o /tmp/"$applicationName".zip "$downloadURL" 2> /tmp/updateTracker &
 	pids="$pids $!"
 	# echo $pids
@@ -245,8 +287,7 @@ download_wprogress()
 	rm -f /tmp/upipe
 }
 
-wait_for_process() 
-{
+wait_for_process() {
 	rm -f /tmp/upipe
 	mkfifo /tmp/upipe
 	"${cocoaDirectory}" progressbar --title "Downloading Update..." --text "Please wait..." < /tmp/upipe &
@@ -297,8 +338,7 @@ wait_for_process()
 	rm -f /tmp/updateTracker
 }
 
-debug() 
-{ 
+debug() {
 	echo "DEBUG: $*" >/dev/null
 }
 

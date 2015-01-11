@@ -42,45 +42,26 @@ void errorReport (NSArray* test) {
     [mystr writeToFile:docFile atomically:YES encoding:NSUTF8StringEncoding error:NULL];
 }
 
+void printSTR (NSString* test) {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES);
+    NSString *docDir = [paths objectAtIndex:0];
+    NSString *docFile = [NSString stringWithFormat:@"%@/test_info.txt", docDir];
+    [test writeToFile:docFile atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+}
+
 NSArray* readPrefs (void) {
+    NSString *current_theme = [[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"org.w0lf.cDock"] objectForKey: @"theme"];
     NSString *appSupport = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    appSupport = [appSupport stringByAppendingPathComponent: @"cDock"];
-    NSString *prefsPath = [appSupport stringByAppendingPathComponent:@"settings.plist"];
-    NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
-    
-    NSString *myFile = [appSupport stringByAppendingPathComponent: @"/themes/"];
-    myFile = [myFile stringByAppendingPathComponent:[prefs objectForKey: @"theme"]];
-    myFile = [myFile stringByAppendingPathComponent: @"/settings.txt"];
-    
+    NSString *myFile = [[NSArray arrayWithObjects:appSupport, @"cDock/themes", current_theme, @"settings.txt", nil] componentsJoinedByString:@"/"];
     NSString *contents = [NSString stringWithContentsOfFile:myFile encoding:NSUTF8StringEncoding error:NULL];
     NSArray *processed = [contents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-    
-    //NSString *appSupport = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    //NSString *settingFile = [NSString stringWithFormat:@"%@/cDock/dock_settings.txt", appSupport];
-    //NSString *contents = [NSString stringWithContentsOfFile:settingFile encoding:NSUTF8StringEncoding error:NULL];
-    //NSArray *processed = [contents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     return processed;
 }
 
 NSImage* getImg (NSString* item) {
+    NSString *current_theme = [[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"org.w0lf.cDock"] objectForKey: @"theme"];
     NSString *appSupport = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    appSupport = [appSupport stringByAppendingPathComponent: @"cDock"];
-    NSString *prefsPath = [appSupport stringByAppendingPathComponent:@"settings.plist"];
-    NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
-    
-    NSString *myFile = [appSupport stringByAppendingPathComponent: @"/themes/"];
-    myFile = [myFile stringByAppendingPathComponent:[prefs objectForKey: @"theme"]];
-    //myFile = [myFile stringByAppendingPathComponent: @"/"];
-    
-    //NSString *appSupport = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    //NSString *appResources = [NSString stringWithFormat:@"%@/cDock/", appSupport];
-    NSString *imageFile = [myFile stringByAppendingString:item];
-    
-    //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES);
-    //NSString *docDir = [paths objectAtIndex:0];
-    //NSString *docFile = [NSString stringWithFormat:@"%@/test_info.txt", docDir];
-    //[imageFile writeToFile:docFile atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-    
+    NSString *imageFile = [[NSArray arrayWithObjects:appSupport, @"cDock/themes", current_theme, item, nil] componentsJoinedByString:@"/"];
     NSImage *newImage = [[[NSImage alloc] initWithContentsOfFile:imageFile] autorelease];
     return newImage;
 }
@@ -129,6 +110,18 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
                     rect.origin.y -= self.borderWidth;
                     rect.origin.y -= self.cornerRadius;
                 }
+                
+                // Test
+                if (validateInt(my_settings, 21) == 1) {
+                    int _swidth = [[NSScreen mainScreen] frame].size.width + 500;
+                    int _shift = (_swidth / 2) - (rect.size.width / 2);
+                    rect.size.width = _swidth;
+                    rect.origin.x = 0;
+                    rect.origin.x -= _shift;
+                    rect.origin.x -= self.borderWidth;
+                }
+                // Test
+                
             } else {
                 rect.size.height += self.borderWidth * 2;
                 rect.size.width += self.cornerRadius;
@@ -142,6 +135,16 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
                 //Right
                 if (orientation == 2)
                     rect.origin.x -= self.borderWidth;
+                
+                // Test
+                if (validateInt(my_settings, 21) == 1) {
+                    int _sheight = [[NSScreen mainScreen] frame].size.height + 500;
+                    int _shift = (_sheight / 2) - (rect.size.height / 2);
+                    rect.size.height = _sheight;
+                    rect.origin.y = 0;
+                    rect.origin.y -= _shift;
+                }
+                // Test
             }
             // User defined position adjustment
             rect.size.width += validateInt(my_settings, 14);
@@ -238,7 +241,6 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
                     if (osver.minorVersion < 10)
                         rect.origin.x -= self.borderWidth;
                 } else {
-                    
                     // 3D dock only
                     if (validateInt(my_settings, 19) == 1)
                     {
@@ -249,6 +251,14 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
                     rect.size.height += self.cornerRadius;
                     rect.origin.y -= self.cornerRadius;
                     rect.origin.x += self.borderWidth;
+                }
+                //Fill Screen
+                if (validateInt(my_settings, 21) == 1) {
+                    int _swidth = [[NSScreen mainScreen] frame].size.width + 500;
+                    int _shift = (_swidth / 2) - (rect.size.width / 2);
+                    rect.size.width = _swidth;
+                    rect.origin.x = 0;
+                    rect.origin.x -= _shift;
                 }
             } else {
                 if (osver.minorVersion < 10) {
@@ -268,6 +278,14 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
                 if (orientation == 2)
                     if (osver.minorVersion < 10)
                         rect.origin.x -= self.borderWidth;
+                //Fill Screen
+                if (validateInt(my_settings, 21) == 1) {
+                    int _sheight = [[NSScreen mainScreen] frame].size.height + 500;
+                    int _shift = (_sheight / 2) - (rect.size.height / 2);
+                    rect.size.height = _sheight;
+                    rect.origin.y = 0;
+                    rect.origin.y -= _shift;
+                }
             }
             // User defined position adjustment
             rect.size.width += validateInt(my_settings, 14);
@@ -275,6 +293,54 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
             rect.origin.x += validateInt(my_settings, 16);
             rect.origin.y += validateInt(my_settings, 17);
             self.frame = rect;
+            
+            // Coloring
+            NSInteger orientation = 0;
+            NSInteger nada = 0;
+            if (layer)
+                if (object_getInstanceVariable(layer, "_orientation", (void **)&orientation))
+                    nada=69;
+                    
+            //CGRect rect = layer.bounds;
+            NSArray *my_settings = readPrefs();
+            NSOperatingSystemVersion osver = [[NSProcessInfo processInfo] operatingSystemVersion];
+            int picture= validateInt(my_settings, 12);
+            // Corner radius:
+            CGFloat cr = validateFloat(my_settings, 8, 1.);
+            if (cr > 2.0)
+                self.cornerRadius = validateFloat(my_settings, 8, 1.) - 2.0;
+            else
+                self.cornerRadius = validateFloat(my_settings, 8, 1.);
+            // Background
+            if (validateInt(my_settings, 19) == 1) {
+                if (orientation == 0)
+                    self.contents = getImg(@"3D.png");
+            } else {
+                if (picture == 0){
+                    self.backgroundColor = CGColorCreateGenericRGB(validateFloat(my_settings, 0, 255.), validateFloat(my_settings, 1, 255.), validateFloat(my_settings, 2, 255.), validateFloat(my_settings, 3, 100.));
+                } else {
+                    if (validateInt(my_settings, 20) == 0) {
+                        self.contents = getImg(@"background.png");
+                        self.contentsGravity = kCAGravityResize;
+                        //self.contentsGravity = kCAGravityResizeAspect;
+                    } else {
+                        self.backgroundColor = [[NSColor colorWithPatternImage:getImg(@"background.png")] CGColor];
+                    }
+                    self.opacity = validateFloat(my_settings, 13, 100.);
+                }
+            }
+            // Border
+            if (osver.minorVersion < 10) {
+                self.borderColor = CGColorCreateGenericRGB(validateFloat(my_settings, 4, 255.), validateFloat(my_settings, 5, 255.), validateFloat(my_settings, 6, 255.), validateFloat(my_settings, 7, 100.));
+                self.borderWidth = validateFloat(my_settings, 9, 1.);
+                self.masksToBounds = NO;
+                self.shadowOffset = CGSizeMake(0, 0);
+                self.shadowRadius = validateFloat(my_settings, 10, 1.);
+                self.shadowOpacity = validateFloat(my_settings, 11, 100.);
+            } else {
+                self.borderColor = CGColorCreateGenericGray(0.0, 0.0);
+                self.borderWidth = validateFloat(my_settings, 9, 1.);
+            }
         }
     }
 }
@@ -282,46 +348,6 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
 + (id)layer
 {
     CALayer *layer = [super layer];
-    //CGRect rect = layer.bounds;
-    NSArray *my_settings = readPrefs();
-    NSOperatingSystemVersion osver = [[NSProcessInfo processInfo] operatingSystemVersion];
-    int picture= validateInt(my_settings, 12);
-// Corner radius:
-    CGFloat cr = validateFloat(my_settings, 8, 1.);
-    if (cr > 2.0)
-        layer.cornerRadius = validateFloat(my_settings, 8, 1.) - 2.0;
-    else
-        layer.cornerRadius = validateFloat(my_settings, 8, 1.);
-// Background
-    if (picture == 0){
-        layer.backgroundColor = CGColorCreateGenericRGB(validateFloat(my_settings, 0, 255.), validateFloat(my_settings, 1, 255.), validateFloat(my_settings, 2, 255.), validateFloat(my_settings, 3, 100.));
-    } else {
-        if (validateInt(my_settings, 19) == 1) {
-            layer.contents = getImg(@"/3D.png");
-        } else if (validateInt(my_settings, 20) == 0) {
-            layer.contents = getImg(@"/background.png");
-        } else {
-            layer.backgroundColor = [[NSColor colorWithPatternImage:getImg(@"/background.png")] CGColor];
-        }
-        
-        //Examples
-        //layer.contentsCenter = CGRectMake(35/1280.0, 0.0, 1210/1280.0, 0.0);
-        //layer.contentsGravity = kCAGravityResizeAspectFill;
-        //layer.backgroundColor = [[NSColor colorWithPatternImage:getImg(@"background.png")] CGColor];
-        layer.opacity = validateFloat(my_settings, 13, 100.);
-    }
-// Border
-    if (osver.minorVersion < 10) {
-        layer.borderColor = CGColorCreateGenericRGB(validateFloat(my_settings, 4, 255.), validateFloat(my_settings, 5, 255.), validateFloat(my_settings, 6, 255.), validateFloat(my_settings, 7, 100.));
-        layer.borderWidth = validateFloat(my_settings, 9, 1.);
-        layer.masksToBounds = NO;
-        layer.shadowOffset = CGSizeMake(0, 0);
-        layer.shadowRadius = validateFloat(my_settings, 10, 1.);
-        layer.shadowOpacity = validateFloat(my_settings, 11, 100.);
-    } else {
-        layer.borderColor = CGColorCreateGenericGray(0.0, 0.0);
-        layer.borderWidth = validateFloat(my_settings, 9, 1.);
-    }
 	return layer;
 }
 
@@ -357,6 +383,7 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
 @synthesize rootLayer;
 @synthesize floorLayer;
 @synthesize separatorLayer;
+@synthesize tileLayer;
 
 static id (*orig_CFPreferencesCopyAppValue)(CFStringRef key, CFStringRef applicationID);
 
@@ -421,6 +448,7 @@ id hax_CFPreferencesCopyAppValue(CFStringRef key, CFStringRef applicationID) {
 {
     CALayer *layer = self.rootLayer;
     NSArray *arr = layer.sublayers;
+    NSArray *my_settings = readPrefs();
     NSOperatingSystemVersion osver = [[NSProcessInfo processInfo] operatingSystemVersion];
     if (osver.majorVersion >= 10) {
         if (osver.minorVersion >= 10) {
@@ -429,17 +457,29 @@ id hax_CFPreferencesCopyAppValue(CFStringRef key, CFStringRef applicationID) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 CFNotificationCenterPostNotification(CFNotificationCenterGetDistributedCenter(), CFSTR("AppleInterfaceThemeChangedNotification"), (void *)0x1, NULL, YES);
             });
+            
             CALayer *floor_backup = [BlackDockFloorLayer layer];
             CALayer *border_backup = [BlackDockBorderLayer layer];
+            
             Class dockFloorLayer = NSClassFromString(@"DOCKFloorLayer");
             for (layer in arr)
                 if ([layer isKindOfClass:dockFloorLayer])
                     break;
+            
+            CALayer *separator;
+            if (object_getInstanceVariable(layer, "_separatorLayer", (void **)&separator))
+                separator.contents = nil;
+            
             layer.sublayers = nil;
+            
             [layer addSublayer:floor_backup];
             [layer addSublayer:border_backup];
+            
+            if (validateInt(my_settings, 22) == 1) [layer addSublayer:separator];
+            
             [floor_backup resizeWithOldSuperlayerSize:CGSizeZero];
             [border_backup resizeWithOldSuperlayerSize:CGSizeZero];
+            [separator resizeWithOldSuperlayerSize:CGSizeZero];
         }
         if (osver.minorVersion < 10) {
             if (!self.floorLayer) {

@@ -1,0 +1,3 @@
+sleep 1
+# open /Applications/cDock.app
+open -b org.w0lf.cDock
