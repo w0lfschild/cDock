@@ -3,38 +3,55 @@
 *.autosavekey = cDock_settings
 
 # Appearance text
-swtb0.type = text
-swtb0.rely = -10
+# swtb0.type = text
+# swtb0.rely = -10
 
 # Auto check for updates
 swchk0.type = checkbox
 swchk0.label = Automatically check for updates
+swchk0.tooltip = Automatically check for updates once a week and up to one time per day when cDock is opened.
 swchk0.rely = -18
 
 # Check for BETA updates
 swchk3.type = checkbox
 swchk3.label = Include BETA updates
+swchk3.tooltip = Include Beta updates in searches. Only for the savvy user, bugs are likely to occur.
 swchk3.rely = -18
-swchk3.relx = 25
+swchk3.relx = 20
 
 # Auto install updates
 swchk2.type = checkbox
 swchk2.label = Automatically install updates
+swchk2.tooltip = Automatically install updates without prompting the user first.
 swchk2.rely = -18
 
 # Display SIMBL warnings
 swchk5.type = checkbox
 swchk5.label = Display SIMBL warnings
+swchk5.tooltip = Offer to remove SIMBL plugins other than those used by cDock.
 swchk5.rely = -18
 
 # Restore
 swchk4.type = checkbox
 swchk4.label = Restore Dock
+swchk4.tooltip = Restor from an older save of the com.apple.dock.plist
 swchk4.rely = -18
+
+# Restore popup
+swpop0.type = popup
+swpop0.rely = -18
+swpop0.relx = 20
+
+# Reset cDock
+swchk6.type = checkbox
+swchk6.label = Reset cDock
+swchk6.tooltip = Resets cDock and removes all files it stores in ~/Library/Application Support.
+swchk6.rely = -18
 
 # Check for updates now
 swchk1.type = checkbox
 swchk1.label = Check for updates now
+swchk1.tooltip = Check for updates when you click apply.
 swchk1.rely = -10
 
 # Accept button
