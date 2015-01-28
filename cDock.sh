@@ -8,11 +8,6 @@
 #
 # # # # # # # # # # # # # # # # # # # # 
 
-# Notes
-
-# Idea random tooltip shows somwhere on main screen kind of like videogame loading screens.
-# random number :: jot -r COUNT MIN MAX ::
-
 # Required for pashua windows
 pashua_run() {
 
@@ -185,7 +180,7 @@ logging() {
 app_array="$(basename "$app") $($PlistBuddy "Print CFBundleVersion:" "$app"/Contents/Info.plist) $($PlistBuddy "Print CFBundleIdentifier:" "$app"/Contents/Info.plist)
 $app_array"	
 		fi
-	done && echo "$app_array" &
+	done && echo "$app_array" > "$log_dir"/apps.log &
 }
 
 # Check location
@@ -273,7 +268,6 @@ launch_agent() {
 	$PlistBuddy "Add SIMBLApplicationIdentifierBlacklist: string com.skype.skype" "$HOME"/Library/Preferences/com.github.norio-nomura.SIMBL-Agent.plist
 	
 	# Add agent to startup items
-	cdock_path="$app_directory"/Contents/Resources/helpers/"cDock Agent".app
 	osascript <<EOD
 		tell application "System Events"
 			make new login item at end of login items with properties {path:"$cdock_path", hidden:false}
@@ -715,7 +709,7 @@ draw_settings_window() {
 		$PlistBuddy "Delete displayWarning" "$cdock_pl"
 		$PlistBuddy "Add displayWarning integer $swchk5" "$cdock_pl"
 		(($swchk1)) && { $PlistBuddy "Set lastupdateCheck 0" "$cdock_pl"; check_for_updates; }
-		(($swchk4)) && { if [[ "$swpop0" != "Select a resotre point" ]]; then defaults import "$dock_plist" "$save_folder"/"$swpop0"; killall Dock; fi; }
+		(($swchk4)) && { if [[ "$swpop0" != "Select a resotre point" ]]; then defaults import "$dock_plist" "$save_folder"/"$swpop0"; killall Dock; establish_main_window; refresh_win=true; fi; }
 		(($swchk6)) && { app_clean; killall Dock; }
 	fi
 }
@@ -1065,7 +1059,7 @@ draw_main_window() {
 		draw_settings_window
 		
 		# Reopen main window when settings window closes
-		update_main_window
+		if [[ $refresh_win = false ]]; then update_main_window; refresh_win=true; fi
 		draw_main_window
 	fi
 	
@@ -1098,7 +1092,7 @@ do_stuff() {
 	killall "Dock"
 	if ($killfinder); then killall "Finder"; fi
 	if ($dockify); then
-		open /Applications/cDock.app/Contents/Resources/helpers/cDock\ Agent.app
+		open "$cdock_path"
 		echo -e "Finished installing, starting dockmonitor...\n"
 	fi
 }
@@ -1115,6 +1109,7 @@ app_bundles="$scriptDirectory"/bundles
 app_windows="$scriptDirectory"/windows
 app_directory="$scriptDirectory"
 for i in {1..2}; do app_directory=$(dirname "$app_directory"); done
+cdock_path="$app_directory"/Contents/Resources/helpers/"cDock Agent".app
 app_themes="$HOME"/Library/'Application Support'/cDock/themes
 save_folder="$HOME"/Library/'Application Support'/cDock/.bak
 
@@ -1136,6 +1131,7 @@ customdock=false
 dockify=false
 install_dock=false
 killfinder=false
+refresh_win=false
 
 #
 #	App execution
