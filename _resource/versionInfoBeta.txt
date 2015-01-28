@@ -1,4 +1,4 @@
-Change log -- 6.3.2.1
+Change log
 
 ------------------------------------------------
 
@@ -10,39 +10,161 @@ https://sourceforge.net/p/cdock/tickets/new
 
 ------------------------------------------------
 
-Todo:
+6.4.0.1 -- Jan / 28 / 2015
 
-Fix automatic updates not WORKING gosh darn it...
+... Major update ...
+bug potential > moderate/high
 
-change saving and loading window state
-options on home retain state after viewing settings
-settings window should draw/close faster
+>
+Switched to using /usr/libexec/PlistBuddy to 
+read (and partly write) plists instead of 
+defaults (~10x faster).Based on this 
+improvement I've stopped loading entirely 
+from saved state on start. This means 
+changes you make to the dock in-between 
+opening cDock will once again show.
+Generally this is just a huge boost for the 
+app because itdoes a lot of plist reading 
+and writing.
+
+>
+Added several docks created by Deviant art users
+http://xxfunsizexx.deviantart.com/art/Hud-493174309
+http://davidmonteiro.deviantart.com/art/Docks-David-ZIP-492946905
+http://nittiyh.deviantart.com/art/Unity-2014-OS-X-Dock-493689458
+
+>
+Magnification popup now has disabled option
+Removed magnification checkbox
+
+>
+Recents folder option is now a checkbox
+cDock can now remove recents folder
+
+>
+Add <type> spacers changed to <type> spacers
+cDock can now remove spacers
+Removing spacers starts with the leftmost spacer
+
+> 
+'Reset cDock' option added to settings. This is
+the same as what 'Restore Dock' used to do just
+deletes ~/Library/Application Support/cDock/*
+and some other cDock related things like the 
+cDock/coloredfindersidebar bundles
+
+>
+App should open faster
+
+>
+Settings should apply faster
+
+>
+Main window will retain state after viewing settings
+
+>
+Main window title will include "Beta" if using a beta version
+
+>
+Settings window should draw/close faster
+
+>
+Cut out accidental unnecessary downloads of version.txt 
+if the app had already checked for updates that day
+
+>
+Added small ping check so we don't bother trying to
+update if there's no connection to the internet 
+and/or sourceforge
+
+>
+Removed save state junk I was using to load the
+app faster
+
+>
+Added Email button as an alternate to the bug report button
+
+>
+Fixed some minor bugs
+
+>
+Tooltips added to settings window
+
+>
+UI adjustments
+
+> 
+cDock now makes backups of com.apple.dock.plist
+Backups are made before applying changes
+Backups are saved @
+~/Library/Application Support/cDock/.bak/*
+Currently no limit to number of backups
+
+> 
+'Restore Dock' in settings added pop-up
+allowing user to select from com.apple.dock.plist
+backups
+
+------------------------------------------------
+
+Not yet implemented:
+
+>
+hide/Show application title tooltips checkbox
+-- This might be tricky to implement -- 
+
+------------------------------------------------
+
+TODO CDOCK.APP:
+
+beta icon ?
+
+TODO CDOCK.SH:
+
+move more pashua window setup out of the main script
 checks for broken symbolic links to bundles
 updater for launch agent needs changing
-beta icon needed
-beta label on main window?
 'Import Theme' button
 	Novice friendly way to add a theme created by someone else
 	Possibly just drop folder on cDock icon to import
+
+TODO CDOCK.BUNDLE:
+	
 customization option 'Use Custom Separator' - 0 (Off) / 1 (On)
 customizable left/right separator
 customizable indicator lights (I wish I knew where to start with this one...)
 
 ------------------------------------------------
 
-6.3.3.1 -- Jan / 8 / 2015
-
-none
-
-------------------------------------------------
-
 Issue tracking:
 
 completed:
+	https://sourceforge.net/p/cdock/tickets/50/
+	https://sourceforge.net/p/cdock/tickets/49/
+	https://sourceforge.net/p/cdock/tickets/48/
+	https://sourceforge.net/p/cdock/tickets/47/
+	https://sourceforge.net/p/cdock/tickets/46/
+	https://sourceforge.net/p/cdock/tickets/42/
 	
 partial:
 	
 todo:
-	Issue 34 : https://sourceforge.net/p/cdock/tickets/34/
+	https://sourceforge.net/p/cdock/tickets/51/ (No way to test)
+	https://sourceforge.net/p/cdock/tickets/45/
+	https://sourceforge.net/p/cdock/tickets/34/
+	https://sourceforge.net/p/cdock/tickets/22/ (No way to test)
+	https://sourceforge.net/p/cdock/tickets/15/
+	https://sourceforge.net/p/cdock/tickets/2/ (No way to test)
+
+------------------------------------------------
+
+NOTES:
+
+This may end up as version 7.0. The change
+PlistBuddy is HUGE and allows for much more 
+controlover the dock plist. The number of
+improvements and or changes in this version 
+seems large enough to merit the major 
+version bump.
 
 ------------------------------------------------
