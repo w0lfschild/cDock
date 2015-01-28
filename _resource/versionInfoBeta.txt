@@ -8,14 +8,18 @@ Let me know if issues arise:
 aguywithlonghair@gmail.com
 https://sourceforge.net/p/cdock/tickets/new
 
+INFORMATION / ASSISTANCE WANTED
+
+read near the bottom for more info
+
 ------------------------------------------------
 
 6.4.0.1 -- Jan / 28 / 2015
 
 ... Major update ...
-bug potential > moderate/high
+bug potential : moderate/high
 
->
+> 1 <
 Switched to using /usr/libexec/PlistBuddy to 
 read (and partly write) plists instead of 
 defaults (~10x faster).Based on this 
@@ -27,91 +31,91 @@ Generally this is just a huge boost for the
 app because itdoes a lot of plist reading 
 and writing.
 
->
-Added several docks created by Deviant art users
+> 2 <
+Added several dock themes created by Deviant art users
 http://xxfunsizexx.deviantart.com/art/Hud-493174309
 http://davidmonteiro.deviantart.com/art/Docks-David-ZIP-492946905
 http://nittiyh.deviantart.com/art/Unity-2014-OS-X-Dock-493689458
 
->
+> 3 <
 Magnification popup now has disabled option
 Removed magnification checkbox
 
->
+> 4 <
 Recents folder option is now a checkbox
 cDock can now remove recents folder
 
->
+> 5 <
 Add <type> spacers changed to <type> spacers
 cDock can now remove spacers
 Removing spacers starts with the leftmost spacer
 
-> 
+> 6 <
 'Reset cDock' option added to settings. This is
 the same as what 'Restore Dock' used to do just
 deletes ~/Library/Application Support/cDock/*
 and some other cDock related things like the 
 cDock/coloredfindersidebar bundles
 
->
+> 7 <
 App should open faster
 
->
+> 8 <
 Settings should apply faster
 
->
+> 9 <
 Main window will retain state after viewing settings
 
->
+> 10 <
 Main window title will include "Beta" if using a beta version
 
->
+> 11 <
 Settings window should draw/close faster
 
->
+> 12 <
 Cut out accidental unnecessary downloads of version.txt 
 if the app had already checked for updates that day
 
->
+> 13 <
 Added small ping check so we don't bother trying to
 update if there's no connection to the internet 
 and/or sourceforge
 
->
+> 14 <
 Removed save state junk I was using to load the
 app faster
 
->
+> 15 <
 Added Email button as an alternate to the bug report button
 
->
+> 16 <
 Fixed some minor bugs
 
->
+> 17 <
 Tooltips added to settings window
 
->
+> 18 <
 UI adjustments
 
-> 
+> 19 <
 cDock now makes backups of com.apple.dock.plist
 Backups are made before applying changes
 Backups are saved @
 ~/Library/Application Support/cDock/.bak/*
 Currently no limit to number of backups
 
-> 
+> 21 <
 'Restore Dock' in settings added pop-up
 allowing user to select from com.apple.dock.plist
 backups
 
 ------------------------------------------------
 
-Not yet implemented:
+Not yet implemented <idea in place>:
 
->
+> <
 hide/Show application title tooltips checkbox
--- This might be tricky to implement -- 
+-- might be tricky -- 
 
 ------------------------------------------------
 
@@ -134,11 +138,15 @@ customization option 'Use Custom Separator' - 0 (Off) / 1 (On)
 customizable left/right separator
 customizable indicator lights (I wish I knew where to start with this one...)
 
+TODO COLORFULSIDEBAR.BUNDLE:
+
+fix iCloud icon (probably never gonna happen)
+
 ------------------------------------------------
 
 Issue tracking:
 
-completed:
+completed: Hey I fixed it!
 	https://sourceforge.net/p/cdock/tickets/50/
 	https://sourceforge.net/p/cdock/tickets/49/
 	https://sourceforge.net/p/cdock/tickets/48/
@@ -146,25 +154,54 @@ completed:
 	https://sourceforge.net/p/cdock/tickets/46/
 	https://sourceforge.net/p/cdock/tickets/42/
 	
-partial:
+partial: Almost there!
+	https://sourceforge.net/p/cdock/tickets/34/
+	https://sourceforge.net/p/cdock/tickets/2/ (No way to test)
 	
-todo:
+junkers: Not relevant to project.
+	https://sourceforge.net/p/cdock/tickets/52/
+
+scrapped: All aboard the nope train.
+	
+todo: Someday, it'll happen... maybe.
 	https://sourceforge.net/p/cdock/tickets/51/ (No way to test)
 	https://sourceforge.net/p/cdock/tickets/45/
-	https://sourceforge.net/p/cdock/tickets/34/
 	https://sourceforge.net/p/cdock/tickets/22/ (No way to test)
 	https://sourceforge.net/p/cdock/tickets/15/
-	https://sourceforge.net/p/cdock/tickets/2/ (No way to test)
 
 ------------------------------------------------
 
-NOTES:
+NOTES: 
 
-This may end up as version 7.0. The change
-PlistBuddy is HUGE and allows for much more 
-controlover the dock plist. The number of
-improvements and or changes in this version 
-seems large enough to merit the major 
-version bump.
+Random tooltip shows somwhere on main screen 
+kind of like videogame loading screens.
+
+# Bash random number 1-10 
+# jot -r 1 1 10
 
 ------------------------------------------------
+
+INFORMATION / ASSISTANCE WANTED:
+
+> Beta icon
+
+> Some classy dock themes
+
+> How can I make a method in the cdock bundle to 
+refresh the dock that can be invoked somehow? 
+EG not having to killall Dock to apply changes
+
+> How can I make a method in the cdock bundle to 
+change the dock based on the time of day?
+
+> Are either of the above two even possible?
+
+> Any tips on how to replace dock indicator lights 
+using the cdock bundle would be sweet
+
+> Any tips on how to replace dock continuity 
+background stuff
+
+------------------------------------------------
+
+# END

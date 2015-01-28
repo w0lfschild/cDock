@@ -2,13 +2,10 @@ Change log
 
 ------------------------------------------------
 
-6.3.3
+6.4.1
 
-Fixed updater not re-opening cDock if it was not in /Applications
-Settings window opens and closes faster
-Updated window shown on first run
-Pusha 0.9.5.1 -> 0.10
-Minor changes and fixes
+Hide/Show application title tooltips
+Remove app/dock spacers
 
 ------------------------------------------------
 
