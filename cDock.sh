@@ -561,12 +561,16 @@ simbl_disable() {
 email_me() {
 subject=cDock
 address=aguywithlonghair@gmail.com
+theAttachment1="$log_dir"/1.log
+theAttachment2="$log_dir"/apps.log
 nill=""
 
 echo "tell application \"Mail\"
     set theEmail to make new outgoing message with properties {visible:true, subject:\"${subject}\", content:\"${nill}\"}
     tell theEmail
         make new recipient at end of to recipients with properties {address:\"${address}\"}
+		make new attachment with properties {file name:\"${theAttachment1}\"} at after the last paragraph
+		make new attachment with properties {file name:\"${theAttachment2}\"} at after the last paragraph
     end tell
 end tell" | osascript
 
