@@ -1,121 +1,84 @@
-Change log
+------------------------------------------------
+
+Version		: 6.4.0.2
+Build date	: January / 31 / 2015
+
+------------------------------------------------
+This is a beta build. Please let me know if issues arise.
+------------------------------------------------
+
+6.4.0.2
+
+-- Email button automatically attaches logs to email.
+
+-- Updated credits and welcome window.
 
 ------------------------------------------------
 
-This is a beta build. 
-Let me know if issues arise:
+6.4.0.1
 
-aguywithlonghair@gmail.com
-https://sourceforge.net/p/cdock/tickets/new
+:: New :: 
 
-INFORMATION / ASSISTANCE WANTED
+-- Switched to using /usr/libexec/PlistBuddy to read (and partly write) plists instead of defaults (~10x faster). Based on this improvement I've stopped loading entirely from saved state on start. This means changes you make to the dock in-between opening cDock will once again show. Generally this is just a huge boost for the app because itdoes a lot of plist reading and writing.
+ 
+-- Added dock themes created by Deviant Art users:
+xxfunsizexx
+davidmonteiro
+nittiyh
 
-read near the bottom for more info
+-- Magnification popup now has disabled option.
 
-------------------------------------------------
+-- Removed magnification enabled checkbox. It is now controlled through popup.
 
-6.4.0.1 -- Jan / 28 / 2015
+-- Recents folder option is now a checkbox.
 
-... Major update ...
-bug potential : moderate/high
+-- cDock can now remove recents folder.
 
-> 1 <
-Switched to using /usr/libexec/PlistBuddy to 
-read (and partly write) plists instead of 
-defaults (~10x faster).Based on this 
-improvement I've stopped loading entirely 
-from saved state on start. This means 
-changes you make to the dock in-between 
-opening cDock will once again show.
-Generally this is just a huge boost for the 
-app because itdoes a lot of plist reading 
-and writing.
+-- Add app/doc spacers popup changed to app/dock spacers.
 
-> 2 <
-Added several dock themes created by Deviant art users
-http://xxfunsizexx.deviantart.com/art/Hud-493174309
-http://davidmonteiro.deviantart.com/art/Docks-David-ZIP-492946905
-http://nittiyh.deviantart.com/art/Unity-2014-OS-X-Dock-493689458
+-- cDock can now remove spacers. Removing spacers starts with the leftmost spacer.
 
-> 3 <
-Magnification popup now has disabled option
-Removed magnification checkbox
+-- 'Reset cDock' option added to settings. This is the same as what 'Restore Dock' used to do. Applying this deletes ~/Library/Application Support/cDock/* and some other cDock related things like the cDock/coloredfindersidebar bundles.
 
-> 4 <
-Recents folder option is now a checkbox
-cDock can now remove recents folder
+-- Main window will retain state after viewing settings window.
 
-> 5 <
-Add <type> spacers changed to <type> spacers
-cDock can now remove spacers
-Removing spacers starts with the leftmost spacer
+-- Main window title will include "Beta" if using a beta version.
 
-> 6 <
-'Reset cDock' option added to settings. This is
-the same as what 'Restore Dock' used to do just
-deletes ~/Library/Application Support/cDock/*
-and some other cDock related things like the 
-cDock/coloredfindersidebar bundles
+-- Email button as an alternate to the bug report button.
 
-> 7 <
-App should open faster
+-- Tooltips added to settings window.
 
-> 8 <
-Settings should apply faster
+-- cDock now makes backups of com.apple.dock.plist
+	Backups are made before applying changes
+	Backups are saved @ ~/Library/Application Support/cDock/.bak/*
+	Currently no limit to number of backups
+	
+-- 'Restore Dock' in settings added. Popup allows users to select from com.apple.dock.plist backups.
+ 
 
-> 9 <
-Main window will retain state after viewing settings
+:: Performance improvements and fixes ::
 
-> 10 <
-Main window title will include "Beta" if using a beta version
+-- cDock should open faster.
 
-> 11 <
-Settings window should draw/close faster
+-- Settings should apply faster.
 
-> 12 <
-Cut out accidental unnecessary downloads of version.txt 
-if the app had already checked for updates that day
+-- Settings window should draw/close faster.
 
-> 13 <
-Added small ping check so we don't bother trying to
-update if there's no connection to the internet 
-and/or sourceforge
+-- Cut out accidental unnecessary downloads of version.txt if the app had already checked for updates that day.
 
-> 14 <
-Removed save state junk I was using to load the
-app faster
+-- Added small ping check. This prevents trying to update if there's no connection to the internet and/or sourceforge.
 
-> 15 <
-Added Email button as an alternate to the bug report button
+-- Removed save state junk I was using to load the app faster.
 
-> 16 <
-Fixed some minor bugs
+-- General bug fixes.
 
-> 17 <
-Tooltips added to settings window
-
-> 18 <
-UI adjustments
-
-> 19 <
-cDock now makes backups of com.apple.dock.plist
-Backups are made before applying changes
-Backups are saved @
-~/Library/Application Support/cDock/.bak/*
-Currently no limit to number of backups
-
-> 21 <
-'Restore Dock' in settings added pop-up
-allowing user to select from com.apple.dock.plist
-backups
+-- UI adjustments.
 
 ------------------------------------------------
 
-Not yet implemented <idea in place>:
+Not implemented:
 
-> <
 hide/Show application title tooltips checkbox
--- might be tricky -- 
 
 ------------------------------------------------
 
@@ -171,37 +134,22 @@ todo: Someday, it'll happen... maybe.
 
 ------------------------------------------------
 
-NOTES: 
+Info / Assistance wanted:
 
-Random tooltip shows somwhere on main screen 
-kind of like videogame loading screens.
+-- Beta icon + Some dock themes
 
-# Bash random number 1-10 
-# jot -r 1 1 10
+-- Is it possible to make a method in the cdock bundle to refresh the dock that can be invoked somehow? EG not having to killall Dock to apply changes.
 
-------------------------------------------------
+-- Is it possible to make a method in the cdock bundle to change the dock based on the time of day?
 
-INFORMATION / ASSISTANCE WANTED:
+-- Info on how to replace dock indicator lights using the cdock bundle.
 
-> Beta icon
+-- Info on how to replace dock continuity background using the cdock bundle.
 
-> Some classy dock themes
+-- Fix for iCloud icon.
 
-> How can I make a method in the cdock bundle to 
-refresh the dock that can be invoked somehow? 
-EG not having to killall Dock to apply changes
-
-> How can I make a method in the cdock bundle to 
-change the dock based on the time of day?
-
-> Are either of the above two even possible?
-
-> Any tips on how to replace dock indicator lights 
-using the cdock bundle would be sweet
-
-> Any tips on how to replace dock continuity 
-background stuff
+Pleace contact me if you can help with any of these.
+	Thanks
+		-w0lf
 
 ------------------------------------------------
-
-# END
