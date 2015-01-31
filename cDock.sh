@@ -3,8 +3,8 @@
 # # # # # # # # # # # # # # # # # # # # 
 #
 # Maintained By	: Wolfgang Baird
-# Version		: 6.4.0.1
-# Updated		: Jan / 28 / 2015
+# Version		: 6.4.0.2
+# Updated		: Jan / 31 / 2015
 #
 # # # # # # # # # # # # # # # # # # # # 
 
@@ -1122,7 +1122,6 @@ dock_plist="$HOME"/Library/Preferences/com.apple.dock.plist
 cdock_pl="$HOME"/Library/Preferences/org.w0lf.cDock.plist
 
 curver=$($PlistBuddy "Print CFBundleShortVersionString" "$app_directory"/Contents/Info.plist)
-echo $curver
 main_window=""
 settings_window=""
 alert_window=""

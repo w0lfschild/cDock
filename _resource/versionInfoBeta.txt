@@ -110,6 +110,7 @@ fix iCloud icon (probably never gonna happen)
 Issue tracking:
 
 completed: Hey I fixed it!
+	https://sourceforge.net/p/cdock/tickets/55/
 	https://sourceforge.net/p/cdock/tickets/50/
 	https://sourceforge.net/p/cdock/tickets/49/
 	https://sourceforge.net/p/cdock/tickets/48/
@@ -121,10 +122,12 @@ partial: Almost there!
 	https://sourceforge.net/p/cdock/tickets/34/
 	https://sourceforge.net/p/cdock/tickets/2/ (No way to test)
 	
-junkers: Not relevant to project.
+junkers: Not relevant or already working as intended.
+	https://sourceforge.net/p/cdock/tickets/54/
 	https://sourceforge.net/p/cdock/tickets/52/
 
 scrapped: All aboard the nope train.
+	https://sourceforge.net/p/cdock/tickets/53/
 	
 todo: Someday, it'll happen... maybe.
 	https://sourceforge.net/p/cdock/tickets/51/ (No way to test)
@@ -136,7 +139,7 @@ todo: Someday, it'll happen... maybe.
 
 Info / Assistance wanted:
 
--- Beta icon + Some dock themes
+-- Beta icon + Some dock themes.
 
 -- Is it possible to make a method in the cdock bundle to refresh the dock that can be invoked somehow? EG not having to killall Dock to apply changes.
 
