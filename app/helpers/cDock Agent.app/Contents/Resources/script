@@ -4,8 +4,8 @@
 #
 # Wolfgang Baird 
 # Maintained By	: Wolfgang Baird
-# Version		: 2.4.1
-# Updated		: Jan / 7 / 2014
+# Version		: 2.5
+# Updated		: Feb / 5 / 2014
 #
 # # # # # # # # # # # # # # # # # # # # 
 
@@ -19,9 +19,9 @@ restart_SIMBL() {
 		restart_count=$((restart_count + 1))
 		echo $restart_count >/tmp/dmpipe
 		echo "restart count is now : "$restart_count
-		killall "SIMBL Agent"
+		kill $(ps ax | grep [S]IMBL\ Agent | sed -e 's/^[ \t]*//' | cut -f1 -d" ")
 		sleep 1
-		exec "$simbl_path" &
+		{ exec "$simbl_path"; sleep 5; exit; } &
 	fi	
 } # Restart SIMBL Agent
 
@@ -38,30 +38,41 @@ crash_monitor() {
 } # Watch for crash loop
 
 check_for_updates() {
-	update_auto_install=$(defaults read org.w0lf.cDock autoInstall 2>/dev/null || { defaults write org.w0lf.cDock autoInstall 0; echo -n 0; } ) # Automatic update installation
-	cur_date=$(date "+%y%m%d")
-	lastupdateCheck=$(defaults read org.w0lf.cDock lastupdateCheck 2>/dev/null || defaults write org.w0lf.cDock lastupdateCheck 0 2>/dev/null)
+	cur_date=$(date "+%y%m%d")	
+	lastupdateCheck=$($PlistBuddy "Print lastupdateCheck:" "$cdock_pl" 2>/dev/null || defaults write org.w0lf.cDock "lastupdateCheck" 0 2>/dev/null)
 	weekly=$((lastupdateCheck + 7))
-	beta_updates=$(defaults read org.w0lf.cDock betaUpdates 2>/dev/null || echo -n 0)
-	
-	# Beta or Stable updates
-	if [[ $beta_updates -eq 1 ]]; then
-		# Beta urls
-		dlurl="http://sourceforge.net/projects/cdock/files/cDock%20Beta/current.zip/download"
-		verurl="http://sourceforge.net/projects/cdock/files/cDock%20Beta/versionBeta.txt/download"
-		logurl="http://sourceforge.net/projects/cdock/files/cDock%20Beta/versionInfoBeta.txt/download"
-	else
-		# Stable urls
-		dlurl="http://sourceforge.net/projects/cdock/files/latest/download"
-		verurl="http://sourceforge.net/projects/cdock/files/version.txt/download"
-		logurl="http://sourceforge.net/projects/cdock/files/versionInfo.txt/download"
-	fi
 	
 	# If it's been a week since we last checked.
 	if [[ "$weekly" = "$cur_date" ]]; then
-		defaults write "org.w0lf.cDock" "lastupdateCheck" "${cur_date}"
-		"$wupdt_path" "c" "$cdock_path" "org.w0lf.cDock" $curver $verurl $logurl $dlurl $update_auto_install &
-	fi	
+		results=$(ping -c 1 -t 5 "http://www.sourceforge.net" 2>/dev/null || echo "Unable to connect to internet")
+		if [[ $results = *"Unable to"* ]]; then
+			echo "ping failed : $results"
+		else
+			echo "ping success"
+			beta_updates=$($PlistBuddy "Print betaUpdates:" "$cdock_pl" 2>/dev/null || echo -n 0)
+			update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null || { defaults write org.w0lf.cDock "autoInstall" 0; echo -n 0; } )
+
+			# Stable urls
+			dlurl="http://sourceforge.net/projects/cdock/files/latest"
+			verurl="http://sourceforge.net/projects/cdock/files/version.txt"
+			logurl="http://sourceforge.net/projects/cdock/files/versionInfo.txt"
+
+			# Beta or Stable updates
+			if [[ $beta_updates -eq 1 ]]; then
+				stable_version=$(verres $(curl -\# -L "http://sourceforge.net/projects/cdock/files/version.txt") $(curl -\# -L "http://sourceforge.net/projects/cdock/files/cDock%20Beta/versionBeta.txt"))
+	
+				if [[ $stable_version = "<" ]]; then
+					# Beta urls
+					dlurl="http://sourceforge.net/projects/cdock/files/cDock%20Beta/current.zip"
+					verurl="http://sourceforge.net/projects/cdock/files/cDock%20Beta/versionBeta.txt"
+					logurl="http://sourceforge.net/projects/cdock/files/cDock%20Beta/versionInfoBeta.txt"
+				fi
+			fi
+		
+			defaults write org.w0lf.cDock "lastupdateCheck" "${cur_date}"
+			"$wupdt_path" "c" "$cdock_path" "org.w0lf.cDock" $curver $verurl $logurl $dlurl $update_auto_install &	
+		fi
+	fi
 } # Update checking
 
 #
@@ -80,6 +91,8 @@ resource_folder=$(cd "${0%/*}" && echo $PWD)
 for i in {1..4}; do resource_folder=$(dirname "$resource_folder"); done
 simbl_path="$resource_folder/helpers/SIMBL.app/Contents/MacOS/SIMBL Agent"
 wupdt_path="$resource_folder/updates/wUpdater.app/Contents/MacOS/wUpdater"
+PlistBuddy=/usr/libexec/PlistBuddy" -c"
+cdock_pl="$HOME"/Library/Preferences/org.w0lf.cDock.plist
 
 #
 #	App execution
@@ -87,8 +100,10 @@ wupdt_path="$resource_folder/updates/wUpdater.app/Contents/MacOS/wUpdater"
 
 echo $restart_count >/tmp/dmpipe
 exec "$simbl_path" &
-update_auto_check=$(defaults read org.w0lf.cDock autoCheck 2>/dev/null || { defaults write org.w0lf.cDock autoCheck 1; echo -n 1; } )
-if [[ $update_auto_check == 1 ]]; then check_for_updates; fi
+update_auto_check=$($PlistBuddy "Print autoCheck" "$cdock_pl" 2>/dev/null || { defaults write org.w0lf.cDock autoCheck 1; echo -n 1; } )
+if [[ $update_auto_check == 1 ]]; then 
+	check_for_updates & 
+fi
 
 # Main monitor loop
 while [ 1 ]; do
