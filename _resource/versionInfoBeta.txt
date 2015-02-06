@@ -1,158 +1,28 @@
 ------------------------------------------------
 
-Version		: 6.4.0.2
-Build date	: January / 31 / 2015
+Version		: 7.0.1.1
+Build date	: Feb / 05 / 2015
 
 ------------------------------------------------
 This is a beta build. Please let me know if issues arise.
 ------------------------------------------------
 
-6.4.0.2
+New
 
--- Email button automatically attaches logs to email.
+-- hide/Show application title tooltips checkbox
+-- settings window > refresh dock icon cache
+-- settings window > remove broken dock links
+-- settings window > restore stock dock settings
 
--- Updated credits and welcome window.
+Improvements and fixes
 
-------------------------------------------------
-
-6.4.0.1
-
-:: New :: 
-
--- Switched to using /usr/libexec/PlistBuddy to read (and partly write) plists instead of defaults (~10x faster). Based on this improvement I've stopped loading entirely from saved state on start. This means changes you make to the dock in-between opening cDock will once again show. Generally this is just a huge boost for the app because itdoes a lot of plist reading and writing.
- 
--- Added dock themes created by Deviant Art users:
-xxfunsizexx
-davidmonteiro
-nittiyh
-
--- Magnification popup now has disabled option.
-
--- Removed magnification enabled checkbox. It is now controlled through popup.
-
--- Recents folder option is now a checkbox.
-
--- cDock can now remove recents folder.
-
--- Add app/doc spacers popup changed to app/dock spacers.
-
--- cDock can now remove spacers. Removing spacers starts with the leftmost spacer.
-
--- 'Reset cDock' option added to settings. This is the same as what 'Restore Dock' used to do. Applying this deletes ~/Library/Application Support/cDock/* and some other cDock related things like the cDock/coloredfindersidebar bundles.
-
--- Main window will retain state after viewing settings window.
-
--- Main window title will include "Beta" if using a beta version.
-
--- Email button as an alternate to the bug report button.
-
--- Tooltips added to settings window.
-
--- cDock now makes backups of com.apple.dock.plist
-	Backups are made before applying changes
-	Backups are saved @ ~/Library/Application Support/cDock/.bak/*
-	Currently no limit to number of backups
-	
--- 'Restore Dock' in settings added. Popup allows users to select from com.apple.dock.plist backups.
- 
-
-:: Performance improvements and fixes ::
-
--- cDock should open faster.
-
--- Settings should apply faster.
-
--- Settings window should draw/close faster.
-
--- Cut out accidental unnecessary downloads of version.txt if the app had already checked for updates that day.
-
--- Added small ping check. This prevents trying to update if there's no connection to the internet and/or sourceforge.
-
--- Removed save state junk I was using to load the app faster.
-
--- General bug fixes.
-
--- UI adjustments.
+-- settings window refreshes dock plist backups whenever a new backup is created
+-- broken link checking for cDock bundle
 
 ------------------------------------------------
 
-Not implemented:
+NOTE: If automatic updates fail. You can manually download updates here: 
 
-hide/Show application title tooltips checkbox
-
-------------------------------------------------
-
-TODO CDOCK.APP:
-
-beta icon ?
-
-TODO CDOCK.SH:
-
-move more pashua window setup out of the main script
-checks for broken symbolic links to bundles
-updater for launch agent needs changing
-'Import Theme' button
-	Novice friendly way to add a theme created by someone else
-	Possibly just drop folder on cDock icon to import
-
-TODO CDOCK.BUNDLE:
-	
-customization option 'Use Custom Separator' - 0 (Off) / 1 (On)
-customizable left/right separator
-customizable indicator lights (I wish I knew where to start with this one...)
-
-TODO COLORFULSIDEBAR.BUNDLE:
-
-fix iCloud icon (probably never gonna happen)
-
-------------------------------------------------
-
-Issue tracking:
-
-completed: Hey I fixed it!
-	https://sourceforge.net/p/cdock/tickets/55/
-	https://sourceforge.net/p/cdock/tickets/50/
-	https://sourceforge.net/p/cdock/tickets/49/
-	https://sourceforge.net/p/cdock/tickets/48/
-	https://sourceforge.net/p/cdock/tickets/47/
-	https://sourceforge.net/p/cdock/tickets/46/
-	https://sourceforge.net/p/cdock/tickets/42/
-	
-partial: Almost there!
-	https://sourceforge.net/p/cdock/tickets/34/
-	https://sourceforge.net/p/cdock/tickets/2/ (No way to test)
-	
-junkers: Not relevant or already working as intended.
-	https://sourceforge.net/p/cdock/tickets/54/
-	https://sourceforge.net/p/cdock/tickets/52/
-
-scrapped: All aboard the nope train.
-	https://sourceforge.net/p/cdock/tickets/53/
-	
-todo: Someday, it'll happen... maybe.
-	https://sourceforge.net/p/cdock/tickets/51/ (No way to test)
-	https://sourceforge.net/p/cdock/tickets/45/
-	https://sourceforge.net/p/cdock/tickets/22/ (No way to test)
-	https://sourceforge.net/p/cdock/tickets/15/
-
-------------------------------------------------
-
-Info / Assistance wanted:
-
--- Beta icon + Some dock themes.
-
--- Is it possible to make a method in the cdock bundle to refresh the dock that can be invoked somehow? EG not having to killall Dock to apply changes.
-
--- Is it possible to make a method in the cdock bundle to change the dock based on the time of day?
-
--- Info on how to replace dock indicator lights using the cdock bundle.
-
--- Info on how to replace dock continuity background using the cdock bundle.
-
--- Fix for iCloud icon.
-
-Pleace contact me if you can help with any of these.
-	Thanks
-		-w0lf
+https://sourceforge.net/projects/cdock
 
 ------------------------------------------------

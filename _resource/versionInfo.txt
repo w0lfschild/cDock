@@ -1,29 +1,75 @@
-Change log
+------------------------------------------------
+
+Version		: 7.0.2
+Build date	: Feb / 05 / 2015
 
 ------------------------------------------------
 
-6.4.1
+7.0.2
 
-Hide/Show application title tooltips
-Remove app/dock spacers
+Fixed
+- cDock agent showing icon in dock
+
+7.0.1
+
+Fixed
+- Dock settings not applying if the setting did not already exist in dock plist
+- Repeatedly adding same entry to SIMBLApplicationIdentifierBlacklist
+- 'Recents Folder' not adding or removing in some cases
+- 'Icon Size' showing blank if the setting did not already exist in dock plist
+- Theme failing to apply under some conditions
+- 'Automatically install updates' setting not applying
+- Logging not working on first launch after an update to cDock
+- cDock opening more than 1 instance of cDock agent
+- cDock agent opening more than 1 insatnce of SIMBL
+- cDock agent scripts not exiting properly
+
+Changed
+- cDock agent uses cDock icon instead of generic app icon
+- Improved cDock agent startup and update checking speed
+- Dock plist backups should be retained when cDock detects an update
+- Updated credits & first run window
+- More logging information
+- Miscellaneous improvements
+
+7.0
+
+New
+- Switched to using /usr/libexec/PlistBuddy to read (and write) plists instead of defaults (~10x faster).
+- Magnification popup now has disabled option.
+- Removed magnification enabled checkbox. It is now controlled through popup.
+- Recents folder option is now a checkbox.
+- cDock can now remove recents folder.
+- cDock can now remove spacers. Removing spacers starts with the leftmost spacer.
+- 'Reset cDock' option added to settings. Applying this deletes ~/Library/Application Support/cDock/* and some other cDock related things like the cDock/coloredfindersidebar bundles.
+- Main window will retain state after viewing settings window.
+- Main window title will include "Beta" if using a beta version.
+- Email button as an alternate to the bug report button.
+- Tooltips added to settings window.
+- cDock now makes backups of com.apple.dock.plist
+	Backups are made before applying changes
+	Backups are saved @ ~/Library/Application Support/cDock/.bak/*
+	Currently no limit to number of backups	
+- 'Restore Dock' in settings added. Popup allows users to select from com.apple.dock.plist backups.
+- Added dock themes created by Deviant Art users:
+	xxfunsizexx
+	davidmonteiro
+	nittiyh
+ 
+
+Improvements and Fixes
+- cDock opens faster.
+- Settings apply faster.
+- Settings window opens and closes faster.
+- Updater improvements.
+- General bug fixes.
+- Updated credits and welcome window.
+- UI adjustments.
 
 ------------------------------------------------
 
-NOTES: 
-
-If automatic updates are not working. 
-You can manually download updates here: 
+NOTE: If automatic updates fail. You can manually download updates here: 
 
 https://sourceforge.net/projects/cdock
 
-I do not have Mavericks installed. 
-Things are subject to randomly breaking on 10.9.X. 
-Let me know if issues arise:
-
-aguywithlonghair@gmail.com
-https://sourceforge.net/p/cdock/tickets/new
-
-BUGS: 
-
-"iCloud Drive" icon does not display properly on Yosemite with colorfulsidebar option enabled
-Custom separators do not work on Yosemite
+------------------------------------------------
