@@ -3,8 +3,8 @@
 # # # # # # # # # # # # # # # # # # # # 
 #
 # Maintained By	: Wolfgang Baird
-# Version		: 6.4.0.2
-# Updated		: Jan / 31 / 2015
+# Version		: 7.0.1
+# Updated		: Feb / 05 / 2015
 #
 # # # # # # # # # # # # # # # # # # # # 
 
@@ -77,8 +77,11 @@ has_updated() {
 	dir_check /tmp/cDock_junk/themes
 	dir_check "$HOME"/Library/Application\ Support/cDock/theme_stash
 	
-	# Save current theme and theme folder
-	rsync -ru "$HOME"/Library/Application\ Support/cDock/themes/"$current_theme" /tmp/cDock_junk/active
+	# Save theme folder, logs, and current theme if one was active
+	if [[ $current_theme != "None" ]]; then
+		rsync -ru "$HOME"/Library/Application\ Support/cDock/themes/"$current_theme" /tmp/cDock_junk/active
+	fi
+	rsync -ru "$HOME"/Library/Application\ Support/cDock/.bak /tmp/cDock_junk
 	rsync -ru "$HOME"/Library/Application\ Support/cDock/themes /tmp/cDock_junk
 	rsync -ru "$HOME"/Library/Application\ Support/cDock/logs /tmp/cDock_junk
 	
@@ -94,10 +97,16 @@ has_updated() {
 	(($cdock_active)) && { ln -s "$app_bundles"/cDock.bundle "$HOME/Library/Application Support"/SIMBL/Plugins/cDock.bundle; defaults write org.w0lf.cDock cdockActive 1; launch_agent; }
 	defaults write org.w0lf.cDock theme "$current_theme"
 	
-	# Move back theme folder and current theme if one was active
+	# Move back theme folder, logs, and current theme if one was active
 	rsync -ru /tmp/cDock_junk/themes/ "$HOME"/Library/Application\ Support/cDock/theme_stash
-	rsync -ru /tmp/cDock_junk/active/"$current_theme" "$HOME"/Library/Application\ Support/cDock/themes
 	rsync -ru /tmp/cDock_junk/logs "$HOME"/Library/Application\ Support/cDock
+	rsync -ru /tmp/cDock_junk/.bak "$HOME"/Library/Application\ Support/cDock
+	if [[ $current_theme != "None" ]]; then
+		rsync -ru /tmp/cDock_junk/active/"$current_theme" "$HOME"/Library/Application\ Support/cDock/themes
+	fi
+	
+	# Restart logging
+	logging
 }
 
 # Version checking
@@ -148,6 +157,7 @@ dir_check() {
 directory_setup() {
 	dir_check "$HOME"/Library/Application\ Support/cDock
 	dir_check "$HOME"/Library/Application\ Support/cDock/logs
+	dir_check "$HOME"/Library/Application\ Support/cDock/.bak
 	dir_check "$HOME"/Library/Application\ Support/SIMBL/Plugins
 	dir_check "$HOME"/Library/Application\ Support/wUpdater/logs
 }
@@ -264,8 +274,10 @@ check_for_updates() {
 launch_agent() {
 	# Blacklist apps that have been reported to crash for SIMBL
 	#defaults write com.github.norio-nomura.SIMBL-Agent "SIMBLApplicationIdentifierBlacklist" '("com.skype.skype")'
-	$PlistBuddy "Add SIMBLApplicationIdentifierBlacklist array" "$HOME"/Library/Preferences/com.github.norio-nomura.SIMBL-Agent.plist
-	$PlistBuddy "Add SIMBLApplicationIdentifierBlacklist: string com.skype.skype" "$HOME"/Library/Preferences/com.github.norio-nomura.SIMBL-Agent.plist
+	
+	espl="$HOME"/Library/Preferences/com.github.norio-nomura.SIMBL-Agent.plist
+	$PlistBuddy "Add SIMBLApplicationIdentifierBlacklist array" "$espl"
+	$PlistBuddy "Set SIMBLApplicationIdentifierBlacklist:0 com.skype.skype" "$espl" || $PlistBuddy "Add SIMBLApplicationIdentifierBlacklist:0 string com.skype.skype" "$espl"
 	
 	# Add agent to startup items
 	osascript <<EOD
@@ -316,8 +328,7 @@ install_cdock_bundle() {
 		customdock=false
 	fi
 	
-	$PlistBuddy "Delete cdockActive" "$cdock_pl"
-	$PlistBuddy "Add cdockActive integer 1" "$cdock_pl"
+	$PlistBuddy "Set cdockActive 1" "$cdock_pl" || $PlistBuddy "Add cdockActive integer 1" "$cdock_pl"
 	defaults write org.w0lf.cDock theme -string "${dock_theme}"
 	dockify=true
 }
@@ -345,19 +356,16 @@ get_preferences() {
 # Do things when apply is clicked
 get_results() {
 		# Custom dock
-		if [[ $pop0 = "Current" ]]; then
-			echo "???"
-			install_dock=false
-		elif [[ $pop0 = "Custom" ]]; then	
+		if [[ $pop0 = "Custom" ]]; then	
 			customdock=true
 			install_dock=true
 			dock_theme="${pop0}"
 		elif [[ $pop0 = "None" ]]; then
 			install_dock=false
 			file_cleanup "$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle
-			$PlistBuddy "Delete cdockActive" "$cdock_pl"
-			$PlistBuddy "Add cdockActive 0" "$cdock_pl"
-			#defaults write org.w0lf.cDock theme -string "None"
+			$PlistBuddy "Set cdockActive 0" "$cdock_pl" || $PlistBuddy "Add cdockActive integer 0" "$cdock_pl"
+			$PlistBuddy "Set theme None" "$cdock_pl" || $PlistBuddy "Add theme string None" "$cdock_pl"
+			# defaults write org.w0lf.cDock theme -string "None"
 			killall "Dock"
 		else
 			echo "$pop0"
@@ -372,7 +380,7 @@ get_results() {
 		else
 			if [[ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ]]; then 
 				file_cleanup "$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
-				$PlistBuddy "Set colorfulsidebarActive 0" "$cdock_pl"
+				$PlistBuddy "Set colorfulsidebarActive 0" "$cdock_pl" || $PlistBuddy "Add colorfulsidebarActive integer 0" "$cdock_pl"
 				killall "Finder"
 			fi
 		fi
@@ -395,60 +403,67 @@ get_results() {
 		pl_alt=/tmp/com.apple.dock.plist
 		cp -f "$dock_plist" "$pl_alt"
 		
+		
  		# Show Only Active Applications
 		if [[ $chk2 -eq 1 ]]; then
-			$PlistBuddy "Set static-only true" $pl_alt
+			$PlistBuddy "Set static-only true" $pl_alt || $PlistBuddy "Add static-only bool true" $pl_alt
 		else
-			$PlistBuddy "Set static-only false" $pl_alt
+			$PlistBuddy "Set static-only false" $pl_alt || $PlistBuddy "Add static-only bool false" $pl_alt
 		fi
 		
 		# Dim hidden items
 		if [[ $chk3 -eq 1 ]]; then
-			$PlistBuddy "Set showhidden true" $pl_alt
+			$PlistBuddy "Set showhidden true" $pl_alt || $PlistBuddy "Add showhidden bool true" $pl_alt
 		else
-			$PlistBuddy "Set showhidden false" $pl_alt
+			$PlistBuddy "Set showhidden false" $pl_alt || $PlistBuddy "Add showhidden bool false" $pl_alt
 		fi
 		
 		# Lock dock contents
 		if [[ $chk4 -eq 1 ]]; then
-			$PlistBuddy "Set contents-immutable true" $pl_alt
+			$PlistBuddy "Set contents-immutable true" $pl_alt || $PlistBuddy "Add contents-immutable bool true" $pl_alt
 		else
-			$PlistBuddy "Set contents-immutable false" $pl_alt
+			$PlistBuddy "Set contents-immutable false" $pl_alt || $PlistBuddy "Add contents-immutable bool false" $pl_alt
 		fi
 		
 		# Mouse over highlight
 		if [[ $chk5 -eq 1 ]]; then
-			$PlistBuddy "Set mouse-over-hilite-stack true" $pl_alt
+			$PlistBuddy "Set mouse-over-hilite-stack true" $pl_alt || $PlistBuddy "Add mouse-over-hilite-stack bool true" $pl_alt
 		else
-			$PlistBuddy "Set mouse-over-hilite-stack false" $pl_alt
+			$PlistBuddy "Set mouse-over-hilite-stack false" $pl_alt || $PlistBuddy "Add mouse-over-hilite-stack bool false" $pl_alt
 		fi
 		
 		# Change the Dock’s Position // Mav only
 		if [[ $pop4 != "" ]]; then
-			$PlistBuddy "Set pinning $pop4" $pl_alt
+			$PlistBuddy "Set pinning $pop4" $pl_alt || $PlistBuddy "Add pinning string $pop4" $pl_alt
 		fi
 		
 		# App icon counts
-		a_count=$($PlistBuddy "Print persistent-apps:" $pl_alt | grep -a "    Dict {" | wc -l)
-		a_count=$(( $a_count - 1 ))
-		a_spacers=$($PlistBuddy "Print persistent-apps:" $pl_alt | grep -a "spacer-tile" | wc -l)
+		a_count=$($PlistBuddy "Print persistent-apps:" $pl_alt | grep -a "    Dict {" | wc -l | tr -d ' ')
+		a_spacers=$($PlistBuddy "Print persistent-apps:" $pl_alt | grep -a "spacer-tile" | wc -l | tr -d ' ')
 		
 		# Document icon counts
-		d_count=$($PlistBuddy "Print persistent-others:" $pl_alt | grep -a "    Dict {" | wc -l)
-		d_count=$(( $d_count - 1 ))
-		d_spacers=$($PlistBuddy "Print persistent-others:" $pl_alt | grep -a "spacer-tile" | wc -l)
+		d_count=$($PlistBuddy "Print persistent-others:" $pl_alt | grep -a "    Dict {" | wc -l | tr -d ' ')
+		d_spacers=$($PlistBuddy "Print persistent-others:" $pl_alt | grep -a "spacer-tile" | wc -l | tr -d ' ')
 		
 		# Recent Items Folder
 		if [[ $chk6 -eq 1 ]]; then
-			(( $($PlistBuddy "Print persistent-others:" $pl_alt | grep -a recents-tile | wc -l) )) || { $PlistBuddy "Add persistent-others: dict" $pl_alt; $PlistBuddy "Add persistent-others:$d_count:tile-type string recents-tile" $pl_alt; $PlistBuddy "Add persistent-others:$d_count:tile-data dict" $pl_alt; $PlistBuddy "Add persistent-others:$d_count:tile-data:list-type integer 1" $pl_alt; }	
+			(( $($PlistBuddy "Print persistent-others:" $pl_alt | grep -a recents-tile | wc -l) )) || { \
+				$PlistBuddy "Add persistent-others array" $pl_alt; \
+				$PlistBuddy "Add persistent-others: dict" $pl_alt; \
+				$PlistBuddy "Add persistent-others:$d_count:tile-type string recents-tile" $pl_alt; \
+				$PlistBuddy "Add persistent-others:$d_count:tile-data dict" $pl_alt; \
+				$PlistBuddy "Add persistent-others:$d_count:tile-data:list-type integer 1" $pl_alt; }	
 		else
-			for (( idx=0; idx < $d_count; idx++ )); do
+			for (( idx=0; idx <= $d_count; idx++ )); do
 				if [[ $($PlistBuddy "Print persistent-others:$idx:tile-type" $pl_alt) = "recents-tile" ]]; then
 					$PlistBuddy "Delete persistent-others:$idx" $pl_alt
 					idx=$_count
 				fi
 			done
 		fi
+		
+		if [[ $a_count -gt 0 ]]; then a_count=$(( $a_count - 1 )); fi
+		if [[ $d_count -gt 0 ]]; then d_count=$(( $d_count - 1 )); fi
 		
 		# App Spacers
 		if [[ $a_spacers != $pop1 ]]; then
@@ -499,14 +514,14 @@ get_results() {
 		
 		# Magnification level
 		if [[ $pop91 = "Disabled" ]]; then
-			$PlistBuddy "Set magnification bool false" $pl_alt
+			$PlistBuddy "Set magnification false" $pl_alt || $PlistBuddy "Add magnification bool false" $pl_alt
 		else
-			$PlistBuddy "Set magnification bool true" $pl_alt
-			$PlistBuddy "Set largesize $pop91" $pl_alt
+			$PlistBuddy "Set magnification true" $pl_alt || $PlistBuddy "Add magnification bool true" $pl_alt
+			$PlistBuddy "Set largesize $pop91" $pl_alt || $PlistBuddy "Add largesize integer $pop91" $pl_alt
 		fi
 		
 		# Tile (Icon) size
-		$PlistBuddy "Set tilesize $pop90" $pl_alt
+		$PlistBuddy "Set tilesize $pop90" $pl_alt || $PlistBuddy "Add tilesize integer $pop90" $pl_alt
 		
 		# push plist changes
 		defaults import com.apple.dock $pl_alt
@@ -539,10 +554,9 @@ app_clean() {
 	"$HOME"/Library/Application\ Scripts/cDock \
 	"$HOME"/Library/Application\ Support/cDock
 	
-	$PlistBuddy "Set cdockActive 0" "$cdock_pl"
-	$PlistBuddy "Set colorfulsidebarActive 0" "$cdock_pl"
+	$PlistBuddy "Set cdockActive 0" "$cdock_pl" || $PlistBuddy "Add cdockActive integer 0" "$cdock_pl"
+	$PlistBuddy "Set colorfulsidebarActive 0" "$cdock_pl" || $PlistBuddy "Add colorfulsidebarActive integer 0" "$cdock_pl"
 	defaults write org.w0lf.cDock theme -string "None"
-	
 	osascript -e 'tell application "System Events" to delete login item "cDock Agent"'
 	
 	echo "Cleaned"
@@ -585,6 +599,20 @@ backup_dock_plist() {
 	dir_check "$save_folder"
 	my_time=$(date)
 	cp -v "$dock_plist" "$save_folder"/"$my_time".plist
+}
+
+plistbud() {
+	pb="$PlistyBuddy"
+	# $1 - Set or Delete
+	# $2 - name
+	# $3 - type
+	# $4 - value
+	# $5 - plist
+	if [[ $1 = "Set" ]]; then
+		$pb "Set $2 $4" "$5" || $pb "Add $2 $4" "$5"
+	elif [[ $1 = "Delete" ]]; then
+		$pb "Delete $2" "$5"
+	fi
 }
 
 # 
@@ -704,14 +732,10 @@ draw_settings_window() {
 	if [[ $swOK -eq 1 ]]; then
 		update_settings_window
 		
-		$PlistBuddy "Delete autoCheck" "$cdock_pl"
-		$PlistBuddy "Add autoCheck integer $swchk0" "$cdock_pl"
-		$PlistBuddy "Delete autoInstall" "$cdock_pl"
-		$PlistBuddy "Add autoInstall integer" "$cdock_pl"
-		$PlistBuddy "Delete betaUpdates" "$cdock_pl"
-		$PlistBuddy "Add betaUpdates integer $swchk3" "$cdock_pl"
-		$PlistBuddy "Delete displayWarning" "$cdock_pl"
-		$PlistBuddy "Add displayWarning integer $swchk5" "$cdock_pl"
+		$PlistBuddy "Set autoCheck $swchk0" "$cdock_pl" || $PlistBuddy "Add autoCheck integer $swchk0" "$cdock_pl"
+		$PlistBuddy "Set autoInstall $swchk2" "$cdock_pl" || $PlistBuddy "Add autoInstall integer $swchk2" "$cdock_pl"
+		$PlistBuddy "Set betaUpdates $swchk3" "$cdock_pl" || $PlistBuddy "Add betaUpdates integer $swchk3" "$cdock_pl"
+		$PlistBuddy "Set displayWarning $swchk5" "$cdock_pl" || $PlistBuddy "Add displayWarning integer $swchk5" "$cdock_pl"
 		(($swchk1)) && { $PlistBuddy "Set lastupdateCheck 0" "$cdock_pl"; check_for_updates; }
 		(($swchk4)) && { if [[ "$swpop0" != "Select a resotre point" ]]; then defaults import "$dock_plist" "$save_folder"/"$swpop0"; killall Dock; establish_main_window; refresh_win=true; fi; }
 		(($swchk6)) && { app_clean; killall Dock; }
@@ -843,7 +867,7 @@ pop90.y = $sely"
 pop90.option = $val"; 
 	done
 	
-	tsize=$($PlistBuddy "Print tilesize:" "$dock_plist")
+	tsize=$($PlistBuddy "Print tilesize:" "$dock_plist" || echo "50.0")
 	tsize=${tsize%%.*}
 	main_window="$main_window
 pop90.default = $tsize"
@@ -955,7 +979,7 @@ chk6.y = $chxy"
 	main_window=$main_window"
 chk7.tooltip = Hide or show application name popups on the Dock. Finder, Trash and New items added to the Dock will still show.
 chk7.type = checkbox
-chk7.label = Hide item tooltips
+chk7.label = Hide tooltips
 chk7.disabled = 1
 chk7.default = 0
 chk7.x = 225
@@ -1085,6 +1109,7 @@ draw_main_window() {
 
 	# Apply button clicked
 	if [[ $db -eq 1 ]]; then
+		echo -e "\n\nApply Button Clicked\n\n"
 		db=0
 		update_main_window
 		{ backup_dock_plist; get_results; defaults write org.w0lf.cDock theme -string "$pop0"; do_stuff; } &
@@ -1096,9 +1121,11 @@ do_stuff() {
 	killall "Dock"
 	if ($killfinder); then killall "Finder"; fi
 	if ($dockify); then
-		open "$cdock_path"
+		ps ax | grep [c]Dock\ Agent || open "$cdock_path"
 		echo -e "Finished installing, starting dockmonitor...\n"
 	fi
+	# logging info
+	ls -l "$HOME"/Library/Application\ Support/SIMBL/Plugins
 }
 
 #
@@ -1156,8 +1183,8 @@ get_preferences
 directory_setup
 
 # Check bundles
-[ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ] && { colorfulsidebar_active=1; $PlistBuddy "Delete colorfulsidebarActive" "$cdock_pl"; $PlistBuddy "Add colorfulsidebarActive integer 1" "$cdock_pl"; }
-[ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle ] && { cdock_active=1; $PlistBuddy "Delete cdockActive" "$cdock_pl"; $PlistBuddy "Add cdockActive integer 1" "$cdock_pl"; }
+[ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ] && { colorfulsidebar_active=1; $PlistBuddy "Set colorfulsidebarActive 1" "$cdock_pl" || $PlistBuddy "Add colorfulsidebarActive integer 1" "$cdock_pl"; }
+[ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle ] && { cdock_active=1; $PlistBuddy "Set cdockActive 1" "$cdock_pl" || $PlistBuddy "Add cdockActive integer 1" "$cdock_pl"; }
 
 # Check if app has been opened before and if it's a newer version than saved in the preferences
 if [[ $do_firstrun = "true" ]]; then
@@ -1171,8 +1198,7 @@ fi
 if [[ ! -e "$HOME/Library/Application Support/cDock/themes" ]]; then rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock; fi
 
 # Version
-$PlistBuddy "Delete version" "$cdock_pl"
-$PlistBuddy "Add version string $curver" "$cdock_pl"
+$PlistBuddy "Set version $curver" "$cdock_pl" || $PlistBuddy "Add version string $curver" "$cdock_pl"
 
 # Check for updates
 if [[ $update_auto_check == 1 ]]; then 
