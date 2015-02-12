@@ -3,7 +3,7 @@
 # # # # # # # # # # # # # # # # # # # # 
 #
 # Maintained By	: Wolfgang Baird
-# Version		: 7.0.1
+# Version		: 7.0.3
 # Updated		: Feb / 05 / 2015
 #
 # # # # # # # # # # # # # # # # # # # # 
