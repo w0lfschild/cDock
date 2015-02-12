@@ -43,8 +43,6 @@
 	<key>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/iDiskGenericIcon.icns</key>
 	<array>
 		<string>x-applefinder-vnode:CloudDocs%20libraries</string>
-		<string>iCloud Drive</string>
-		<string>iCloud%20Drive</string>
 	</array>
 	<key>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AirDrop.icns</key>
 	<array>
