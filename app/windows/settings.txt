@@ -1,58 +1,120 @@
-*.title = cDock Settings
+*.title = cDock Extra Settings
 *.floating = 1
 *.autosavekey = cDock_settings
 
 # Appearance text
-# swtb0.type = text
-# swtb0.rely = -10
-
-# Auto check for updates
-swchk0.type = checkbox
-swchk0.label = Automatically check for updates
-swchk0.tooltip = Automatically check for updates once a week and up to one time per day when cDock is opened.
-swchk0.rely = -18
-
-# Check for BETA updates
-swchk3.type = checkbox
-swchk3.label = Include BETA updates
-swchk3.tooltip = Include Beta updates in searches. Only for the savvy user, bugs are likely to occur.
-swchk3.rely = -18
-swchk3.relx = 20
-
-# Auto install updates
-swchk2.type = checkbox
-swchk2.label = Automatically install updates
-swchk2.tooltip = Automatically install updates without prompting the user first.
-swchk2.rely = -18
-
-# Display SIMBL warnings
-swchk5.type = checkbox
-swchk5.label = Display SIMBL warnings
-swchk5.tooltip = Offer to remove SIMBL plugins other than those used by cDock.
-swchk5.rely = -18
-
-# Restore
-swchk4.type = checkbox
-swchk4.label = Restore Dock
-swchk4.tooltip = Restor from an older save of the com.apple.dock.plist
-swchk4.rely = -18
-
-# Restore popup
-swpop0.type = popup
-swpop0.rely = -18
-swpop0.relx = 20
-
-# Reset cDock
-swchk6.type = checkbox
-swchk6.label = Reset cDock
-swchk6.tooltip = Resets cDock and removes all files it stores in ~/Library/Application Support.
-swchk6.rely = -18
+swtb0.type = text
+swtb0.rely = -18
+swtb0.text = Updates:
 
 # Check for updates now
 swchk1.type = checkbox
 swchk1.label = Check for updates now
 swchk1.tooltip = Check for updates when you click apply.
-swchk1.rely = -10
+swchk1.rely = -18
+swchk1.relx = 20
+
+# Auto check for updates
+swchk0.type = checkbox
+swchk0.label = Automatically check for updates
+swchk0.tooltip = When enabled cDock will automatically check for updates once a week and up to one time per day when cDock is opened.
+swchk0.rely = -18
+swchk0.relx = 20
+
+# Auto install updates
+swchk2.type = checkbox
+swchk2.label = Automatically install updates
+swchk2.tooltip = When enabled cDock will automatically try to install updates without prompting the user first.
+swchk2.rely = -18
+swchk2.relx = 20
+
+# Check for BETA updates
+swchk3.type = checkbox
+swchk3.label = Include beta releases
+swchk3.tooltip = Include Beta updates in searches. Only for the savvy user, bugs are likely to occur.
+swchk3.rely = -10
+swchk3.relx = 20
+
+# Dock text
+swtb1.type = text
+swtb1.rely = -18
+swtb1.text = Dock:
+
+# Icon cache
+swchk10.type = checkbox
+swchk10.label = Reset icon cache*
+swchk10.tooltip = Reset icon cache to fix icons not showing.
+swchk10.rely = -18
+swchk10.relx = 20
+
+# remove_broken_dock_items
+swchk11.type = checkbox
+swchk11.label = Remove broken Dock items
+swchk11.tooltip = Remove broken dock items that show as a question mark.
+swchk11.rely = -18
+swchk11.relx = 20
+
+# Restore stock
+swchk7.type = checkbox
+swchk7.label = Restore Dock to factory settings
+swchk7.tooltip = Restore dock to the same as a fresh install of OS X.
+swchk7.rely = -18
+swchk7.relx = 20
+
+# Restore
+swchk4.type = checkbox
+swchk4.label = Restore Dock from backup
+swchk4.tooltip = Restore from an older save of the com.apple.dock.plist
+swchk4.rely = -18
+swchk4.relx = 20
+
+# Restore popup
+swpop0.type = popup
+swpop0.rely = -10
+swpop0.relx = 40
+
+# Finder text
+swtb3.type = text
+swtb3.rely = -18
+swtb3.text = Finder:
+
+# Colored sidebar
+swchk8.type = checkbox
+swchk8.label = Colored sidebar
+swchk8.tooltip = Show color in the sidebar.
+swchk8.rely = -18
+swchk8.relx = 20
+
+# Folder on top
+swchk9.type = checkbox
+swchk9.label = Folders on top*
+swchk9.tooltip = Show folders on top when sorting by type.
+swchk9.rely = -10
+swchk9.relx = 20
+
+# cDock text
+swtb2.type = text
+swtb2.rely = -18
+swtb2.text = cDock:
+
+# Display SIMBL warnings
+swchk5.type = checkbox
+swchk5.label = Display SIMBL warnings
+swchk5.tooltip = When enabled cDock offers to remove SIMBL plugins other than those used by cDock.
+swchk5.rely = -18
+swchk5.relx = 20
+
+# Reset cDock
+swchk6.type = checkbox
+swchk6.label = Reset cDock
+swchk6.tooltip = Resets cDock and removes all files it stored in ~/Library/Application Support.
+swchk6.rely = -10
+swchk6.relx = 20
+
+# Pass text
+swtb5.type = text
+swtb5.rely = -10
+swtb5.text = * Requires admin password.
 
 # Accept button
 swOK.type = defaultbutton
