@@ -315,6 +315,7 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
             if (validateInt(my_settings, 19) == 1) {
                 if (orientation == 0)
                     self.contents = getImg(@"3D.png");
+                    self.opacity = validateFloat(my_settings, 13, 100.);
             } else {
                 if (picture == 0){
                     self.backgroundColor = CGColorCreateGenericRGB(validateFloat(my_settings, 0, 255.), validateFloat(my_settings, 1, 255.), validateFloat(my_settings, 2, 255.), validateFloat(my_settings, 3, 100.));
