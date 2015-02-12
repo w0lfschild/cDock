@@ -1,19 +1,39 @@
 ------------------------------------------------
 
-Version		: 7.0.3
-Build date	: Feb / 05 / 2015
+Version		: 7.1
+Build date	: Feb / 11 / 2015
 
 ------------------------------------------------
 
-7.0.3
+7.1
+
+New
+- Improved list view toggle (Mavericks only)
+- Extra settings > refresh icon cache (Requires password)
+- Extra settings > remove broken dock links
+- Extra settings > restore stock dock settings
+- Extra settings > Finder sort 'folders on top' (Requires password)
+- Dock theme > Fullscreen light
 
 Fixed
-- 3D dock transparency being adjustable, it is controlled by the setting 'picture opacity'
+- 3D dock transparency not being adjustable, It is controlled by the setting 'picture opacity'
+- 'Dock position' showing blank
+
+Changed
+- Colored Finder Sidebar moved to 'Extra settings'
+- UI adjustments
+- Logging improvements
+- Credits
+- Removed report button (use email button instead)
+
+------------------------------------------------
 
 7.0.2
 
 Fixed
 - cDock agent showing icon in dock
+
+------------------------------------------------
 
 7.0.1
 
@@ -36,6 +56,8 @@ Changed
 - Updated credits & first run window
 - More logging information
 - Miscellaneous improvements
+
+------------------------------------------------
 
 7.0
 
@@ -61,7 +83,6 @@ New
 	davidmonteiro
 	nittiyh
  
-
 Improvements and Fixes
 - cDock opens faster.
 - Settings apply faster.
