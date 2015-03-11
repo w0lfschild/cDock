@@ -1,29 +1,40 @@
 ------------------------------------------------
 
 Version		: 7.1
-Build date	: Feb / 11 / 2015
+Build date	: Mar / 10 / 2015
 
 ------------------------------------------------
 
 7.1
 
 New
-- Improved list view toggle (Mavericks only)
-- Extra settings > refresh icon cache (Requires password)
-- Extra settings > remove broken dock links
+- Import theme functionality added
+- Dock setting > Improved list view*
+- Dock setting > Single application mode
+- Dock setting > No app bounce
+- Dock setting > Autohide speed
+- Dock theme > Fullscreen light & Clean (3D)
+- Extra settings > refresh icon cache**
 - Extra settings > restore stock dock settings
-- Extra settings > Finder sort 'folders on top' (Requires password)
-- Dock theme > Fullscreen light
+- Extra settings > Finder sort 'folders on top'**
+
+* Mavericks only
+** Requires admin password to apply
 
 Fixed
 - 3D dock transparency not being adjustable, It is controlled by the setting 'picture opacity'
+- Skype crashing if cDock was only used once and SIMBL had not been used before
+- Filter Forge 4 crashing when using cDock
+- SIMBL plugin warning window 'Do not show this message again' not applying if you closed the window with cancel
 - 'Dock position' showing blank
+- cDock restarting the dock more than necessary in some instances
+- General bug fixes and improvements
 
 Changed
 - Colored Finder Sidebar moved to 'Extra settings'
 - UI adjustments
-- Logging improvements
-- Credits
+- Logging adjustments
+- Updated credits
 - Removed report button (use email button instead)
 
 ------------------------------------------------
