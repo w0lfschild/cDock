@@ -50,7 +50,8 @@ swchk10.relx = 20
 # remove_broken_dock_items
 swchk11.type = checkbox
 swchk11.label = Remove broken Dock items
-swchk11.tooltip = Remove broken dock items that show as a question mark.
+swchk11.disabled = 1
+swchk11.tooltip = Remove dock items that link to a non-existant file or folder and show as a question mark.
 swchk11.rely = -18
 swchk11.relx = 20
 

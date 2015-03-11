@@ -14,6 +14,29 @@ pop0.type = popup
 pop0.width = 120
 pop0.option = None
 pop0.x = 80
+
+# Import theme
+themeb.type = button
+themeb.label = Import
+themeb.x = 108
+
+tb12.tooltip = Import a custom theme shared by someone else.
+tb12.type = text
+tb12.height = 0
+tb12.width = 150
+tb12.x = 0
+
+# Autohide
+tb20.tooltip = Autohide settings for the dock.
+tb20.type = text
+tb20.height = 0
+tb20.width = 150
+tb20.x = 0
+
+pop92.type = popup
+pop92.width = 60
+pop92.x = 140
+pop92.option = Off
 	
 # Magnification
 tb11.tooltip = Magnification level of the dock. Having this option set to anything other than Off will make your Dock icons grow larger as you move your mouse over them. Higher numbers mean larger icons.
@@ -94,11 +117,32 @@ chk6.label = Recents folder
 chk6.x = 225
 	
 # Hide tooltips
-chk7.tooltip = When enabled all appication and folder name popups on the Dock will be hidden. Finder, Trash and New items added to the Dock will still show.
+chk7.tooltip = When enabled all appication and folder name popups on the Dock will be hidden. Finder and New items added to the Dock will still show.
 chk7.type = checkbox
-chk7.label = Hide tooltips
+chk7.label = Hide dock tooltips
 chk7.disabled = 1
 chk7.x = 225
+
+# Hide tooltips
+chk8.tooltip = When enabled Finder and Trash can be removed from the dock with right click like all other dock items.
+chk8.type = checkbox
+chk8.label = Finder and Trash closable
+chk8.disabled = 1
+chk8.x = 225
+	
+# No app bounce
+chk9.tooltip = When enabled icons will not bounce in the dock. Instead the indicator light will flash while opening applications.
+chk9.type = checkbox
+chk9.label = No app bounce
+chk9.disabled = 0
+chk9.x = 225
+
+# Single app mode
+chk10.tooltip = When enabled clicking an app in the dock will open that app while also hiding all other windows.
+chk10.type = checkbox
+chk10.label = Single app mode
+chk10.disabled = 0
+chk10.x = 225
 	
 # Settings text
 tb19.tooltip =
@@ -127,3 +171,13 @@ cb.label = Quit
 # Accept button
 db.type = defaultbutton
 db.label = Apply
+
+# Text
+tb0.text = Dock theme:
+tb1.text = Application spacers:
+tb2.text = Document spacers:
+tb10.text = Icon Size:
+tb11.text = Magnification:
+tb12.text = Import theme:
+tb19.text = Extra settings:
+tb20.text = Autohide:
