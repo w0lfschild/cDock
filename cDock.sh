@@ -150,13 +150,13 @@ apply_main() {
 		if [[ $chk5 -eq 1 ]]; then
 			plistbud "Set" "mouse-over-hilite-stack" "bool" "true" "$pl_alt"
 		else
-			plistbud "Set" "mouse-over-hilite-stack" "bool" "true" "$pl_alt"
+			plistbud "Set" "mouse-over-hilite-stack" "bool" "false" "$pl_alt"
 		fi
 		
 		# No bounce
 		if [[ $chk9 -eq 1 ]]; then
 			plistbud "Set" "no-bouncing" "bool" "true" "$pl_alt"
-			plistbud "Set" "launchanim" "bool" "true" "$pl_alt"
+			plistbud "Set" "launchanim" "bool" "false" "$pl_alt"
 		else
 			plistbud "Set" "no-bouncing" "bool" "false" "$pl_alt"
 			plistbud "Set" "launchanim" "bool" "true" "$pl_alt"
@@ -429,6 +429,11 @@ folders_on_top() {
 	fi
 }
 get_preferences() {
+	rez=$($PlistBuddy "Print autoCheck:" "$dock_plist" 2>/dev/null)	
+	if [[ $rez != [0-1] ]]; then 
+		defaults write "$cdock_pl" null 0
+	fi
+	
 	# Dock Preferences
 	dock_static_only=$($PlistBuddy "Print static-only:" "$dock_plist" 2>/dev/null || echo 0)									# Show Only Active Applications
 	dock_largesize=$($PlistBuddy "Print largesize:" "$dock_plist" 2>/dev/null || echo 42)									   	# Maximum Magnification Level
