@@ -1,7 +1,16 @@
 ------------------------------------------------
 
-Version		: 7.1
-Build date	: Mar / 10 / 2015
+Version		: 7.1.1
+Build date	: Mar / 21 / 2015
+
+------------------------------------------------
+
+7.1.1
+
+Fixed
+- 'Mouse over highlight' not disabling
+- Apps still bouncing with 'No app bounce' enabled
+- Settings window not opening in some instances
 
 ------------------------------------------------
 
@@ -51,9 +60,9 @@ Fixed
 Fixed
 - Dock settings not applying if the setting did not already exist in dock plist
 - Repeatedly adding same entry to SIMBLApplicationIdentifierBlacklist
-- 'Recents Folder' not adding or removing in some cases
+- 'Recents Folder' not adding or removing in some instances
 - 'Icon Size' showing blank if the setting did not already exist in dock plist
-- Theme failing to apply under some conditions
+- Theme failing to apply under some instances
 - 'Automatically install updates' setting not applying
 - Logging not working on first launch after an update to cDock
 - cDock opening more than 1 instance of cDock agent
