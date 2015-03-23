@@ -9,15 +9,14 @@ This is a beta build. Please let me know if issues arise.
 
 New
 
--- hide/Show application title tooltips checkbox
--- settings window > refresh dock icon cache
--- settings window > remove broken dock links
--- settings window > restore stock dock settings
+-- localiztion support
+-- Dock setting > Hide tooltips**
+-- Dock setting > Allow Finder and Trash to be removed from Dock**
+-- Extra settings > remove broken dock links
 
 Improvements and fixes
 
--- settings window refreshes dock plist backups whenever a new backup is created
--- broken link checking for cDock bundle
+--
 
 ------------------------------------------------
 
