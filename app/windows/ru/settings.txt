@@ -1,0 +1,126 @@
+*.title = Добро пожаловать в cDock
+*.floating = 1
+*.autosavekey = cDock_settings
+
+# Appearance text
+swtb0.type = text
+swtb0.rely = -18
+swtb0.text = Обновления:
+
+# Check for updates now
+swchk1.type = checkbox
+swchk1.label = Проверить наличие обновлений сейчас
+swchk1.tooltip = Проверка наличия обновлений будет выполнена при нажатии кнопки "Применить".
+swchk1.rely = -18
+swchk1.relx = 20
+
+# Auto check for updates
+swchk0.type = checkbox
+swchk0.label = Автоматически проверять наличие обновлений
+swchk0.tooltip = Если этот флажок установлен, cDock будет автоматически проверять наличие обновлений раз в неделю и не более одного раза в день при запуске cDock.
+swchk0.rely = -18
+swchk0.relx = 20
+
+# Auto install updates
+swchk2.type = checkbox
+swchk2.label = Устанавливать обновления автоматически
+swchk2.tooltip = Если этот флажок установлен, cDock автоматически выполнит установку обновлений без предварительного запроса подтверждения со стороны пользователя.
+swchk2.rely = -18
+swchk2.relx = 20
+
+# Check for BETA updates
+swchk3.type = checkbox
+swchk3.label = Разрешить бета-версии
+swchk3.tooltip = Бета-версии обновлений учитываются при поиске. Только для опытных пользователей, возможны сбои.
+swchk3.rely = -10
+swchk3.relx = 20
+
+# Dock text
+swtb1.type = text
+swtb1.rely = -18
+swtb1.text = Dock:
+
+# Icon cache
+swchk10.type = checkbox
+swchk10.label = Сбрсить кэш значков
+swchk10.tooltip = Кэш значков сбрасывается для устранения проблем, когда значки не отображаются.
+swchk10.rely = -18
+swchk10.relx = 20
+
+# remove_broken_dock_items
+swchk11.type = checkbox
+swchk11.label = Удалить нерабочие объекты Dock
+swchk11.disabled = 1
+swchk11.tooltip = Удаляются объекты Dock, которые связаны с несуществующим файлом или папкой и отображаются в виде вопросительного знака.
+swchk11.rely = -18
+swchk11.relx = 20
+
+# Restore stock
+swchk7.type = checkbox
+swchk7.label = Восстановить исходные настройки Dock
+swchk7.tooltip = Восстанавливается состояние Dock как при новой установке OS X.
+swchk7.rely = -18
+swchk7.relx = 20
+
+# Restore
+swchk4.type = checkbox
+swchk4.label = Восстановить Dock из резервной копии
+swchk4.tooltip = Восстанавливается ранее сохраненная версия файла com.apple.dock.plist
+swchk4.rely = -18
+swchk4.relx = 20
+
+# Restore popup
+swpop0.type = popup
+swpop0.rely = -10
+swpop0.relx = 40
+
+# Finder text
+swtb3.type = text
+swtb3.rely = -18
+swtb3.text = Finder:
+
+# Colored sidebar
+swchk8.type = checkbox
+swchk8.label = Цветная боковая панель
+swchk8.tooltip = Отображение цветной боковой панели.
+swchk8.rely = -18
+swchk8.relx = 20
+
+# Folder on top
+swchk9.type = checkbox
+swchk9.label = Папки сверху
+swchk9.tooltip = Папки отображаются сверху при сортировке по типу.
+swchk9.rely = -10
+swchk9.relx = 20
+
+# cDock text
+swtb2.type = text
+swtb2.rely = -18
+swtb2.text = Разделители документов:
+
+# Display SIMBL warnings
+swchk5.type = checkbox
+swchk5.label = Показывать предупреждения SIMBL
+swchk5.tooltip = Если этот флажок установлен, cDock предложит удалить подключаемые модули SIMBL, которые не используются cDock.
+swchk5.rely = -18
+swchk5.relx = 20
+
+# Reset cDock
+swchk6.type = checkbox
+swchk6.label = Сбросить cDock
+swchk6.tooltip = Если этот флажок установлен, в панель Dock добавляется стек недавних объектов. Щелчком правой кнопки или нажатием Control и щелчком левой кнопки этот стек можно настроить на отображение приложений, документов, серверов, томов или элементов.
+swchk6.rely = -10
+swchk6.relx = 20
+
+# Pass text
+swtb5.type = text
+swtb5.rely = -10
+swtb5.text = Требуется пароль администратора.
+
+# Accept button
+swOK.type = defaultbutton
+swOK.label = Применить
+
+# Cancel button
+swcb.type = cancelbutton
+swcb.label = Отмена

@@ -1,0 +1,28 @@
+*.transparency = 1
+*.floating = 1
+*.title = Добро пожаловать в cDock
+*.autosavekey = cDock Welcome
+
+img.type = image
+img.maxwidth = 72
+img.border = 0
+img.x = 0
+img.y = 135
+	
+# Introductory text
+welcomet0.type = text
+welcomet0.default = Приложение cDock предназначено для настройки панели Dock в операционных системах OSX Mavericks и Yosemite. Благодарим за использование cDock! Программирование и дизайн: Wolfgang Baird
+welcomet0.width = 500
+welcomet0.x = 80
+welcomet0.y = 140
+	
+welcometb0.type = textbox
+welcometb0.disabled = 1
+welcometb0.width = 570
+welcometb0.height = 100
+welcometb0.x = 0
+welcometb0.y = 30
+
+# Accept button
+welcomedb.type = defaultbutton
+welcomedb.label = Применить

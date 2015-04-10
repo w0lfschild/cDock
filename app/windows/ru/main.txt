@@ -1,0 +1,183 @@
+# Window Appearance
+*.floating = 1
+*.transparency = 1.00
+*.autosavekey = cDock
+	
+# Theme
+tb0.tooltip = Пользовательские темы Dock позволяют полностью настроить фон Dock. Темы 3D отображаются, только когда панель Dock закреплена снизу, иначе панель Dock будет прозрачной.
+tb0.type = text
+tb0.height = 0
+tb0.width = 150
+tb0.x = 0
+	
+pop0.type = popup
+pop0.width = 120
+pop0.option = Нет
+pop0.x = 80
+
+# Import theme
+themeb.type = button
+themeb.label = Импорт
+themeb.x = 108
+
+tb12.tooltip = Импорт пользовательской темы, предоставленной другим пользователем.
+tb12.type = text
+tb12.height = 0
+tb12.width = 150
+tb12.x = 0
+
+# Autohide
+tb20.tooltip = Настройки автоматического скрытия панели Dock.
+tb20.type = text
+tb20.height = 0
+tb20.width = 150
+tb20.x = 0
+
+pop92.type = popup
+pop92.width = 60
+pop92.x = 140
+pop92.option = Off
+	
+# Magnification
+tb11.tooltip = Уровень увеличения Dock. Если для этого параметра установлено любое значение, кроме "Выкл.", значки Dock будут увеличиваться при наведении на них курсора. Чем выше значение, тем крупнее значки.
+tb11.type = text
+tb11.height = 0
+tb11.width = 150
+tb11.x = 0
+	
+pop91.type = popup
+pop91.width = 60
+pop91.x = 140
+pop91.option = Выкл.
+	
+# Tile Size	
+tb10.tooltip = Размер значков Dock в пикселах.
+tb10.type = text
+tb10.height = 0
+tb10.width = 150
+tb10.x = 0
+		
+pop90.type = popup
+pop90.width = 60
+pop90.x = 140
+			
+# App spacer text
+tb1.tooltip = В качестве разделителей приложений используется прозрачный значок. Разделители можно перетаскивать и изменять их порядок в Dock любым образом. Чтобы удалить разделитель приложения, перетащите его за пределы Dock или щелкните его правой кнопкой мыши для выбора параметра удаления.
+tb1.type = text
+tb1.height = 0
+tb1.width = 150
+tb1.x = 0
+	
+pop1.type = popup
+pop1.width = 50
+pop1.x = 150
+
+# Doc spacers text
+tb2.tooltip = В качестве разделителей документов используется прозрачный значок. Разделители можно перетаскивать и изменять их порядок в Dock любым образом. Чтобы удалить разделитель документа, перетащите его за пределы Dock или щелкните его правой кнопкой мыши для выбора параметра удаления.
+tb2.type = text
+tb2.height = 0
+tb2.width = 150
+tb2.x = 0
+
+# Doc spacers
+pop2.type = popup
+pop2.width = 50
+pop2.x = 150
+	
+# Active applications
+chk2.tooltip = Если этот флажок установлен, в панели Dock отображаются значки только запущенных приложений. Остальные значки, кроме Корзины будут скрыты.
+chk2.type = checkbox
+chk2.label = Показывать только активные приложения
+chk2.x = 225
+
+	
+# Dim hidden items
+chk3.tooltip = Если этот флажок установлен, запущенные приложения, которые скрыты (⌘+H), будут затенены в панели Dock.
+chk3.type = checkbox
+chk3.label = Затенять скрытые элементы
+chk3.x = 225
+
+# Lock dock contents
+chk4.tooltip = Если этот флажок установлен, содержимое панели Dock невозможно настроить.
+chk4.type = checkbox
+chk4.label = Блокировать содержимое Dock
+chk4.x = 225
+
+# Mouse over highlight
+chk5.tooltip = Если этот флажок установлен, выделение при наведении курсора будет отображаться во время просмотра папок в Dock в режиме сетки.
+chk5.type = checkbox
+chk5.label = Выделение при наведении курсора
+chk5.x = 225
+chk5.y = $chxy"
+	
+# Recents Folder
+chk6.tooltip = Если этот флажок установлен, в панель Dock добавляется стек недавних объектов. Щелчком правой кнопки или нажатием Control и щелчком левой кнопки этот стек можно настроить на отображение приложений, документов, серверов, томов или элементов.
+chk6.type = checkbox
+chk6.label = Папка недавних объектов
+chk6.x = 225
+	
+# Hide tooltips
+chk7.tooltip = Если этот флажок установлен, все всплывающие подсказки с названиями приложений и папок в Dock будут скрыты. Finder и новые объекты, добавленные в Dock, будут по-прежнему отображаться.
+chk7.type = checkbox
+chk7.label = Скрывать подсказки Dock
+chk7.disabled = 0
+chk7.x = 225
+
+# Finder and Trash remove option
+chk8.tooltip = Если этот флажок установлен, значки Finder и Корзины можно удалить из Dock щелчком правой кнопки аналогично всем остальным объектам Dock.
+chk8.type = checkbox
+chk8.label = Возможность удаления Finder и Корзины
+chk8.disabled = 0
+chk8.x = 225
+	
+# No app bounce
+chk9.tooltip = Если этот флажок установлен, значки не будут подпрыгивать в Dock. Вместо этого при запуске приложений будет мигать индикатор.
+chk9.type = checkbox
+chk9.label = Значок приложения не прыгает
+chk9.disabled = 0
+chk9.x = 225
+
+# Single app mode
+chk10.tooltip = Если этот флажок установлен, при нажатии значка приложения это приложение будет запущено, при этом все остальные окна будут скрыты.
+chk10.type = checkbox
+chk10.label = Режим одного приложения
+chk10.disabled = 0
+chk10.x = 225
+	
+# Settings text
+tb19.tooltip =
+tb19.type = text
+tb19.height = 0
+tb19.width = 150
+tb19.x = 0
+	
+# Settings button
+settingb.type = button
+settingb.label = Просмотр
+settingb.x = 108
+	
+# Email button	
+emailb.type = button
+emailb.label = Эл. почта
+	
+# Donate button
+donateb.type = button
+donateb.label = Пожертвовать
+	
+# Cancel button
+cb.type = cancelbutton
+cb.label = Выход
+	
+# Accept button
+db.type = defaultbutton
+db.label = Применить
+
+# Text
+tb0.text = Тема Dock:
+tb1.text = Разделители приложений:
+tb2.text = Разделители документов:
+tb10.text = Размер значка:
+tb11.text = Увеличение:
+tb12.text = Импорт темы:
+tb19.text = Дополнительные настройки:
+tb20.text = Автоматическое скрытие:
