@@ -7,30 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
-		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		C381D803181FEA2B008521C6 /* cDock.m in Sources */ = {isa = PBXBuildFile; fileRef = C381D802181FEA2B008521C6 /* cDock.m */; };
 		C3E0CF3B182503F4005B4BC1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E0CF3118250383005B4BC1 /* QuartzCore.framework */; };
 		FB19BD91197243F4001461C3 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = FB19BD8F197243F4001461C3 /* fishhook.c */; };
+		FB48B1581AC68F460026ADFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB48B1571AC68F460026ADFB /* CoreGraphics.framework */; };
+		FB48B1631AC690360026ADFB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB48B1621AC690360026ADFB /* Cocoa.framework */; };
+		FB48B16A1AC692200026ADFB /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FB48B1691AC692200026ADFB /* ZKSwizzle.m */; };
+		FB48B16D1AC692530026ADFB /* cDock_theme.c in Sources */ = {isa = PBXBuildFile; fileRef = FB48B16B1AC692530026ADFB /* cDock_theme.c */; };
 		FB58D31619526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m in Sources */ = {isa = PBXBuildFile; fileRef = FB58D31519526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		8D5B49B6048680CD000E48DA /* cDockBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cDockBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B6048680CD000E48DA /* cDock.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cDock.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C381D801181FEA2B008521C6 /* cDock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cDock.h; sourceTree = "<group>"; };
 		C381D802181FEA2B008521C6 /* cDock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cDock.m; sourceTree = "<group>"; };
 		C3E0CF3118250383005B4BC1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		FB19BD8F197243F4001461C3 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
 		FB19BD90197243F4001461C3 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
+		FB48B1571AC68F460026ADFB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CoreGraphics.framework; sourceTree = "<group>"; };
+		FB48B1621AC690360026ADFB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = ../../../../../../System/Library/Frameworks/Cocoa.framework; sourceTree = "<group>"; };
+		FB48B1681AC692200026ADFB /* ZKSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKSwizzle.h; sourceTree = "<group>"; };
+		FB48B1691AC692200026ADFB /* ZKSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKSwizzle.m; sourceTree = "<group>"; };
+		FB48B16B1AC692530026ADFB /* cDock_theme.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cDock_theme.c; sourceTree = "<group>"; };
+		FB48B16C1AC692530026ADFB /* cDock_theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cDock_theme.h; sourceTree = "<group>"; };
 		FB58D31419526D3F00A16617 /* NSProcessInfo+PECocoaBackports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSProcessInfo+PECocoaBackports.h"; sourceTree = "<group>"; };
 		FB58D31519526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSProcessInfo+PECocoaBackports.m"; sourceTree = "<group>"; };
 		FB58D31719526DBC00A16617 /* PECocoaBackportsGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECocoaBackportsGlobal.h; sourceTree = "<group>"; };
+		FB9C98A61AD07FD800C84A6C /* DOCKFloorLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOCKFloorLayer.h; sourceTree = "<group>"; };
+		FB9C98A71AD07FD800C84A6C /* DOCKIndicatorLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOCKIndicatorLayer.h; sourceTree = "<group>"; };
+		FB9C98A81AD07FD800C84A6C /* DOCKLabelLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOCKLabelLayer.h; sourceTree = "<group>"; };
+		FB9C98A91AD07FD800C84A6C /* DOCKSeparatorTile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOCKSeparatorTile.h; sourceTree = "<group>"; };
+		FB9C98AA1AD07FD800C84A6C /* DOCKTileLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOCKTileLayer.h; sourceTree = "<group>"; };
+		FB9C98AB1AD07FD800C84A6C /* ECMaterialLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECMaterialLayer.h; sourceTree = "<group>"; };
+		FB9C98AC1AD0800500C84A6C /* Tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		FB9C98B31AD0852800C84A6C /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,8 +49,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				FB48B1581AC68F460026ADFB /* CoreGraphics.framework in Frameworks */,
 				C3E0CF3B182503F4005B4BC1 /* QuartzCore.framework in Frameworks */,
+				FB48B1631AC690360026ADFB /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,84 +61,44 @@
 		089C166AFE841209C02AAC07 /* BlackDock */ = {
 			isa = PBXGroup;
 			children = (
-				08FB77AFFE84173DC02AAC07 /* Classes */,
-				32C88E010371C26100C91783 /* Other Sources */,
-				089C167CFE841241C02AAC07 /* Resources */,
-				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				08FB77AFFE84173DC02AAC07 /* cDock */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
 			);
 			name = BlackDock;
 			sourceTree = "<group>";
 		};
-		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
-				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
-				C3E0CF3118250383005B4BC1 /* QuartzCore.framework */,
-			);
-			name = "Frameworks and Libraries";
-			sourceTree = "<group>";
-		};
-		089C167CFE841241C02AAC07 /* Resources */ = {
+		089C167CFE841241C02AAC07 /* resource */ = {
 			isa = PBXGroup;
 			children = (
 				8D5B49B7048680CD000E48DA /* Info.plist */,
-				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 			);
-			name = Resources;
+			name = resource;
 			sourceTree = "<group>";
 		};
-		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+		08FB77AFFE84173DC02AAC07 /* cDock */ = {
 			isa = PBXGroup;
 			children = (
+				FB9C98B31AD0852800C84A6C /* constants.h */,
+				C381D801181FEA2B008521C6 /* cDock.h */,
+				C381D802181FEA2B008521C6 /* cDock.m */,
+				FB48B16C1AC692530026ADFB /* cDock_theme.h */,
+				FB48B16B1AC692530026ADFB /* cDock_theme.c */,
+				FB48B1641AC6910B0026ADFB /* apple */,
 				FB19BD9419724487001461C3 /* backports */,
+				FB48B1591AC68FDF0026ADFB /* framework */,
 				FB19BD9319724474001461C3 /* fishhook */,
-				FB19BD9219724466001461C3 /* cDock */,
+				089C167CFE841241C02AAC07 /* resource */,
+				FB9C98B01AD082C600C84A6C /* swizzle */,
 			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
-		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				089C167FFE841241C02AAC07 /* AppKit.framework */,
-				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
-				089C1672FE841209C02AAC07 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
+			name = cDock;
 			sourceTree = "<group>";
 		};
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D5B49B6048680CD000E48DA /* cDockBundle.bundle */,
+				8D5B49B6048680CD000E48DA /* cDock.bundle */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		32C88E010371C26100C91783 /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Other Sources";
-			sourceTree = "<group>";
-		};
-		FB19BD9219724466001461C3 /* cDock */ = {
-			isa = PBXGroup;
-			children = (
-				C381D801181FEA2B008521C6 /* cDock.h */,
-				C381D802181FEA2B008521C6 /* cDock.m */,
-			);
-			name = cDock;
 			sourceTree = "<group>";
 		};
 		FB19BD9319724474001461C3 /* fishhook */ = {
@@ -148,12 +120,45 @@
 			name = backports;
 			sourceTree = "<group>";
 		};
+		FB48B1591AC68FDF0026ADFB /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				FB48B1621AC690360026ADFB /* Cocoa.framework */,
+				FB48B1571AC68F460026ADFB /* CoreGraphics.framework */,
+				C3E0CF3118250383005B4BC1 /* QuartzCore.framework */,
+			);
+			name = framework;
+			sourceTree = "<group>";
+		};
+		FB48B1641AC6910B0026ADFB /* apple */ = {
+			isa = PBXGroup;
+			children = (
+				FB9C98AC1AD0800500C84A6C /* Tile.h */,
+				FB9C98A61AD07FD800C84A6C /* DOCKFloorLayer.h */,
+				FB9C98A71AD07FD800C84A6C /* DOCKIndicatorLayer.h */,
+				FB9C98A81AD07FD800C84A6C /* DOCKLabelLayer.h */,
+				FB9C98A91AD07FD800C84A6C /* DOCKSeparatorTile.h */,
+				FB9C98AA1AD07FD800C84A6C /* DOCKTileLayer.h */,
+				FB9C98AB1AD07FD800C84A6C /* ECMaterialLayer.h */,
+			);
+			name = apple;
+			sourceTree = "<group>";
+		};
+		FB9C98B01AD082C600C84A6C /* swizzle */ = {
+			isa = PBXGroup;
+			children = (
+				FB48B1681AC692200026ADFB /* ZKSwizzle.h */,
+				FB48B1691AC692200026ADFB /* ZKSwizzle.m */,
+			);
+			name = swizzle;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D5B49AC048680CD000E48DA /* cDockBundle */ = {
+		8D5B49AC048680CD000E48DA /* cDock */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "cDockBundle" */;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "cDock" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
@@ -163,10 +168,10 @@
 			);
 			dependencies = (
 			);
-			name = cDockBundle;
+			name = cDock;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = BlackDock;
-			productReference = 8D5B49B6048680CD000E48DA /* cDockBundle.bundle */;
+			productReference = 8D5B49B6048680CD000E48DA /* cDock.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -188,7 +193,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D5B49AC048680CD000E48DA /* cDockBundle */,
+				8D5B49AC048680CD000E48DA /* cDock */,
 			);
 		};
 /* End PBXProject section */
@@ -198,7 +203,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,24 +213,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB48B16D1AC692530026ADFB /* cDock_theme.c in Sources */,
 				FB58D31619526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m in Sources */,
 				FB19BD91197243F4001461C3 /* fishhook.c in Sources */,
 				C381D803181FEA2B008521C6 /* cDock.m in Sources */,
+				FB48B16A1AC692200026ADFB /* ZKSwizzle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				089C167EFE841241C02AAC07 /* English */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB913B08733D840010E9CD /* Debug */ = {
@@ -235,6 +230,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -243,7 +242,7 @@
 				GCC_PREFIX_HEADER = cDockBundle_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_NAME = cDockBundle;
+				PRODUCT_NAME = cDock;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -254,12 +253,16 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = cDockBundle_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_NAME = cDockBundle;
+				PRODUCT_NAME = cDock;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -291,7 +294,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "cDockBundle" */ = {
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "cDock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913B08733D840010E9CD /* Debug */,

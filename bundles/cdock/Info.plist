@@ -3,11 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFile</key>
-	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>org.w0lf.${PRODUCT_NAME:rfc1034Identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -17,15 +15,15 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.14</string>
+	<string>0.15</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>80</string>
+	<string>1</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2013 cvz, © 2014 w0lf, © 2014 Adam Bell</string>
+	<string>Copyright © 2015 Wolfgang Baird. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string></string>
+	<string>cDock</string>
 	<key>SIMBLTargetApplications</key>
 	<array>
 		<dict>

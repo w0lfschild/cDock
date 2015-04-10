@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8D5B49AC048680CD000E48DA"
-               BuildableName = "cDockBundle.bundle"
-               BlueprintName = "cDockBundle"
+               BuildableName = "cDock.bundle"
+               BlueprintName = "cDock"
                ReferencedContainer = "container:cDock.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D5B49AC048680CD000E48DA"
-            BuildableName = "cDockBundle.bundle"
-            BlueprintName = "cDockBundle"
+            BuildableName = "cDock.bundle"
+            BlueprintName = "cDock"
             ReferencedContainer = "container:cDock.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

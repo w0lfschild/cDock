@@ -3,22 +3,36 @@
 //  cDock
 //
 //  Created by Wolfgang Baird
-//  Copyright (c) 2014 Wolfgang Baird. All rights reserved.
+//  Copyright (c) 2015 Wolfgang Baird. All rights reserved.
 //
 //  Based on work by
 //
-//  Adam Bell - darkdock
-//  cvz - blackdock
+//  Adam Bell       - darkdock
+//  cvz             - blackdock
+//  Alex Zielenski  - dockify
 //
 
 // imports
 #import "cDock.h"
 #import "fishhook.h"
+#import "ZKSwizzle.h"
+#import "constants.h"
 #import <objc/objc-class.h>
 #import <dlfcn.h>
 
 // includes
 #include <stdlib.h>
+
+extern DKDockSize DKDockSizeForIconSize(CGFloat iconSize) {
+    if (iconSize <= 44) {
+        return DKDockSizeSmall;
+    } else if (iconSize <= 72) {
+        return DKDockSizeMedium;
+    } else if (iconSize <= 100) {
+        return DKDockSizeLarge;
+    }
+    return DKDockSizeExtraLarge;
+}
 
 void SwizzleInstanceMethod (Class cls, SEL old, SEL new) {
 	Method mold = class_getInstanceMethod(cls, old);
@@ -75,6 +89,26 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
     if ([arr count] > check) return ([arr[check] integerValue] / div);
     return 0.0;
 }
+
+@interface BlackDockIndicatorLayer : CALayer
+@end
+
+@implementation BlackDockIndicatorLayer
+
+- (void)resizeWithOldSuperlayerSize:(CGSize)size
+{
+    self.backgroundColor = NSColor.clearColor.CGColor;
+    self.cornerRadius = 0.0;
+
+    NSImage *image = getImg(@"test.png");
+    NSImageRep *rep = [[image representations] objectAtIndex:0];
+
+    self.contents = (__bridge id)image;
+    self.contentsGravity = kCAGravityBottom;
+    self.frame = CGRectMake(self.frame.origin.x, 0, rep.pixelsWide / self.contentsScale, rep.pixelsHigh / self.contentsScale);
+}
+    
+@end
 
 @interface BlackDockBorderLayer : CALayer
 @end
@@ -354,6 +388,31 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
 
 @end
 
+@implementation CALayer (DKIndicatorLayer)
+
+- (void)CDupdateIndicatorForSize:(float)arg1 {
+    [self CDupdateIndicatorForSize:arg1];
+    
+    Class cls = NSClassFromString(@"DOCKIndicatorLayer");
+    SEL old = @selector(updateIndicatorForSize:);
+    SEL new = @selector(CDupdateIndicatorForSize:);
+    SwizzleInstanceMethod(cls, old, new);
+    
+    self.backgroundColor = NSColor.clearColor.CGColor;
+    self.cornerRadius = 0.0;
+    
+    //DKDockSize size = DKDockSizeForIconSize(arg1);
+    NSImage *image = getImg(@"test.png");
+    NSImageRep *rep = [[image representations] objectAtIndex:0];
+    //NSSize imageSize = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+    
+    self.contents = (__bridge id)image;
+    self.contentsGravity = kCAGravityBottom;
+    self.frame = CGRectMake(self.frame.origin.x, 0, rep.pixelsWide / self.contentsScale, rep.pixelsHigh / self.contentsScale);
+}
+
+@end
+
 @implementation NSObject (BlackDock)
 
 - (void)BlackDock_DOCKTileLayer_createShadowAndReflectionLayers
@@ -385,6 +444,7 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
 @synthesize floorLayer;
 @synthesize separatorLayer;
 @synthesize tileLayer;
+@synthesize indicatorLayer;
 
 static id (*orig_CFPreferencesCopyAppValue)(CFStringRef key, CFStringRef applicationID);
 
@@ -455,7 +515,7 @@ id hax_CFPreferencesCopyAppValue(CFStringRef key, CFStringRef applicationID) {
         if (osver.minorVersion >= 10) {
             orig_CFPreferencesCopyAppValue = dlsym(RTLD_DEFAULT, "CFPreferencesCopyAppValue");
             rebind_symbols((struct rebinding[1]){{"CFPreferencesCopyAppValue", hax_CFPreferencesCopyAppValue}}, 1);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 CFNotificationCenterPostNotification(CFNotificationCenterGetDistributedCenter(), CFSTR("AppleInterfaceThemeChangedNotification"), (void *)0x1, NULL, YES);
             });
             
