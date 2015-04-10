@@ -1,7 +1,41 @@
 ------------------------------------------------
 
-Version		: 7.1.1
-Build date	: Mar / 21 / 2015
+Version		: 7.3
+Build date	: Apr / 05 / 2015
+
+------------------------------------------------
+
+7.3
+
+New
+- Localization support
+	-en (English)
+	-ru (Russian)
+	-zh (Chinese)
+
+Changed
+- Restarts XtraFinder/TotalFinder if present and making changes to Finder
+- Improved menubar cDock re-launcher can now
+	restart Dock
+	restart Finder
+	restart cDock Agent
+- Renamed "Finder and Trash closable" > "Custom Dock Menus"
+- Edited a few tooltips
+- Updated credits
+
+------------------------------------------------
+
+7.2.1
+
+New
+- Dock setting > Hide dock tooltips*
+- Dock setting > Finder and Trash closable*
+
+* Requires admin password to apply also experimental
+
+Fixed
+- Update failing if cDock was located in a folder that requires admin password to write such as /Applications/Utilities
+- cDock ignoring wrong passwords. Users now get 5 tries
 
 ------------------------------------------------
 
@@ -66,7 +100,7 @@ Fixed
 - 'Automatically install updates' setting not applying
 - Logging not working on first launch after an update to cDock
 - cDock opening more than 1 instance of cDock agent
-- cDock agent opening more than 1 insatnce of SIMBL
+- cDock agent opening more than 1 instance of SIMBL
 - cDock agent scripts not exiting properly
 
 Changed

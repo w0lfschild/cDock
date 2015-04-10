@@ -1,7 +1,7 @@
 ------------------------------------------------
 
-Version		: 7.0.3.1
-Build date	: Feb / 05 / 2015
+Version		: 7.2.0.1
+Build date	: Mar / 23 / 2015
 
 ------------------------------------------------
 This is a beta build. Please let me know if issues arise.
@@ -9,14 +9,9 @@ This is a beta build. Please let me know if issues arise.
 
 New
 
--- localiztion support
--- Dock setting > Hide tooltips**
--- Dock setting > Allow Finder and Trash to be removed from Dock**
+-- Initial localiztion support
+-- cDock bundle improvements
 -- Extra settings > remove broken dock links
-
-Improvements and fixes
-
---
 
 ------------------------------------------------
 
