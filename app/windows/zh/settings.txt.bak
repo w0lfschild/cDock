@@ -1,0 +1,126 @@
+*.title =欢迎来到cDock
+*.floating = 1
+*.autosavekey = cDock_settings
+
+# Appearance text
+swtb0.type = text
+swtb0.rely = -18
+swtb0.text =更新：
+
+# Check for updates now
+swchk1.type = checkbox
+swchk1.label =现在检查更新
+swchk1.tooltip =点击“申请”时，检查更新。
+swchk1.rely = -18
+swchk1.relx = 20
+
+# Auto check for updates
+swchk0.type = checkbox
+swchk0.label =自动检查更新
+swchk0.tooltip =启动时，cDock会一周自动更新一次；当cDock在打开状态下，它会一天自动更新一次。
+swchk0.rely = -18
+swchk0.relx = 20
+
+# Auto install updates
+swchk2.type = checkbox
+swchk2.label =自动安装更新
+swchk2.tooltip =启动时，cDock会在没有自动提示用户首次安装更新的情况下自动尝试安装更新。
+swchk2.rely = -18
+swchk2.relx = 20
+
+# Check for BETA updates
+swchk3.type = checkbox
+swchk3.label =包括测试版本
+swchk3.tooltip =包括搜索测试更新版本。有可能出现错误，仅供专业用户使用。
+swchk3.rely = -10
+swchk3.relx = 20
+
+# Dock text
+swtb1.type = text
+swtb1.rely = -18
+swtb1.text =Dock：
+
+# Icon cache
+swchk10.type = checkbox
+swchk10.label =重置图标缓存
+swchk10.tooltip =如果图标不显示，请重置图标缓存。
+swchk10.rely = -18
+swchk10.relx = 20
+
+# remove_broken_dock_items
+swchk11.type = checkbox
+swchk11.label =移除断开的Dock项
+swchk11.disabled = 1
+swchk11.tooltip =将文件或文件夹的链接不存在的Dock项以及显示问号的Dock项移除。
+swchk11.rely = -18
+swchk11.relx = 20
+
+# Restore stock
+swchk7.type = checkbox
+swchk7.label =将Dock栏恢复至出厂设置
+swchk7.tooltip =将Dock栏恢复至新安装的OS X状态。
+swchk7.rely = -18
+swchk7.relx = 20
+
+# Restore
+swchk4.type = checkbox
+swchk4.label =将Dock栏从备份中恢复
+swchk4.tooltip =恢复至com.apple.Dock.plist之前保存的状态
+swchk4.rely = -18
+swchk4.relx = 20
+
+# Restore popup
+swpop0.type = popup
+swpop0.rely = -10
+swpop0.relx = 40
+
+# Finder text
+swtb3.type = text
+swtb3.rely = -18
+swtb3.text =Finder：
+
+# Colored sidebar
+swchk8.type = checkbox
+swchk8.label =彩色工具栏
+swchk8.tooltip =在工具栏中显示颜色。
+swchk8.rely = -18
+swchk8.relx = 20
+
+# Folder on top
+swchk9.type = checkbox
+swchk9.label =文件夹靠顶端显示
+swchk9.tooltip =按类型排序时，文件夹靠顶端显示
+swchk9.rely = -10
+swchk9.relx = 20
+
+# cDock text
+swtb2.type = text
+swtb2.rely = -18
+swtb2.text =档案分隔条：
+
+# Display SIMBL warnings
+swchk5.type = checkbox
+swchk5.label =显示SIMBL警告
+swchk5.tooltip =启动时，cDock移除SIMBL插件，而不使用SIMBL插件。
+swchk5.rely = -18
+swchk5.relx = 20
+
+# Reset cDock
+swchk6.type = checkbox
+swchk6.label =重置cDock
+swchk6.tooltip =启动时，最近使用的文件夹堆栈已被添加到Dock栏里。如需显示应用程序、档案、服务器、卷或者项目，只需右击或控件单击。
+swchk6.rely = -10
+swchk6.relx = 20
+
+# Pass text
+swtb5.type = text
+swtb5.rely = -10
+swtb5.text =需要管理员密码。
+
+# Accept button
+swOK.type = defaultbutton
+swOK.label =申请
+
+# Cancel button
+swcb.type = cancelbutton
+swcb.label =取消

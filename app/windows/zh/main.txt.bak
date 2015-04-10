@@ -1,0 +1,183 @@
+# Window Appearance
+*.floating = 1
+*.transparency = 1.00
+*.autosavekey = cDock
+	
+# Theme
+tb0.tooltip =自定义Dock主题将以崭新的面貌取代Dock背景。只有先在（屏幕）底部将Dock设置好，3D主题才能显示，否则，Dock将显示为透明。
+tb0.type = text
+tb0.height = 0
+tb0.width = 150
+tb0.x = 0
+	
+pop0.type = popup
+pop0.width = 120
+pop0.option =无
+pop0.x = 80
+
+# Import theme
+themeb.type = button
+themeb.label =导入
+themeb.x = 108
+
+tb12.tooltip =导入他人分享的自定义主题。
+tb12.type = text
+tb12.height = 0
+tb12.width = 150
+tb12.x = 0
+
+# Autohide
+tb20.tooltip =将Dock栏设置为自动隐藏。
+tb20.type = text
+tb20.height = 0
+tb20.width = 150
+tb20.x = 0
+
+pop92.type = popup
+pop92.width = 60
+pop92.x = 140
+pop92.option = Off
+	
+# Magnification
+tb11.tooltip =Dock的放大倍数。将该选项设置为除“关闭”以外的任意项，当您将鼠标移动到图标上时，Dock图标将会变大。数字越大，图标就越大。
+tb11.type = text
+tb11.height = 0
+tb11.width = 150
+tb11.x = 0
+	
+pop91.type = popup
+pop91.width = 60
+pop91.x = 140
+pop91.option =关闭
+	
+# Tile Size	
+tb10.tooltip =Dock图标尺寸是正方形像素。
+tb10.type = text
+tb10.height = 0
+tb10.width = 150
+tb10.x = 0
+		
+pop90.type = popup
+pop90.width = 60
+pop90.x = 140
+			
+# App spacer text
+tb1.tooltip =应用程序分隔条是透明的图标。您可以在Dock栏里任意拖动和重新排列这些图标。移除一个应用程序分隔条有两种方法：将其拖出Dock栏或者右击它并选择移除选项即可。
+tb1.type = text
+tb1.height = 0
+tb1.width = 150
+tb1.x = 0
+	
+pop1.type = popup
+pop1.width = 50
+pop1.x = 150
+
+# Doc spacers text
+tb2.tooltip =档案分隔条是透明的图标。您可以在Dock栏里任意拖动和重新排列这些图标。移除一个档案分隔条有两种方法：将其拖出Dock栏或者右击它并选择移除选项即可。
+tb2.type = text
+tb2.height = 0
+tb2.width = 150
+tb2.x = 0
+
+# Doc spacers
+pop2.type = popup
+pop2.width = 50
+pop2.x = 150
+	
+# Active applications
+chk2.tooltip =启动时，Dock栏只显示正在运行的应用程序图标。除了垃圾桶之外，所有应用程序都会被隐藏。
+chk2.type = checkbox
+chk2.label =只显示激活的应用程序
+chk2.x = 225
+
+	
+# Dim hidden items
+chk3.tooltip =启动被隐藏的应用程序时 (⌘+H)，Dock栏里的应用程序图标会变暗。
+chk3.type = checkbox
+chk3.label =隐藏项变暗
+chk3.x = 225
+
+# Lock dock contents
+chk4.tooltip =一旦启动，您将无法调整Dock栏里的内容。
+chk4.type = checkbox
+chk4.label =锁定Dock栏的内容
+chk4.x = 225
+
+# Mouse over highlight
+chk5.tooltip =启动时，以网格视图方式浏览Dock栏里的文件夹时，您可以看到鼠标指针所指的文件夹会突出显示（变大）。
+chk5.type = checkbox
+chk5.label =鼠标指针所指的图标突出显示（变大）
+chk5.x = 225
+chk5.y = $chxy"
+	
+# Recents Folder
+chk6.tooltip =启动时，最近使用的文件夹堆栈已被添加到Dock栏里。如需显示应用程序、档案、服务器、卷或者项目，只需右击或控件单击。
+chk6.type = checkbox
+chk6.label =最近使用的文件夹
+chk6.x = 225
+	
+# Hide tooltips
+chk7.tooltip =启动时，Dock栏里的所有应用程序和文件夹弹出窗口将会隐藏。Dock栏里的Finder以及项目新建仍然可以正常显示。
+chk7.type = checkbox
+chk7.label =隐藏Dock栏的工具提示项
+chk7.disabled = 0
+chk7.x = 225
+
+# Finder and Trash remove option
+chk8.tooltip =启动时，Dock栏里的Finder和垃圾桶可以通过右击移除，和其他Dock项操作一样。
+chk8.type = checkbox
+chk8.label =Finder和垃圾桶关闭
+chk8.disabled = 0
+chk8.x = 225
+	
+# No app bounce
+chk9.tooltip =启动时，图标不会在Dock栏里弹跳，但在打开应用程序时，指示灯会闪。
+chk9.type = checkbox
+chk9.label =无应用程序 (app) 弹跳
+chk9.disabled = 0
+chk9.x = 225
+
+# Single app mode
+chk10.tooltip =启动时，点击Dock栏里的应用程序，在该应用程序 打开的同时，其他窗口会隐藏。
+chk10.type = checkbox
+chk10.label =单一应用程序 模式
+chk10.disabled = 0
+chk10.x = 225
+	
+# Settings text
+tb19.tooltip =
+tb19.type = text
+tb19.height = 0
+tb19.width = 150
+tb19.x = 0
+	
+# Settings button
+settingb.type = button
+settingb.label =视图
+settingb.x = 108
+	
+# Email button	
+emailb.type = button
+emailb.label =电子邮件
+	
+# Donate button
+donateb.type = button
+donateb.label =捐赠
+	
+# Cancel button
+cb.type = cancelbutton
+cb.label =退出
+	
+# Accept button
+db.type = defaultbutton
+db.label =申请
+
+# Text
+tb0.text =Dock主题：
+tb1.text =应用程序分隔条：
+tb2.text =档案分隔条：
+tb10.text =图标尺寸：
+tb11.text =放大：
+tb12.text =导入主题：
+tb19.text =其他设置：
+tb20.text =自动隐藏：
