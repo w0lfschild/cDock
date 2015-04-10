@@ -49,9 +49,9 @@ swchk10.relx = 20
 
 # remove_broken_dock_items
 swchk11.type = checkbox
-swchk11.label = Remove broken Dock items
+swchk11.label = Clear Dock backups
 swchk11.disabled = 1
-swchk11.tooltip = Remove dock items that link to a non-existant file or folder and show as a question mark.
+swchk11.tooltip = Deletes current Dock backups.
 swchk11.rely = -18
 swchk11.relx = 20
 
@@ -107,7 +107,7 @@ swchk5.relx = 20
 
 # Reset cDock
 swchk6.type = checkbox
-swchk6.label = Reset cDock
+swchk6.label = Reset cDock (Uninstall)
 swchk6.tooltip = Resets cDock and removes all files it stored in ~/Library/Application Support.
 swchk6.rely = -10
 swchk6.relx = 20

@@ -117,17 +117,17 @@ chk6.label = Recents folder
 chk6.x = 225
 	
 # Hide tooltips
-chk7.tooltip = When enabled all appication and folder name popups on the Dock will be hidden. Finder and New items added to the Dock will still show.
+chk7.tooltip = When enabled all appication and folder name popups on the Dock will be hidden. Finder, recent items folders and new items added to the Dock will still show.
 chk7.type = checkbox
 chk7.label = Hide dock tooltips
-chk7.disabled = 1
+chk7.disabled = 0
 chk7.x = 225
 
-# Hide tooltips
-chk8.tooltip = When enabled Finder and Trash can be removed from the dock with right click like all other dock items.
+# Finder and Trash remove option
+chk8.tooltip = When enabled Finder, Trash, and the Dock separator can be removed from the Dock with right click like all other dock items. Finder will also gain a quit and relaunch option. If you do not quit Finder before removing it the process indicator will remain.
 chk8.type = checkbox
-chk8.label = Finder and Trash closable
-chk8.disabled = 1
+chk8.label = Custom Dock Menus
+chk8.disabled = 0
 chk8.x = 225
 	
 # No app bounce
