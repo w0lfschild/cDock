@@ -4,8 +4,8 @@
 #
 #				: cDock 
 # Maintained By	: Wolfgang Baird
-# Version		: 7.1.1
-# Updated		: Mar / 23 / 2015
+# Version		: 7.2.1
+# Updated		: Apr / 05 / 2015
 #
 # # # # # # # # # # # # # # # # # # # # 
 
@@ -105,7 +105,7 @@ apply_main() {
 			plistbud "Set" "theme" "string" "$dock_theme" "$cdock_pl"
 		else
 			install_dock=true
-			echo "$pop0"
+			echo "Theme: $pop0"
 		fi
 		
 		# Check for other SIMBL bundles
@@ -191,13 +191,33 @@ apply_main() {
 				$PlistBuddy "Add persistent-others:$d_count:tile-data dict" $pl_alt; \
 				$PlistBuddy "Add persistent-others:$d_count:tile-data:list-type integer 1" $pl_alt; }	
 		else
-			for (( idx=0; idx <= $d_count; idx++ )); do
+			for (( idx=0; idx < $d_count; idx++ )); do
 				if [[ $($PlistBuddy "Print persistent-others:$idx:tile-type" $pl_alt) = "recents-tile" ]]; then
 					$PlistBuddy "Delete persistent-others:$idx" $pl_alt
 					idx=$_count
 				fi
 			done
 		fi
+		
+		# Tooltips
+		dock_hide_tooltips=$($PlistBuddy "Print TrashName" /System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/InfoPlist.strings || echo Trash)
+		if [[ $dock_hide_tooltips = "Trash" ]]; then dock_hide_tooltips=0; else dock_hide_tooltips=1; fi
+		if [[ $chk7 -eq 1 ]]; then
+			if [[ $dock_hide_tooltips = 0 ]]; then tooltips_hide; dock_hide_tooltips = 1; fi
+		else
+			if [[ $dock_hide_tooltips = 1 ]]; then tooltips_restore; dock_hide_tooltips = 0; fi
+		fi
+		echo "Tooltips hidden: "$dock_hide_tooltips
+		
+		# Finder and Trash close
+		dock_FT_can_kill=$($PlistBuddy "Print trash" /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist | grep 1004 || echo "")
+		if [[ $dock_FT_can_kill = "" ]]; then dock_FT_can_kill=0; else dock_FT_can_kill=1; fi
+		if [[ $chk8 -eq 1 ]]; then
+			if [[ $dock_FT_can_kill = 0 ]]; then closable_FinderTrash_ENABLE; dock_FT_can_kill=1; fi
+		else
+			if [[ $dock_FT_can_kill = 1 ]]; then closable_FinderTrash_DISABLE; dock_FT_can_kill=0; fi
+		fi
+		echo "Trash and Finder removable: "$dock_FT_can_kill
 		
 		if [[ $a_count -gt 0 ]]; then a_count=$(( $a_count - 1 )); fi
 		if [[ $d_count -gt 0 ]]; then d_count=$(( $d_count - 1 )); fi
@@ -326,28 +346,60 @@ apply_settings() {
 	install_finish
 }
 ask_pass() {
-	sudo_status=$(sudo echo null 2>&1)
 	
-	pass_window="
+pass_window="
 *.title = cDock
 *.floating = 1
 *.transparency = 1.00
-*.autosavekey = cDock_pass
+*.autosavekey = cDock_pass0
 pw0.type = password
-pw0.label = Password required to continue
+pw0.label = Password required to continue...
+pw0.mandatory = 1
+pw0.width = 100
+pw0.x = -10
+pw0.y = 4"
+
+pass_fail_window="
+*.title = cDock
+*.floating = 1
+*.transparency = 1.00
+*.autosavekey = cDock_pass1
+pw0.type = password
+pw0.label = Incorrect password, try again...
 pw0.mandatory = 1
 pw0.width = 100
 pw0.x = -10
 pw0.y = 4"
 	
-	if [[ $sudo_status != "null" ]]; then
-		pashua_run "$pass_window" 'utf8' "$scriptDirectory"
-		pass_window=""
-		echo "$pw0" | sudo -Sv
-		echo ""
-		if [[ $pw0 = "" ]]; then echo -e "No password entered"; else pw0=""; fi
-	else
-		sudo -v
+	pass_attempt=0
+	pass_success=0
+	while [ $pass_attempt -lt 5 ]; do
+		sudo_status=$(sudo echo null 2>&1)
+		if [[ $sudo_status != "null" ]]; then
+			if [[ $pass_attempt > 0 ]]; then
+				pashua_run "$pass_fail_window" 'utf8' "$scriptDirectory"
+			else
+				pashua_run "$pass_window" 'utf8' "$scriptDirectory"
+			fi
+			echo "$pw0" | sudo -Sv
+			sudo_status=$(sudo echo null 2>&1)
+			if [[ $sudo_status = "null" ]]; then
+				pass_attempt=5
+				pass_success=1
+			else
+				pass_attempt=$(( $pass_attempt + 1 ))
+				echo -e "Incorrect or no password entered"
+			fi
+			pw0=""
+		else
+			pass_attempt=5
+			pass_success=1
+			sudo -v
+		fi
+	done
+	
+	if [[ $pass_success = 1 ]]; then
+		echo "_success"
 	fi
 }
 backup_dock_plist() {
@@ -356,30 +408,26 @@ backup_dock_plist() {
 	cp "$dock_plist" "$save_folder"/"$my_time".plist
 }
 closable_FinderTrash_ENABLE() {
-	DM_temp="/tmp/DM_temp.plist"
-	if [[ ! -e /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist ]]; then
-		sudo cp /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist.bak
+	pass_res=$(ask_pass)
+	if [[ $pass_res = "_success" ]]; then
+		if [[ ! -e /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.backup.plist ]]; then
+			sudo mv /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.backup.plist
+		fi
+		sudo rm /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist
+		sudo cp "$scriptDirectory"/_Menus_custom.plist /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist
+		echo "DockMenu plist edited"
 	fi
-	cp /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist $DM_temp
-	
-	$PlistBuddy "Add finder-quit:0:sub: dict" $DM_temp
-	$PlistBuddy "Add finder-quit:0:sub:0:command integer 1004" $DM_temp
-	$PlistBuddy "Add finder-quit:0:sub:0:name string REMOVE_FROM_DOCK" $DM_temp
-	
-	$PlistBuddy "Add finder-running:2:sub: dict" $DM_temp
-	$PlistBuddy "Add finder-running:2:sub:0:command integer 1004" $DM_temp
-	$PlistBuddy "Add finder-running:2:sub:0:name string REMOVE_FROM_DOCK" $DM_temp
-	
-	$PlistBuddy "Add trash: dict" $DM_temp
-	$PlistBuddy "Add trash:4:command integer 1004" $DM_temp
-	$PlistBuddy "Add trash:4:name string REMOVE_FROM_DOCK" $DM_temp
-	
-	sudo defaults import /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist $DM_temp
-	sudo codesign -v /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock
 }
-closable_FinderTrash_DISBALE() {
-	if [[ -e /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist.bak ]]; then
-		sudo defaults import /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist.bak
+closable_FinderTrash_DISABLE() {
+	pass_res=$(ask_pass)
+	if [[ $pass_res = "_success" ]]; then
+		sudo rm /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist
+		if [[ -e /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.backup.plist ]]; then
+			sudo mv -f /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.backup.plist /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist
+		else
+			sudo cp -f "$scriptDirectory"/_Menus_stock.plist /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist
+		fi
+		echo "DockMenu plist restored"
 	fi
 }
 dir_check() {
@@ -429,8 +477,9 @@ folders_on_top() {
 	fi
 }
 get_preferences() {
-	rez=$($PlistBuddy "Print autoCheck:" "$dock_plist" 2>/dev/null)	
-	if [[ $rez != [0-1] ]]; then 
+	rez=$($PlistBuddy "Print autoCheck:" "$cdock_pl" 2>/dev/null)	
+	if [[ $rez != [0-1] ]]; then
+		echo "creating cdock plist"
 		defaults write "$cdock_pl" null 0
 	fi
 	
@@ -448,7 +497,7 @@ get_preferences() {
 	dock_autohide=$($PlistBuddy "Print autohide:" "$dock_plist" 2>/dev/null || echo 0)											# Autohide the dock
 	
 	# Dock advanced pref
-	dock_hide_tooltips=$($PlistBuddy "Print TrashName" /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings || echo Trash)
+	dock_hide_tooltips=$($PlistBuddy "Print TrashName" /System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/InfoPlist.strings || echo Trash)
 	dock_FT_can_kill=$($PlistBuddy "Print trash" /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist | grep 1004 || echo "")
 	
 	# Mavericks only dock preferences
@@ -493,36 +542,6 @@ get_preferences() {
 	if [[ $dock_contents_immutable = true ]]; then dock_contents_immutable=1; else dock_contents_immutable=0; fi
 	if [[ $dock_mouse_over_hilite_stack = true ]]; then dock_mouse_over_hilite_stack=1; else dock_mouse_over_hilite_stack=0; fi
 	if [[ $dock_use_new_list_stack = true ]]; then dock_use_new_list_stack=1; else dock_use_new_list_stack=0; fi
-}
-record_name_data() {
-	echo "Sample Text"
-}
-hide_dock_tooltips() {
-	backup_name_data="$HOME"/Library/'Application Support'/cDock/.app_name_data.bak
-	if [[ $is_hidden = true ]]; then
-		if [[ ! -e "$backup_name_data" ]]; then
-			record_name_data
-		fi
-		sudo $PlistBuddy "Set TrashName \"Trash\"" /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings
-	else
-		# Trash
-		sudo $PlistBuddy "Set TrashName \"\"" /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings
-	fi
-	
-	a_count=$($PlistBuddy "Print persistent-apps:" $pl_alt | grep -a "    Dict {" | wc -l | tr -d ' ')
-	d_count=$($PlistBuddy "Print persistent-others:" $pl_alt | grep -a "    Dict {" | wc -l | tr -d ' ')
-	for ((a=0; a < $a_count ; a++)); do
-		bakdat=$($PlistBuddy "Print persistent-apps:$a:GUID" "$pl_alt")
-		bakdat="$bakdat:$($PlistBuddy "Print persistent-apps:$a:tile-data:file-label" "$pl_alt")"
-		echo "$bakdat" >> $backup_name_data
-		#plistbud "Set" "persistent-apps:$a:tile-data:file-label" "string" "" "$pl_alt"
-	done
-	for ((a=0; a < $d_count ; a++)); do
-		bakdat=$($PlistBuddy "Print persistent-others:$a:GUID" "$pl_alt")
-		bakdat="$bakdat:$($PlistBuddy "Print persistent-others:$a:tile-data:file-label" "$pl_alt")"
-		echo "$bakdat" >> $backup_name_data
-		#plistbud "Set" "persistent-others:$a:tile-data:file-label" "string" "" "$pl_alt"
-	done
 }
 import_theme_() {
 	rv=$($cocoa_path fileselect \
@@ -741,6 +760,47 @@ simbl_disable() {
 			item=$(echo $item)
 			mv "$item" "$HOME/Library/Application Support/SIMBL/Disbaled/$bundle_name"
 		done
+}
+tooltips_hide() {
+	if [[ ! -e "$backup_name_data" ]]; then tooltips_record_name_data; fi
+	ask_pass
+	sudo $PlistBuddy "Set TrashName \"\"" /System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/InfoPlist.strings
+	for ((a=0; a < $a_count ; a++)); do plistbud "Set" "persistent-apps:$a:tile-data:file-label" "string" "" "$pl_alt"; done
+	for ((a=0; a < $d_count ; a++)); do plistbud "Set" "persistent-others:$a:tile-data:file-label" "string" "" "$pl_alt"; done
+}
+tooltips_record_name_data() {
+	bakdat=""
+	for ((a=0; a < $a_count ; a++)); do
+		bakdat="$bakdat$($PlistBuddy "Print persistent-apps:$a:GUID" "$pl_alt")"
+		bakdat="$bakdat:$($PlistBuddy "Print persistent-apps:$a:tile-data:file-label" "$pl_alt")"
+		bakdat="$bakdat
+"
+	done
+	for ((a=0; a < $d_count ; a++)); do
+		bakdat="$bakdat$($PlistBuddy "Print persistent-others:$a:GUID" "$pl_alt")"
+		bakdat="$bakdat:$($PlistBuddy "Print persistent-others:$a:tile-data:file-label" "$pl_alt")"
+		bakdat="$bakdat
+"
+	done
+	echo "$bakdat" > "$backup_name_data"
+}
+tooltips_restore() {
+	ask_pass
+	sudo $PlistBuddy "Set TrashName \"Trash\"" /System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/InfoPlist.strings
+	if [[ -e "$backup_name_data" ]]; then
+		bakdat=$(cat "$backup_name_data")
+		for ((a=0; a < $a_count ; a++)); do	
+			guid=$($PlistBuddy "Print persistent-apps:$a:GUID" "$pl_alt")
+			name=$(echo "$bakdat" | grep $guid | cut -d ':' -f 2)
+			if [[ $name != "" ]]; then plistbud "Set" "persistent-apps:$a:tile-data:file-label" "string" "$name" "$pl_alt"; fi
+		done
+		for ((a=0; a < $d_count ; a++)); do
+			guid=$($PlistBuddy "Print persistent-others:$a:GUID" "$pl_alt")
+			name=$(echo "$bakdat" | grep $guid | cut -d ':' -f 2)
+			if [[ $name != "" ]]; then plistbud "Set" "persistent-others:$a:tile-data:file-label" "string" "$name" "$pl_alt"; fi
+		done
+		rm "$backup_name_data"
+	fi
 }
 update_check() {
 	cur_date=$(date "+%y%m%d")	
@@ -1312,18 +1372,30 @@ start_time=$(date +%s)
 scriptDirectory=$(cd "${0%/*}" && echo $PWD)
 app_support="$scriptDirectory"/support
 app_bundles="$scriptDirectory"/bundles
-app_windows="$scriptDirectory"/windows
 app_directory="$scriptDirectory"
 for i in {1..2}; do app_directory=$(dirname "$app_directory"); done
 cdock_path="$app_directory"/Contents/Resources/helpers/"cDock Agent".app
 cocoa_path="$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/Resource/cocoaDialog.app/Contents/MacOS/CocoaDialog
 app_themes="$HOME"/Library/'Application Support'/cDock/themes
 save_folder="$HOME"/Library/'Application Support'/cDock/.bak
+backup_name_data="$HOME"/Library/'Application Support'/cDock/.app_name_data.bak
 PlistBuddy=/usr/libexec/PlistBuddy" -c"
 dock_plist="$HOME"/Library/Preferences/com.apple.dock.plist
 cdock_pl="$HOME"/Library/Preferences/org.w0lf.cDock.plist
 curver=$($PlistBuddy "Print CFBundleShortVersionString" "$app_directory"/Contents/Info.plist)
 mvr=$(verres $(sw_vers -productVersion) "10.10")
+
+lang=$(locale | grep LANG | cut -d\" -f2 | cut -d_ -f1)
+# if [[ -e "$scriptDirectory"/windows/"$lang" ]]; then
+# 	app_windows="$scriptDirectory"/windows/"$lang"
+# else
+# 	app_windows="$scriptDirectory"/windows/en
+# fi
+app_windows="$scriptDirectory"/windows/zh
+
+#	Integers
+a_count=0
+d_count=0
 
 #	Windows
 main_window=""
