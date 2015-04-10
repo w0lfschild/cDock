@@ -1,2 +1,16 @@
 #!/bin/bash
-killall -KILL Dock && echo "Dock restarting..."
+echo -e "Restart Dock\nRestart Finder\nRestart cDock Agent"
+if [[ $1 = "Restart Dock" ]]; then
+	killall -KILL Dock
+	say "Restarting Dock"
+fi
+if [[ $1 = "Restart Finder" ]]; then
+	# Check for XtraFinder / TotalFinder
+	killall -KILL Finder
+	say "Restarting Finder"
+fi
+if [[ $1 = "Restart cDock Agent" ]]; then
+	killall -KILL "SIMBL"
+	killall -KILL "cDock Agent"
+	say "Dock restarting"
+fi
