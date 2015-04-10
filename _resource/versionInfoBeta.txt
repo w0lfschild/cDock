@@ -1,22 +1,15 @@
 ------------------------------------------------
 
-Version		: 7.2.0.1
-Build date	: Mar / 23 / 2015
+Version		: 7.X
+Build date	: Apr / 10 / 2015
 
 ------------------------------------------------
 This is a beta build. Please let me know if issues arise.
+You can manually download updates here: https://sourceforge.net/projects/cdock
 ------------------------------------------------
 
 New
 
--- Initial localiztion support
--- cDock bundle improvements
--- Extra settings > remove broken dock links
-
-------------------------------------------------
-
-NOTE: If automatic updates fail. You can manually download updates here: 
-
-https://sourceforge.net/projects/cdock
+- ?
 
 ------------------------------------------------

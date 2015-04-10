@@ -1,10 +1,12 @@
 ------------------------------------------------
 
 Version		: 7.3
-Build date	: Apr / 05 / 2015
+Build date	: Apr / 10 / 2015
 
 ------------------------------------------------
-
+NOTE: If automatic updates fail. You can manually download updates here: 
+https://sourceforge.net/projects/cdock
+------------------------------------------------
 7.3
 
 New
@@ -145,11 +147,5 @@ Improvements and Fixes
 - General bug fixes.
 - Updated credits and welcome window.
 - UI adjustments.
-
-------------------------------------------------
-
-NOTE: If automatic updates fail. You can manually download updates here: 
-
-https://sourceforge.net/projects/cdock
 
 ------------------------------------------------
