@@ -14,10 +14,13 @@ New
 	-en (English)
 	-ru (Russian)
 	-zh (Chinese)
+	
+- Localization strings @ .../cDock.app/Contents/Resources/windows/TRANSLATE_ME.txt
+- Send localizations to aguywithlonghair@gmail.com
 
 Changed
 - Restarts XtraFinder/TotalFinder if present and making changes to Finder
-- Improved menubar cDock re-launcher can now
+- Improved menubar re-launcher
 	restart Dock
 	restart Finder
 	restart cDock Agent

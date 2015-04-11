@@ -1,12 +1,20 @@
 #!/bin/bash
 echo -e "Restart Dock\nRestart Finder\nRestart cDock Agent"
 if [[ $1 = "Restart Dock" ]]; then
-	killall -KILL Dock
+	killall "Dock"
 	say "Restarting Dock"
 fi
 if [[ $1 = "Restart Finder" ]]; then
 	# Check for XtraFinder / TotalFinder
-	killall -KILL Finder
+	if [[ $(lsof -c Finder | grep MacOS/XtraFinder) ]]; then 
+		killall "Finder"
+		open -b com.trankynam.XtraFinder
+	elif [[ $(lsof -c Finder | grep MacOS/TotalFinder) ]]; then
+		killall "Finder"
+		open -b com.binaryage.totalfinder
+	else
+		killall "Finder"
+	fi
 	say "Restarting Finder"
 fi
 if [[ $1 = "Restart cDock Agent" ]]; then

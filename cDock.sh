@@ -4,8 +4,8 @@
 #
 #				: cDock 
 # Maintained By	: Wolfgang Baird
-# Version		: 7.2.1
-# Updated		: Apr / 05 / 2015
+# Version		: 7.3
+# Updated		: Apr / 10 / 2015
 #
 # # # # # # # # # # # # # # # # # # # # 
 
@@ -614,7 +614,17 @@ install_finder_bundle() {
 }
 install_finish() {
 	if ($reboot_dock); then killall "Dock"; fi
-	if ($reboot_finder); then killall "Finder"; fi
+	if ($reboot_finder); then 
+		if [[ $(lsof -c Finder | grep MacOS/XtraFinder) ]]; then 
+			killall "Finder"
+			open -b com.trankynam.XtraFinder
+		elif [[ $(lsof -c Finder | grep MacOS/TotalFinder) ]]; then
+			killall "Finder"
+			open -b com.binaryage.totalfinder
+		else
+			killall "Finder"
+		fi
+	fi
 	if ($start_agent); then
 		ps ax | grep [c]Dock\ Agent || { echo -e "Starting dockmonitor"; open "$cdock_path"; }
 	fi
@@ -1386,12 +1396,12 @@ curver=$($PlistBuddy "Print CFBundleShortVersionString" "$app_directory"/Content
 mvr=$(verres $(sw_vers -productVersion) "10.10")
 
 lang=$(locale | grep LANG | cut -d\" -f2 | cut -d_ -f1)
-# if [[ -e "$scriptDirectory"/windows/"$lang" ]]; then
-# 	app_windows="$scriptDirectory"/windows/"$lang"
-# else
-# 	app_windows="$scriptDirectory"/windows/en
-# fi
-app_windows="$scriptDirectory"/windows/zh
+if [[ -e "$scriptDirectory"/windows/"$lang" ]]; then
+	app_windows="$scriptDirectory"/windows/"$lang"
+else
+	app_windows="$scriptDirectory"/windows/en
+fi
+# app_windows="$scriptDirectory"/windows/zh
 
 #	Integers
 a_count=0
