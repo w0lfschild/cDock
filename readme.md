@@ -6,12 +6,12 @@
 * cDock works for both the Bottom Dock and Side dock.	
 * cDock works on all versions of OSX 10.9 and above.    
 * **Note**: This may break in the future.    
-* Currently confirmed working on:    
-    * **10.9.5** (13F34)    
-    * **10.10.3** (14D131)    
-* Currently not working on:    
-    * **10.10.4** (14E26a)    
-    * **10.11** (15A178w)    
+	* Currently confirmed working on:    
+	    * **10.9.5** (13F34)    
+	    * **10.10.3** (14D131)    
+	* Currently not working on:    
+	    * **10.10.4** (14E26a)    
+	    * **10.11** (15A178w)    
 
 ### Credits: 
 http://github.com/norio-nomura/EasySIMBL	Bundle loader    
