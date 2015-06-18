@@ -1,12 +1,33 @@
 ------------------------------------------------
+Version		: 7.4
+Build date	: May / 25 / 2015
 
-Version		: 7.3
-Build date	: Apr / 10 / 2015
+NOTES:
+- cDock does not work on 10.10.4+
+- ETA of fix for 10.10.4+ unknown
+- If automatic updates fail get the latest here: 
+https://github.com/w0lfschild/cDock/releases/latest
+------------------------------------------------
+
+7.4
+
+Localizations
+	-it (Italian)
+
+Changed
+- Updates moved to GitHub
+	-> Sourceforge has been blocked by uBlock and has had a run of bad press lately related to bundling installers/adware with downloads. Although this is not the case with cDock I'd still like to distance myself from Sourceforge as my main repository/site for cDock.
+- Added translators to credits
+- Fixed some translation issues
+- Updated welcome window
+- Updated credits
+- Open menubar Dock re-launcher applet by default
+
+Fixed
+- menubar re-launcher not restarting cDock Agent
 
 ------------------------------------------------
-NOTE: If automatic updates fail. You can manually download updates here: 
-https://sourceforge.net/projects/cdock
-------------------------------------------------
+
 7.3
 
 New
