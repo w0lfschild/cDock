@@ -18,7 +18,9 @@ if [[ $1 = "Restart Finder" ]]; then
 	say "Restarting Finder"
 fi
 if [[ $1 = "Restart cDock Agent" ]]; then
+	killall "Dock"
 	killall -KILL "SIMBL"
 	killall -KILL "cDock Agent"
-	say "Dock restarting"
+	open -b org.w0lf.cDockAgent
+	say "Restarting cDock Agent"
 fi
