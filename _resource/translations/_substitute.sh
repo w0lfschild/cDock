@@ -3,12 +3,15 @@
 # v3
 # replace eng with translation
 # $1 = lang
-# $2 = path to strings
 
 scriptDirectory=$(cd "${0%/*}" && echo $PWD)
 lang_="$1"
 fold_="$scriptDirectory"/"$lang_"
 file_=("$fold_"/main.txt "$fold_"/settings.txt "$fold_"/welcome.txt)
+
+if [[ $lang_ != en ]]; then
+	sed -i '' -e s/"	*"/""/g -e s/"  *"/" "/g "$scriptDirectory"/"$lang_"_strings.txt
+fi
 
 if [[ -e "$scriptDirectory"/"$lang_" ]]; then 
 	if [[ $lang_ != en ]]; then
@@ -30,15 +33,12 @@ do
    		text_tag=$(echo "$p" | cut -d= -f1)
 		fixed_text=$(echo "$p" | sed 's,/,\\/,g')
 		# echo $fixed_text
-   		# echo $text_tag
+		# echo $text_tag
 		# echo $p
-   		sed -i.bak s/"^$text_tag.*"/"$fixed_text"/g "$i"
+		# echo
+   		sed -i '' s/"^$text_tag.*"/"$fixed_text"/g "$i"
    	fi
    done <"$scriptDirectory"/"$lang_"_strings.txt
 done
-
-pushd "$fold_"
-rm *.bak
-popd
 
 echo "FIN"

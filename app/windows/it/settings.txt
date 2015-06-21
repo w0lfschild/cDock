@@ -1,0 +1,127 @@
+*.title = Benvenuti a cDock
+*.floating = 1
+*.autosavekey = cDock_settings
+
+# Appearance text
+swtb0.type = text
+swtb0.rely = -18
+swtb0.text = Aggiornamenti:
+
+# Check for updates now
+swchk1.type = checkbox
+swchk1.label = Controlla nuovi aggiornamenti adesso
+swchk1.tooltip = Controlla nuovi aggiornamenti quando clicchi applica.
+swchk1.rely = -18
+swchk1.relx = 20
+
+# Auto check for updates
+swchk0.type = checkbox
+swchk0.label = Controlla aggiornamenti Automaticamente
+swchk0.tooltip = Quando abilitato cDock controllerà automaticamente gli aggiornamenti una volta la settimana e più di una volta al giorno quando cDock è in funzione.
+swchk0.rely = -18
+swchk0.relx = 20
+
+# Auto install updates
+swchk2.type = checkbox
+swchk2.label = Installa Aggiornamenti Automaticamente
+swchk2.tooltip = Quando abilitato cDock cercherà automaticamente di installare l’aggiornamento senza prima avvisare l’utente.
+swchk2.rely = -18
+swchk2.relx = 20
+
+# Check for BETA updates
+swchk3.type = checkbox
+swchk3.label = Includi le realizzazioni Beta
+swchk3.tooltip = Includi le realizzazioni Beta quando cerchi gli aggiornamenti. Solo per gli utenti di buon senso, gli errori a volte succedono.
+swchk3.rely = -10
+swchk3.relx = 20
+
+# Dock text
+swtb1.type = text
+swtb1.rely = -18
+swtb1.text = Dock:
+
+# Icon cache
+swchk10.type = checkbox
+swchk10.label = Resetta la cache delle icone*
+swchk10.tooltip = Resetta la cache delle icone per sistemare quelle che non si vedono. swchk11.label = Rimuovi gli elementi corrotti del Dock
+swchk10.rely = -18
+swchk10.relx = 20
+
+# remove_broken_dock_items
+swchk11.type = checkbox
+swchk11.label = Clear Dock backups
+swchk11.disabled = 1
+swchk11.tooltip = Rimuovi gli elementi del Dock che puntano a file o cartelle non esistenti e si vedono come punto interrogativo.
+swchk11.rely = -18
+swchk11.relx = 20
+
+# Restore stock
+swchk7.type = checkbox
+swchk7.label = Rimetti il Dock alle impostazioni di fabbrica.
+swchk7.tooltip = Rimetti il Dock come fosse appena installato OS X.
+swchk7.rely = -18
+swchk7.relx = 20
+
+# Restore
+swchk4.type = checkbox
+swchk4.label = Rimetti il Dock da un archivio precedente (backup)
+swchk4.tooltip = Rimetti il Dock da un precedente salvataggio del file com.apple.dock.plist
+swchk4.rely = -18
+swchk4.relx = 20
+
+# Restore popup
+swpop0.type = popup
+swpop0.rely = -10
+swpop0.relx = 40
+swpop0.option = Select a restore point
+
+# Finder text
+swtb3.type = text
+swtb3.rely = -18
+swtb3.text = Finder:
+
+# Colored sidebar
+swchk8.type = checkbox
+swchk8.label = Icone colorate della barra laterale
+swchk8.tooltip = Mostra i colori nella barra laterale.
+swchk8.rely = -18
+swchk8.relx = 20
+
+# Folder on top
+swchk9.type = checkbox
+swchk9.label = Cartelle in cima*
+swchk9.tooltip = Mostra le cartelle in cima quando elencate per tipo.
+swchk9.rely = -10
+swchk9.relx = 20
+
+# cDock text
+swtb2.type = text
+swtb2.rely = -18
+swtb2.text = cDock:
+
+# Display SIMBL warnings
+swchk5.type = checkbox
+swchk5.label = Mostra l’allerta SIMBL
+swchk5.tooltip = Quando abilitato cDock permette di rimuovere i plugin SIMBL sebbene siano usate da cDock.
+swchk5.rely = -18
+swchk5.relx = 20
+
+# Reset cDock
+swchk6.type = checkbox
+swchk6.label = Resetta cDock
+swchk6.tooltip = Resetta cDock e rimuovi tutti i file memorizzati nel percorso ~/Libreria/Application Support.
+swchk6.rely = -10
+swchk6.relx = 20
+
+# Pass text
+swtb5.type = text
+swtb5.rely = -10
+swtb5.text = * Richiede password di amministrazione.
+
+# Accept button
+swOK.type = defaultbutton
+swOK.label = Applica
+
+# Cancel button
+swcb.type = cancelbutton
+swcb.label = Cancella

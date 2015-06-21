@@ -1,6 +1,6 @@
 *.transparency = 1
 *.floating = 1
-*.title =欢迎来到cDock
+*.title = Benvenuti a cDock
 *.autosavekey = cDock Welcome
 
 img.type = image
@@ -11,7 +11,7 @@ img.y = 235
 	
 # Introductory text
 welcomet0.type = text
-welcomet0.default =cDock是一款在OSX Mavericks and Yosemite中自定义设置Dock的应用程序。感谢您使用cDock[return][return]编程和设计：Wolfgang Baird
+welcomet0.default = cDock è un’applicazione per personalizzare il tuo Dock nell’OS X Mavericks and Yosemite. Grazie per usare cDock![return][return]Programmazione : Wolfgang Baird
 welcomet0.width = 350
 welcomet0.x = 80
 welcomet0.y = 240
@@ -25,4 +25,4 @@ welcometb0.y = 30
 
 # Accept button
 welcomedb.type = defaultbutton
-welcomedb.label =继续
+welcomedb.label = Continua

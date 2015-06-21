@@ -1,5 +1,7 @@
 Translations:[return][return]
-Wolfgang Baird - English[return][return]
+Wolfgang Baird - English[return]
+Dmitry Kudryashov - Russian, Chinese (Simplified)[return]
+Mauro Ferreri - Italian[return][return]
 Donors:[return][return]
 4LE Media, L.L.C.[return]
 Ang Edwin[return]

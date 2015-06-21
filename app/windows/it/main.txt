@@ -1,0 +1,183 @@
+# Window Appearance
+*.floating = 1
+*.transparency = 1.00
+*.autosavekey = cDock
+	
+# Theme
+tb0.tooltip = Il tema personalizzato sostituirà lo sfondo del Dock con qualcosa di diverso. I temi 3D saranno mostrati solo con il Dock impostato giù in fondo altrimenti sanno visualizzati in modo trasparente.
+tb0.type = text
+tb0.height = 0
+tb0.width = 150
+tb0.x = 0
+	
+pop0.type = popup
+pop0.width = 120
+pop0.option = Nessuno
+pop0.x = 80
+
+# Import theme
+themeb.type = button
+themeb.label = Importa
+themeb.x = 108
+
+tb12.tooltip = Importa un tema personalizzato condiviso da altri.
+tb12.type = text
+tb12.height = 0
+tb12.width = 150
+tb12.x = 0
+
+# Autohide
+tb20.tooltip = Nascondi automaticamente le impostazioni del Dock.
+tb20.type = text
+tb20.height = 0
+tb20.width = 150
+tb20.x = 0
+
+pop92.type = popup
+pop92.width = 60
+pop92.x = 140
+pop92.option = Off
+	
+# Magnification
+tb11.tooltip = Livello di ingrandimento del Dock. Avendo questa optione impostata su qualcosa di diverso da Nullo farà si che le icone del Dock si ingrandiscano al passaggio del mouse. Numeri più alti corrispondono ad icone più grandi.
+tb11.type = text
+tb11.height = 0
+tb11.width = 150
+tb11.x = 0
+	
+pop91.type = popup
+pop91.width = 60
+pop91.x = 140
+pop91.option = Nullo
+	
+# Tile Size	
+tb10.tooltip = La grandezza delle icone del Dock sono in pixel quadrati.
+tb10.type = text
+tb10.height = 0
+tb10.width = 150
+tb10.x = 0
+		
+pop90.type = popup
+pop90.width = 60
+pop90.x = 140
+			
+# App spacer text
+tb1.tooltip = L’Applicazione spazio vuoto sono semplicemente delle icone trasparenti. Possono essere spostate e arrangiate nel Dock a piacere. Per rimuovere un’Applicazione spazio vuoto trascinatela al di fuori del Dock oppure clic destro e scegliete l’opzione rimuovi.
+tb1.type = text
+tb1.height = 0
+tb1.width = 150
+tb1.x = 0
+	
+pop1.type = popup
+pop1.width = 50
+pop1.x = 150
+
+# Doc spacers text
+tb2.tooltip = Il Documento spazio vuoto sono semplicemente delle icone trasparenti. Possono essere spostate e arrangiate nel Dock a piacere. Per rimuovere un Documento spazio vuoto trascinatela al di fuori del Dock oppure clic destro e scegliete l’opzione rimuovi.
+tb2.type = text
+tb2.height = 0
+tb2.width = 150
+tb2.x = 0
+
+# Doc spacers
+pop2.type = popup
+pop2.width = 50
+pop2.x = 150
+	
+# Active applications
+chk2.tooltip = Quando abilitato il Dock mostrerà solo le icone delle applicazioni attive. Il resto tranne il cestino sarà nascosto.
+chk2.type = checkbox
+chk2.label = Mostra solo le applicazioni attive
+chk2.x = 225
+
+	
+# Dim hidden items
+chk3.tooltip = Quando abilitato le applicazioni che sono nascoste (⌘+H) appariranno oscurate.
+chk3.type = checkbox
+chk3.label = Oscura gli elementi nascosti
+chk3.x = 225
+
+# Lock dock contents
+chk4.tooltip = Quando abilitato non potrai più sistemare il contenuto del Dock.
+chk4.type = checkbox
+chk4.label = Blocca il contenuto del Dock.
+chk4.x = 225
+
+# Mouse over highlight
+chk5.tooltip = Quando abilitato il passaggio del Mouse evidenzierà le cartelle/file nel Dock usando la vista griglia.
+chk5.type = checkbox
+chk5.label = Evidenzia al passaggio del Mouse
+chk5.x = 225
+chk5.y = $chxy"
+	
+# Recents Folder
+chk6.tooltip = Quando abilitato una pila di elementi verrà aggiunta al Dock. Questa può essere impostata per mostrare Applicazioni, Documenti, Server, Volumi o elementi con un clic destro del Mouse.
+chk6.type = checkbox
+chk6.label = Cartelle recenti
+chk6.x = 225
+	
+# Hide tooltips
+chk7.tooltip = Quando abilitato tutte le Applicazioni e i popup dei nomi delle cartelle nel Dock verranno nascoste. Il Finder e i nuovi elementi aggiunti al Dock resteranno visibili.
+chk7.type = checkbox
+chk7.label = Nascondi i suggerimenti del Dock
+chk7.disabled = 0
+chk7.x = 225
+
+# Finder and Trash remove option
+chk8.tooltip = Quando abilitato il Finder ed il Cestino possono essere rimossi dal Dock con un clic destro del mouse come tutti gli altri elementi del Dock stesso.
+chk8.type = checkbox
+chk8.label = Finder e Cestino si possono chiudere
+chk8.disabled = 0
+chk8.x = 225
+	
+# No app bounce
+chk9.tooltip = Quando abilitato le icone non rimbalzano nel Dock. Al loro posto l’indicatore luminoso sarà intermittente quando le Applicazioni si apriranno.
+chk9.type = checkbox
+chk9.label = Nessun rimbalzo delle Applicazioni
+chk9.disabled = 0
+chk9.x = 225
+
+# Single app mode
+chk10.tooltip = Quando abilitato cliccando su un’Applicazione nel Dock aprirà l’Applicazione stessa mentre nasconderà tutte le altre finestre.
+chk10.type = checkbox
+chk10.label = modalità singola Applicazione
+chk10.disabled = 0
+chk10.x = 225
+	
+# Settings text
+tb19.tooltip =
+tb19.type = text
+tb19.height = 0
+tb19.width = 150
+tb19.x = 0
+	
+# Settings button
+settingb.type = button
+settingb.label = Vista
+settingb.x = 108
+	
+# Email button	
+emailb.type = button
+emailb.label = Email
+	
+# Donate button
+donateb.type = button
+donateb.label = Dona
+	
+# Cancel button
+cb.type = cancelbutton
+cb.label = Chiudi
+	
+# Accept button
+db.type = defaultbutton
+db.label = Applica
+
+# Text
+tb0.text = Tema del Dock:
+tb1.text = Spazi Applicazione:
+tb2.text = Spazi Documenti:
+tb10.text = Grandezza Icona:
+tb11.text = Ingrandimento:
+tb12.text = Importa il tema:
+tb19.text = Impostazioni Extra:
+tb20.text = Nascondi Automaticamente:
