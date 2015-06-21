@@ -1,8 +1,5 @@
-cDock strings:
-
-If you translate these strings into another language please email me the translations @ aguywithlonghair@gmail.com 
-
-donor.message		= Many thanks to those who have been kind enough to donate in support of this project:
+Translations		= Translations
+Donors				= Donors
 tb0.tooltip 		= Custom Dock themes will replace the Dock background with something different. 3D themes only show with the dock set to the bottom otherwise the Dock will appear transparent.
 tb1.tooltip 		= Application spacers are simply a transparent icon. They can be dragged and re-arranged in the dock however you would like. To remove an application spacer either drag it out of the dock or right click on it to get the remove option.
 tb2.tooltip 		= Document spacers are simply a transparent icon. They can be dragged and re-arranged in the dock however you would like. To remove a document spacer either drag it out of the dock or right click on it to get the remove option.
@@ -23,7 +20,7 @@ chk5.tooltip 		= When enabled a mouse-over highlight will be visible when viewin
 chk5.label 			= Mouse over highlight
 chk6.tooltip 		= When enabled a recent items folder stack is added to the Dock. This can be set to show Applications, Documents, Servers, Volumes or Items with a right or control click.
 chk6.label 			= Recents folder
-chk7.tooltip 		= When enabled all appication and folder name popups on the Dock will be hidden. Finder and New items added to the Dock will still show.
+chk7.tooltip 		= When enabled all application and folder name popups on the Dock will be hidden. Finder and New items added to the Dock will still show.
 chk7.label 			= Hide dock tooltips
 chk8.tooltip 		= When enabled Finder and Trash can be removed from the dock with right click like all other dock items.
 chk8.label 			= Finder and Trash closable
@@ -46,6 +43,7 @@ tb19.text 			= Extra settings:
 tb20.text 			= Autohide:
 *.title 			= cDock Extra Settings
 swtb0.text 			= Updates:
+swpop0.option 		= Select a restore point
 swchk1.label 		= Check for updates now
 swchk1.tooltip 		= Check for updates when you click apply.
 swchk0.label 		= Automatically check for updates
@@ -58,7 +56,7 @@ swtb1.text 			= Dock:
 swchk10.label 		= Reset icon cache*
 swchk10.tooltip 	= Reset icon cache to fix icons not showing.
 swchk11.label 		= Remove broken Dock items
-swchk11.tooltip 	= Remove dock items that link to a non-existant file or folder and show as a question mark.
+swchk11.tooltip 	= Remove dock items that link to a non-existent file or folder and show as a question mark.
 swchk7.label 		= Restore Dock to factory settings
 swchk7.tooltip 		= Restore dock to the same as a fresh install of OS X.
 swchk4.label 		= Restore Dock from backup

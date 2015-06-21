@@ -1,0 +1,183 @@
+# Window Appearance
+*.floating = 1
+*.transparency = 1.00
+*.autosavekey = cDock
+	
+# Theme
+tb0.tooltip = Custom Dock themes will replace the Dock background with something different. 3D themes only show with the dock set to the bottom otherwise the Dock will appear transparent.
+tb0.type = text
+tb0.height = 0
+tb0.width = 150
+tb0.x = 0
+	
+pop0.type = popup
+pop0.width = 120
+pop0.option = None
+pop0.x = 80
+
+# Import theme
+themeb.type = button
+themeb.label = Import
+themeb.x = 108
+
+tb12.tooltip = Import a custom theme shared by someone else.
+tb12.type = text
+tb12.height = 0
+tb12.width = 150
+tb12.x = 0
+
+# Autohide
+tb20.tooltip = Autohide settings for the dock.
+tb20.type = text
+tb20.height = 0
+tb20.width = 150
+tb20.x = 0
+
+pop92.type = popup
+pop92.width = 60
+pop92.x = 140
+pop92.option = Off
+	
+# Magnification
+tb11.tooltip = Magnification level of the dock. Having this option set to anything other than Off will make your Dock icons grow larger as you move your mouse over them. Higher numbers mean larger icons.
+tb11.type = text
+tb11.height = 0
+tb11.width = 150
+tb11.x = 0
+	
+pop91.type = popup
+pop91.width = 60
+pop91.x = 140
+pop91.option = Off		
+	
+# Tile Size	
+tb10.tooltip = Size of the dock icons in square pixels.
+tb10.type = text
+tb10.height = 0
+tb10.width = 150
+tb10.x = 0
+		
+pop90.type = popup
+pop90.width = 60
+pop90.x = 140
+			
+# App spacer text
+tb1.tooltip = Application spacers are simply a transparent icon. They can be dragged and re-arranged in the dock however you would like. To remove an application spacer either drag it out of the dock or right click on it to get the remove option.
+tb1.type = text
+tb1.height = 0
+tb1.width = 150
+tb1.x = 0
+	
+pop1.type = popup
+pop1.width = 50
+pop1.x = 150
+
+# Doc spacers text
+tb2.tooltip = Document spacers are simply a transparent icon. They can be dragged and re-arranged in the dock however you would like. To remove a document spacer either drag it out of the dock or right click on it to get the remove option.
+tb2.type = text
+tb2.height = 0
+tb2.width = 150
+tb2.x = 0
+
+# Doc spacers
+pop2.type = popup
+pop2.width = 50
+pop2.x = 150
+	
+# Active applications
+chk2.tooltip = When enabled the Dock will only show icons of running applications. Everything else except the trash will be hidden.
+chk2.type = checkbox
+chk2.label = Show only active apps
+chk2.x = 225
+
+	
+# Dim hidden items
+chk3.tooltip = When enabled running applications that are hidden (⌘+H) will appear dimmed in the Dock.
+chk3.type = checkbox
+chk3.label = Dim hidden items
+chk3.x = 225
+
+# Lock dock contents
+chk4.tooltip = When enabled you will not be able to adjusting the contents of the Dock.
+chk4.type = checkbox
+chk4.label = Lock dock contents
+chk4.x = 225
+
+# Mouse over highlight
+chk5.tooltip = When enabled a mouse-over highlight will be visible when viewing folders in the Dock using the grid view.
+chk5.type = checkbox
+chk5.label = Mouse over highlight
+chk5.x = 225
+chk5.y = $chxy"
+	
+# Recents Folder
+chk6.tooltip = When enabled a recent items folder stack is added to the Dock. This can be set to show Applications, Documents, Servers, Volumes or Items with a right or control click.
+chk6.type = checkbox
+chk6.label = Recents folder
+chk6.x = 225
+	
+# Hide tooltips
+chk7.tooltip = When enabled all appication and folder name popups on the Dock will be hidden. Finder, recent items folders and new items added to the Dock will still show.
+chk7.type = checkbox
+chk7.label = Hide dock tooltips
+chk7.disabled = 0
+chk7.x = 225
+
+# Finder and Trash remove option
+chk8.tooltip = When enabled Finder, Trash, and the Dock separator can be removed from the Dock with right click like all other dock items. Finder will also gain a quit and relaunch option. If you do not quit Finder before removing it the process indicator will remain.
+chk8.type = checkbox
+chk8.label = Custom Dock Menus
+chk8.disabled = 0
+chk8.x = 225
+	
+# No app bounce
+chk9.tooltip = When enabled icons will not bounce in the dock. Instead the indicator light will flash while opening applications.
+chk9.type = checkbox
+chk9.label = No app bounce
+chk9.disabled = 0
+chk9.x = 225
+
+# Single app mode
+chk10.tooltip = When enabled clicking an app in the dock will open that app while also hiding all other windows.
+chk10.type = checkbox
+chk10.label = Single app mode
+chk10.disabled = 0
+chk10.x = 225
+	
+# Settings text
+tb19.tooltip =
+tb19.type = text
+tb19.height = 0
+tb19.width = 150
+tb19.x = 0
+	
+# Settings button
+settingb.type = button
+settingb.label = View
+settingb.x = 108
+	
+# Email button	
+emailb.type = button
+emailb.label = Email
+	
+# Donate button
+donateb.type = button
+donateb.label = Donate
+	
+# Cancel button
+cb.type = cancelbutton
+cb.label = Quit
+	
+# Accept button
+db.type = defaultbutton
+db.label = Apply
+
+# Text
+tb0.text = Dock theme:
+tb1.text = Application spacers:
+tb2.text = Document spacers:
+tb10.text = Icon Size:
+tb11.text = Magnification:
+tb12.text = Import theme:
+tb19.text = Extra settings:
+tb20.text = Autohide:

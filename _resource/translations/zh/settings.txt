@@ -73,6 +73,7 @@ swchk4.relx = 20
 swpop0.type = popup
 swpop0.rely = -10
 swpop0.relx = 40
+swpop0.option = Select a restore point
 
 # Finder text
 swtb3.type = text
@@ -96,7 +97,7 @@ swchk9.relx = 20
 # cDock text
 swtb2.type = text
 swtb2.rely = -18
-swtb2.text =档案分隔条：
+swtb2.text = cDock:
 
 # Display SIMBL warnings
 swchk5.type = checkbox
@@ -108,7 +109,7 @@ swchk5.relx = 20
 # Reset cDock
 swchk6.type = checkbox
 swchk6.label =重置cDock
-swchk6.tooltip =启动时，最近使用的文件夹堆栈已被添加到Dock栏里。如需显示应用程序、档案、服务器、卷或者项目，只需右击或控件单击。
+swchk6.tooltip =重置cDock并移除其保存在~/Library/Application Support中的所有文件。
 swchk6.rely = -10
 swchk6.relx = 20
 

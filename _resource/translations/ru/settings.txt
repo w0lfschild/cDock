@@ -73,6 +73,7 @@ swchk4.relx = 20
 swpop0.type = popup
 swpop0.rely = -10
 swpop0.relx = 40
+swpop0.option = Select a restore point
 
 # Finder text
 swtb3.type = text
@@ -96,7 +97,7 @@ swchk9.relx = 20
 # cDock text
 swtb2.type = text
 swtb2.rely = -18
-swtb2.text = Разделители документов:
+swtb2.text = cDock:
 
 # Display SIMBL warnings
 swchk5.type = checkbox
@@ -108,7 +109,7 @@ swchk5.relx = 20
 # Reset cDock
 swchk6.type = checkbox
 swchk6.label = Сбросить cDock
-swchk6.tooltip = Если этот флажок установлен, в панель Dock добавляется стек недавних объектов. Щелчком правой кнопки или нажатием Control и щелчком левой кнопки этот стек можно настроить на отображение приложений, документов, серверов, томов или элементов.
+swchk6.tooltip = Выполняется сброс cDock с удалением всех файлов из папки ~/Library/Application Support.
 swchk6.rely = -10
 swchk6.relx = 20
 
