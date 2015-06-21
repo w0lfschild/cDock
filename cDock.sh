@@ -4,7 +4,7 @@
 #
 #				: cDock 
 # Maintained By	: Wolfgang Baird
-# Version		: 7.3
+# Version		: 7.4
 # Updated		: Apr / 10 / 2015
 #
 # # # # # # # # # # # # # # # # # # # # 
@@ -580,7 +580,7 @@ install_cdock_bundle() {
 	if [[ ! -e "$HOME/Library/Application Support/SIMBL/Plugins/cDock.bundle" ]]; then ln -s "$app_bundles"/cDock.bundle "$HOME/Library/Application Support"/SIMBL/Plugins/cDock.bundle; fi
 	
 	# Mirror check
-	if [[ $($PlistBuddy "Print hide-mirror:" "$dock_plist") != false ]]; then defaults write com.apple.dock hide-mirror -bool false; fi
+	if [[ $($PlistBuddy "Print hide-mirror:" "$dock_plist") != true ]]; then defaults write com.apple.dock hide-mirror -bool true; fi
 	
 	# DockMod check
 	if [[ $($PlistBuddy "Print dockmod-enabled:" "$dock_plist") != false ]]; then defaults write com.apple.dock dockmod-enabled -bool false; fi
@@ -593,7 +593,8 @@ install_cdock_bundle() {
 		custom_dock=false
 	fi
 	
-	$PlistBuddy "Set cdockActive 1" "$cdock_pl" || $PlistBuddy "Add cdockActive integer 1" "$cdock_pl"
+	plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"
+	#$PlistBuddy "Set cdockActive 1" "$cdock_pl" || $PlistBuddy "Add cdockActive integer 1" "$cdock_pl"
 	defaults write org.w0lf.cDock theme -string "${dock_theme}"
 }
 install_finder_bundle() {
@@ -818,7 +819,8 @@ update_check() {
 	
 	# If we haven't already checked for updates today
 	if [[ "$lastupdateCheck" != "$cur_date" ]]; then	
-		results=$(ping -c 1 -t 5 "http://www.sourceforge.net" 2>/dev/null || echo "Unable to connect to internet")
+		results=$(ping -c 1 -t 5 "https://www.github.com" 2>/dev/null || echo "Unable to connect to internet")
+		# results=$(ping -c 1 -t 5 "http://www.sourceforge.net" 2>/dev/null || echo "Unable to connect to internet")
 		if [[ $results = *"Unable to"* ]]; then
 			echo "ping failed : $results"
 		else
@@ -827,9 +829,12 @@ update_check() {
 			update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null || { defaults write org.w0lf.cDock "autoInstall" 0; echo -n 0; } )
 
 			# Stable urls
-			dlurl="http://sourceforge.net/projects/cdock/files/latest"
-			verurl="http://sourceforge.net/projects/cdock/files/version.txt"
-			logurl="http://sourceforge.net/projects/cdock/files/versionInfo.txt"
+			dlurl=$(curl -s https://api.github.com/repos/w0lfschild/cDock/releases/latest | grep 'browser_' | cut -d\" -f4)
+			verurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/version.txt"
+			logurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/versionInfo.txt"
+			# dlurl="http://sourceforge.net/projects/cdock/files/latest"
+			# verurl="http://sourceforge.net/projects/cdock/files/version.txt"
+			# logurl="http://sourceforge.net/projects/cdock/files/versionInfo.txt"
 
 			# Beta or Stable updates
 			if [[ $beta_updates -eq 1 ]]; then
@@ -991,8 +996,6 @@ swchk8.default = $colorfulsidebar_active
 swchk9.default = $finder_folders_on_top
 swchk10.default = 0
 swchk11.default = 0
-
-swpop0.option = Select a restore point
 swOK.type = defaultbutton"
 
 	if [[ -e "$save_folder" ]]; then
@@ -1022,8 +1025,6 @@ swchk8.default = $swchk8
 swchk9.default = $swchk9
 swchk10.default = 0
 swchk11.default = 0
-
-swpop0.option = Select a restore point
 swOK.type = defaultbutton"
 
 	if [[ -e "$save_folder" ]]; then
@@ -1451,6 +1452,8 @@ else
 	vernum=$($PlistBuddy "Print version" "$cdock_pl")
 	if [[ $(verres $curver $vernum) = ">" ]]; then app_has_updated; fi
 fi
+first_run_window
+exit
 
 # Make sure themes are synced
 if [[ ! -e "$HOME/Library/Application Support/cDock/themes" ]]; then rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock; fi
@@ -1472,6 +1475,7 @@ total_time=$(( $(date +%s) - $start_time ))
 echo -e "Approximate startup time is ${total_time} seconds\n"
 
 # Show main window
+open ./"Dock Refresh".app
 main_window_draw
 
 #END
