@@ -13,6 +13,11 @@
 	    * **10.10.4** (14E26a)    
 	    * **10.11** (15A178w)    
 
+### Translations: 
+Wolfgang Baird - English
+
+
+
 ### Credits: 
 http://github.com/norio-nomura/EasySIMBL	Bundle loader    
 http://mstratman.github.io/cocoadialog/		Updater interface    
@@ -29,7 +34,7 @@ http://scafer31000.deviantart.com			Icon
 *Many thanks go out to those who have been kind enough to donate in support of this project:*    
 4LE Media, L.L.C.    
 Ang Edwin    
-Anonymous x1    
+Anonymous    
 Anthony Giusti    
 Aron Yoffe    
 Barry Chiarello    
