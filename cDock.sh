@@ -5,7 +5,7 @@
 #				: cDock 
 # Maintained By	: Wolfgang Baird
 # Version		: 7.4
-# Updated		: Apr / 10 / 2015
+# Updated		: Jun / 21 / 2015
 #
 # # # # # # # # # # # # # # # # # # # # 
 
@@ -1452,8 +1452,8 @@ else
 	vernum=$($PlistBuddy "Print version" "$cdock_pl")
 	if [[ $(verres $curver $vernum) = ">" ]]; then app_has_updated; fi
 fi
-first_run_window
-exit
+# first_run_window
+# exit
 
 # Make sure themes are synced
 if [[ ! -e "$HOME/Library/Application Support/cDock/themes" ]]; then rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock; fi

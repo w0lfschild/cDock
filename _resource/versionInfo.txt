@@ -1,6 +1,6 @@
 ------------------------------------------------
 Version		: 7.4
-Build date	: May / 25 / 2015
+Build date	: jun / 21 / 2015
 
 NOTES:
 - cDock does not work on 10.10.4+
