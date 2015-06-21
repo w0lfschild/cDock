@@ -4,19 +4,19 @@
 * cDock installs part of [EasySIMBL](https://github.com/norio-nomura/EasySIMBL) if it is not already installed.
 * The install/uninstall is for the current user only.
 * cDock works for both the Bottom Dock and Side dock.	
-* cDock works on all versions of OSX 10.9 and above.    
+* cDock theming requires OSX 10.9+.    
 * **Note**: This may break in the future.    
-	* Currently confirmed working on:    
-	    * **10.9.5** (13F34)    
-	    * **10.10.3** (14D131)    
-	* Currently not working on:    
+	* Working on:    
+	    * **10.9 - 10.9.5** (13F34)    
+	    * **10.10 - 10.10.3** (14D131)    
+	* Not working on:    
 	    * **10.10.4** (14E26a)    
 	    * **10.11** (15A178w)    
 
 ### Translations: 
-Wolfgang Baird - English
-
-
+Wolfgang Baird - English    
+Dmitry Kudryashov - Russian, Chinese (Simplified)    
+Mauro Ferreri - Italian    
 
 ### Credits: 
 http://github.com/norio-nomura/EasySIMBL	Bundle loader    
