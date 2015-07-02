@@ -45,8 +45,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "191"
             endingLineNumber = "191"
-            landmarkName = "@implementation BlackDockSeparatorLayer"
-            landmarkType = "3">
+            landmarkName = "-resizeWithOldSuperlayerSize:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

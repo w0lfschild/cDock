@@ -11,7 +11,7 @@ img.y = 235
 	
 # Introductory text
 welcomet0.type = text
-welcomet0.default =cDock是一款在OSX Mavericks and Yosemite中自定义设置Dock的应用程序。感谢您使用cDock[return][return]编程和设计：Wolfgang Baird
+welcomet0.default =cDock是一款在OSX Mavericks and Yosemite中自定义设置Dock的应用程序。感谢您使用cDock！编程和设计：Wolfgang Baird
 welcomet0.width = 350
 welcomet0.x = 80
 welcomet0.y = 240

@@ -11,7 +11,7 @@ img.y = 235
 	
 # Introductory text
 welcomet0.type = text
-welcomet0.default = Приложение cDock предназначено для настройки панели Dock в операционных системах OSX Mavericks и Yosemite. Благодарим за использование cDock![return][return]Программирование и дизайн: Wolfgang Baird
+welcomet0.default = Приложение cDock предназначено для настройки панели Dock в операционных системах OSX Mavericks и Yosemite. Благодарим за использование cDock! Программирование и дизайн: Wolfgang Baird
 welcomet0.width = 350
 welcomet0.x = 80
 welcomet0.y = 240

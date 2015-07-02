@@ -1,0 +1,59 @@
+#! /bin/bash
+
+# # # # # # # # # # # # # # # # # # # #
+#
+# Maintained By	: Wolfgang Baird
+# Version				: 1.2
+# Updated				: Jun / 30 / 2014
+#
+# # # # # # # # # # # # # # # # # # # #
+
+if [[ $1 = "" ]]; then
+	echo -e "Check for Updates\nRestart Dock\nRestart Finder\nRestart cDock Agent\nVisit website"
+else
+	if [[ $1 = "Visit website" ]]; then
+		open http://w0lfschild.github.io/pages/cdock.html
+	fi
+	if [[ $1 = "Check for Updates" ]]; then
+		cdock_pl="$HOME"/Library/Preferences/org.w0lf.cDock.plist
+		log_dir="$HOME"/Library/Application\ Support/cDock/logs
+		touch "$log_dir"/menu_applet.log
+		exec &>"$log_dir"/menu_applet.log
+		PlistBuddy=/usr/libexec/PlistBuddy" -c"
+		resource_folder=$(cd "${0%/*}" && echo $PWD)
+		for i in {1..4}; do resource_folder=$(dirname "$resource_folder"); done
+		source "$resource_folder"/functions/shared_functions.sh
+		wupdt_path="$resource_folder/updates/wUpdater.app/Contents/MacOS/wUpdater"
+		update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add autoInstall integer 0" "$cdock_pl"; echo -n 0; } )
+		curver=$($PlistBuddy "Print version" "$cdock_pl" 2>/dev/null || echo -n 1 )
+		app_location="$resource_folder"
+		for i in {1..2}; do app_location=$(dirname "$app_location"); done
+
+		# say "Checking for updates..."
+		{ update_check "$wupdt_path" "$app_location" "$curver" "$update_auto_install" "n"; } & # say "$(cat "$log_dir"/menu_applet.log)"; } &
+	fi
+	if [[ $1 = "Restart Dock" ]]; then
+		killall "Dock"
+		# say "Restarting Dock"
+	fi
+	if [[ $1 = "Restart Finder" ]]; then
+		# Check for XtraFinder / TotalFinder
+		if [[ $(lsof -c Finder | grep MacOS/XtraFinder) ]]; then
+			killall "Finder"
+			open -b com.trankynam.XtraFinder
+		elif [[ $(lsof -c Finder | grep MacOS/TotalFinder) ]]; then
+			killall "Finder"
+			open -b com.binaryage.totalfinder
+		else
+			killall "Finder"
+		fi
+		# say "Restarting Finder"
+	fi
+	if [[ $1 = "Restart cDock Agent" ]]; then
+		killall "Dock"
+		killall -KILL "SIMBL Agent"
+		killall -KILL "cDock Agent"
+		open -b org.w0lf.cDockAgent
+		# say "Restarting cDock Agent"
+	fi
+fi

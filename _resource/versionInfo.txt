@@ -1,175 +1,48 @@
 ------------------------------------------------
-Version		: 7.4
-Build date	: Jun / 21 / 2015
+Version		: 8.0
+Build date	: Jul / 01 / 2015
 
 NOTES:
-- cDock does not work on 10.10.4+
-- ETA of fix for 10.10.4+ unknown
-- If automatic updates fail get the latest here: 
+- cDock themes do not work on 10.11
+- ETA of fix for 10.11+ unknown
+- If automatic updates fail get the latest here:
 https://github.com/w0lfschild/cDock/releases/latest
 ------------------------------------------------
 
-7.4
-
-Localizations
-	-it (Italian)
-
-Changed
-- Updates moved to GitHub
-	-> Sourceforge has been blocked by uBlock and has had a run of bad press lately related to bundling installers/adware with downloads. Although this is not the case with cDock I'd still like to distance myself from Sourceforge as my main repository/site for cDock.
-- Added translators to credits
-- Fixed some translation issues
-- Updated welcome window
-- Updated credits
-- Open menubar Dock re-launcher applet by default
-
-Fixed
-- menubar re-launcher not restarting cDock Agent
-
-------------------------------------------------
-
-7.3
+8.0
 
 New
-- Localization support
-	-en (English)
-	-ru (Russian)
-	-zh (Chinese)
-	
-- Localization strings @ .../cDock.app/Contents/Resources/windows/TRANSLATE_ME.txt
-- Send localizations to aguywithlonghair@gmail.com
+- Return to using original SIMBL
+  - http://www.culater.net/software/SIMBL/SIMBL.php
+ 	- this will require admin password to install*
+  - this should add support for 10.9.5 (13F1096)**
+  - this should add support for 10.10.4 (14E46)**
+- Option to not auto-launch menubar applet in settings
+- Menubar applet
+  > Check for updates
+  > Visit website
+
+Fixed
+- Localizations not showing (maybe)
+- Hide dock tooltips > showing as applied when it wasn't on some systems
+- Hide dock tooltips > not hiding trash name on some systems
+- cDock Agent still using SourceForge for update urls instead of GitHub
+- Miscellaneous fixes
+- Some update fixes... hopefully
 
 Changed
-- Restarts XtraFinder/TotalFinder if present and making changes to Finder
-- Improved menubar re-launcher
-	restart Dock
-	restart Finder
-	restart cDock Agent
-- Renamed "Finder and Trash closable" > "Custom Dock Menus"
-- Edited a few tooltips
-- Updated credits
+- Show theme folder after importing a theme
+- Email now zips alls logs instead of just attaching 1.log and apps.log
+    > Please don't send me blank emails with a log, it doesn't really help me at all
+- More logging
+- Refactored a bunch of stuff
 
-------------------------------------------------
-
-7.2.1
-
-New
-- Dock setting > Hide dock tooltips*
-- Dock setting > Finder and Trash closable*
-
-* Requires admin password to apply also experimental
-
-Fixed
-- Update failing if cDock was located in a folder that requires admin password to write such as /Applications/Utilities
-- cDock ignoring wrong passwords. Users now get 5 tries
-
-------------------------------------------------
-
-7.1.1
-
-Fixed
-- 'Mouse over highlight' not disabling
-- Apps still bouncing with 'No app bounce' enabled
-- Settings window not opening in some instances
-
-------------------------------------------------
-
-7.1
-
-New
-- Import theme functionality added
-- Dock setting > Improved list view*
-- Dock setting > Single application mode
-- Dock setting > No app bounce
-- Dock setting > Autohide speed
-- Dock theme > Fullscreen light & Clean (3D)
-- Extra settings > refresh icon cache**
-- Extra settings > restore stock dock settings
-- Extra settings > Finder sort 'folders on top'**
-
-* Mavericks only
-** Requires admin password to apply
-
-Fixed
-- 3D dock transparency not being adjustable, It is controlled by the setting 'picture opacity'
-- Skype crashing if cDock was only used once and SIMBL had not been used before
-- Filter Forge 4 crashing when using cDock
-- SIMBL plugin warning window 'Do not show this message again' not applying if you closed the window with cancel
-- 'Dock position' showing blank
-- cDock restarting the dock more than necessary in some instances
-- General bug fixes and improvements
-
-Changed
-- Colored Finder Sidebar moved to 'Extra settings'
-- UI adjustments
-- Logging adjustments
-- Updated credits
-- Removed report button (use email button instead)
-
-------------------------------------------------
-
-7.0.2
-
-Fixed
-- cDock agent showing icon in dock
-
-------------------------------------------------
-
-7.0.1
-
-Fixed
-- Dock settings not applying if the setting did not already exist in dock plist
-- Repeatedly adding same entry to SIMBLApplicationIdentifierBlacklist
-- 'Recents Folder' not adding or removing in some instances
-- 'Icon Size' showing blank if the setting did not already exist in dock plist
-- Theme failing to apply under some instances
-- 'Automatically install updates' setting not applying
-- Logging not working on first launch after an update to cDock
-- cDock opening more than 1 instance of cDock agent
-- cDock agent opening more than 1 instance of SIMBL
-- cDock agent scripts not exiting properly
-
-Changed
-- cDock agent uses cDock icon instead of generic app icon
-- Improved cDock agent startup and update checking speed
-- Dock plist backups should be retained when cDock detects an update
-- Updated credits & first run window
-- More logging information
-- Miscellaneous improvements
-
-------------------------------------------------
-
-7.0
-
-New
-- Switched to using /usr/libexec/PlistBuddy to read (and write) plists instead of defaults (~10x faster).
-- Magnification popup now has disabled option.
-- Removed magnification enabled checkbox. It is now controlled through popup.
-- Recents folder option is now a checkbox.
-- cDock can now remove recents folder.
-- cDock can now remove spacers. Removing spacers starts with the leftmost spacer.
-- 'Reset cDock' option added to settings. Applying this deletes ~/Library/Application Support/cDock/* and some other cDock related things like the cDock/coloredfindersidebar bundles.
-- Main window will retain state after viewing settings window.
-- Main window title will include "Beta" if using a beta version.
-- Email button as an alternate to the bug report button.
-- Tooltips added to settings window.
-- cDock now makes backups of com.apple.dock.plist
-	Backups are made before applying changes
-	Backups are saved @ ~/Library/Application Support/cDock/.bak/*
-	Currently no limit to number of backups	
-- 'Restore Dock' in settings added. Popup allows users to select from com.apple.dock.plist backups.
-- Added dock themes created by Deviant Art users:
-	xxfunsizexx
-	davidmonteiro
-	nittiyh
- 
-Improvements and Fixes
-- cDock opens faster.
-- Settings apply faster.
-- Settings window opens and closes faster.
-- Updater improvements.
-- General bug fixes.
-- Updated credits and welcome window.
-- UI adjustments.
+Notes
+  -- This update has limited testing, it may break some functionality.
+  -- If you follow the "if it ain't broke, don't fix it" philosophy
+  -- and are running an out of date version of OSX this might not be for you.
+  * If you don't know your password... you should.
+  * Google search how to change it or create a new admin account.
+  ** I don't have either of these versions of OSX installed to test on...
 
 ------------------------------------------------

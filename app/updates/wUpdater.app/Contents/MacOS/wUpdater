@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # #
 #
 # Maintained By	: Wolfgang Baird
-# Version		: 3.4
-# Updated		: Apr / 05 / 2014
+# Version		: 3.5
+# Updated		: Jul / 01 / 2015
 #
-# # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # #
 
 vercomp() {
     if [[ $1 == $2 ]]
@@ -108,10 +108,10 @@ pashua_run() {
 }
 
 install_app() {
-	
+
 	#	result_value=0
 	# 	number=$(ps -acx | grep "${applicationName}" | wc -l)
-	# 	if [ $number -gt 0 ]; then		
+	# 	if [ $number -gt 0 ]; then
 	# 		result_value=$("${cocoaDirectory}" msgbox --no-newline \
 	# 		--float \
 	# 		--title "${applicationName}" \
@@ -162,11 +162,11 @@ ping_success() {
 	# Get latest version
 	latestVersion=$(curl -\# -L "$versionURL")
 	max_version=$(verres ${currentVersion} ${latestVersion})
-	
+
 	echo ""
-	echo "Local version: ${currentVersion}" 
+	echo "Local version: ${currentVersion}"
 	echo "Latest version: ${latestVersion}"
-	
+
 	if [[ $max_version = "<" ]]; then
 		echo ""
 		echo "An update to version ${latestVersion} is available"
@@ -218,23 +218,23 @@ update_prompt() {
 			b.type = button
 			b.label = Don't ask again
 		"
-		
+
 		pashua_run "$conf" 'utf8'
-		
+
 		defaults write "${prefbundle}" autoInstall $checkers
-		
+
 		if [[ $db -eq 1 ]]; then
 			echo ""
 			echo "Update Confirmed..."
 			update_confimed
 		fi
-			
+
 		if [[ $b -eq 1 ]]; then
 			echo ""
 			echo "Disabling update checking..."
 			defaults write "${prefbundle}" autoCheck 0
 		fi
-		
+
 		if [[ $cb -eq 1 ]]; then
 			echo ""
 			echo "Canceled"
@@ -247,7 +247,7 @@ update_prompt() {
 		--button1 "Download and Install" \
 		--button2 "Don't ask again" \
 		--button3 "Cancel")
-	
+
 		if [ "$result_value" == "1" ]; then
 			echo ""
 			echo "Update Confirmed..."
@@ -267,15 +267,15 @@ update_confimed() {
 	echo "Downloading update..."
 	if [ -e /tmp/"$applicationName".zip ]; then rm /tmp/"$applicationName".zip; fi
 	download_wprogress
-	
+
 	echo "Extracting update..."
 	if [ -e /tmp/"$applicationName".app ]; then rm -r /tmp/"$applicationName".app; fi
 	unzip /tmp/"$applicationName".zip -d /tmp > /dev/null
-	
+
 	echo "Cleaning up..."
 	if [ -e /tmp/"$applicationName".zip ]; then rm /tmp/"$applicationName".zip; fi
 	if [ -e /tmp/__MACOSX ]; then rm -r /tmp/__MACOSX; fi
-	
+
 	echo "Launching installer..."
 	exec /tmp/"$applicationName".app/Contents/Resources/updates/wUpdater.app/Contents/MacOS/wUpdater "i" "$oldDirectory" &
 }
@@ -317,10 +317,10 @@ wait_for_process() {
                 	dlp="Downloading..."
                 	num=0
                 fi
-                output=$(tail -n 1 /tmp/updateTracker) 
+                output=$(tail -n 1 /tmp/updateTracker)
                 output=${output##* }
                 echo "${output} ${dlp} ${output}" >&7
-                                
+
             elif wait "$pid"; then
             	debug "$pid exited with zero exit status."
                 echo "100 Download Complete" >&7
@@ -334,7 +334,7 @@ wait_for_process() {
         sleep ${WAITALL_DELAY:-.1}
     done
     ((errors == 0))
-    
+
     exec 7>&-
 	rm -f /tmp/upipe
 	rm -f /tmp/updateTracker
@@ -359,37 +359,43 @@ tdir="$tdir"/Pashua.app/Contents/MacOS/Pashua
 if [[ "$#" = 0 ]]; then
 	echo "Usage:"
 	echo ""
-	echo "\$1 - c for check for update or i for install"
-	echo "\$2 - path to app"
-	echo "\$3 - current app version"
-	echo "\$4 - URL to check current version"
+	echo "\$1 - Check or Install update -- c/i"
+	echo "\$2 - path of app"
+	echo "\$3 - app bundle ID"
+	echo "\$4 - local version"
 	echo "\$5 - URL to download current version"
-	echo ""
-	echo "eg : $scriptDirectory/wUpdater u /Applications/cDock.app http://sourceforge.net/projects/cDock/files/version.txt http://sourceforge.net/projects/cDock/files/latest/download"
+  echo "\$6 - URL to view changelog"
+  echo "\$7 - URL to download current version"
+  echo "\$8 - Update without prompt -- 0/1"
 	echo ""
 	echo "END"
 fi
 
 # Necessary information
 # 1 - Check/Install
-# 2 - Directory of application to be updated
-# 3 - Preference Bundle
+# 2 - Directory of local application to be updated
+# 3 - Bundle identifier of application
 opperation="$1"
 oldDirectory="$2"
 prefbundle="$3"
 applicationName=${oldDirectory##*/}
 applicationName=${applicationName%.app}
 
+exec &>~/Library/Application\ Support/wUpdater/logs/"${applicationName}"_base.log
+for item in "$@"; do
+  echo "$item"
+done
+
 # redirect output
 mkdir -pv ~/Library/Application\ Support/wUpdater/logs
 
 if [[ $opperation = i ]]; then
 	exec &>~/Library/Application\ Support/wUpdater/logs/"${applicationName}"_install.log
-	
+
 	for item in "$@"; do
 		echo "$item"
 	done
-	
+
 	if [[ -e "$oldDirectory" ]]; then
 		# Find package
 		# /Some.app/Content/Resources/updates/w_updater.app/Content/Resources/script
@@ -398,7 +404,7 @@ if [[ $opperation = i ]]; then
 			replacementApp=$(dirname "$replacementApp")
 		done
 		echo "new app -- $replacementApp"
-		echo "old app -- $oldDirectory"	
+		echo "old app -- $oldDirectory"
 		echo "Closing and Installing app"
 		killall "${applicationName}"
 		killall "CocoaDialog"
@@ -417,16 +423,17 @@ else
 	done
 
 	# Necessary information
-	# 3 - Current version of application to be updated
-	# 4 - URL to check current version
-	# 5 - URL to download current version
-	# 6 - Install without prompt
+	# 4 - Local version of application to be updated
+	# 5 - URL to view current version
+  # 6 - URL to view changelog
+	# 7 - URL to download current version
+	# 8 - Install without prompt
 	currentVersion="$4"
 	versionURL="$5"
 	logURL="$6"
 	downloadURL="$7"
 	autoInstall="$8"
-	
+
 	number=0
 	echo -n "Checking for updates"
 	while [ 1 ]; do
@@ -435,8 +442,7 @@ else
 	done &
 	KILLME=$!
 	ping_test
-	wait	
-fi 
+	wait
+fi
 
 # END
-

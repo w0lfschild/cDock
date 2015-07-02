@@ -106,6 +106,13 @@ swchk5.tooltip = Quando abilitato cDock permette di rimuovere i plugin SIMBL seb
 swchk5.rely = -18
 swchk5.relx = 20
 
+# Auto-launch menubar applet
+swchk12.type = checkbox
+swchk12.label = Auto-launch menubar applet
+swchk12.tooltip = When enabled cDock automatically launches a menubar applet when you open cDock.
+swchk12.rely = -18
+swchk12.relx = 20
+
 # Reset cDock
 swchk6.type = checkbox
 swchk6.label = Resetta cDock

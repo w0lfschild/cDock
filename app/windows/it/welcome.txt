@@ -11,7 +11,7 @@ img.y = 235
 	
 # Introductory text
 welcomet0.type = text
-welcomet0.default = cDock è un’applicazione per personalizzare il tuo Dock nell’OS X Mavericks and Yosemite. Grazie per usare cDock![return][return]Programmazione : Wolfgang Baird
+welcomet0.default = cDock è un’applicazione per personalizzare il tuo Dock nell’OS X Mavericks and Yosemite. Grazie per usare cDock![return][return]Programmazione Design : Wolfgang Baird
 welcomet0.width = 350
 welcomet0.x = 80
 welcomet0.y = 240
