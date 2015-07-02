@@ -26,7 +26,7 @@ Mauro Ferreri - Italian
 [ColorfulSidebar](http://cooviewerzoom.web.fc2.com/)
 [platypus](http://sveinbjorn.org/platypus)
 [CocoaBackports](http://github.com/petroules/CocoaBackports)
-[Icon](http://scafer31000.deviantart.com)
+[Icon](http://scafer31000.deviantart.com)    
 
 ### [Donate](http://w0lfschild.github.io/pages/donate.html)
 
