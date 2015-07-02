@@ -1,4 +1,4 @@
-# cDock
+# [cDock](http://w0lfschild.github.io/pages/cdock.html)
 
 ### Information:
 * cDock installs part of [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if it is not already installed.
@@ -28,7 +28,6 @@ Mauro Ferreri - Italian
 [CocoaBackports](http://github.com/petroules/CocoaBackports)
 [Icon](http://scafer31000.deviantart.com)
 
-### [Visit Website](http://w0lfschild.github.io/pages/cdock.html)
 ### [Donate](http://w0lfschild.github.io/pages/donate.html)
 
 ### License:
