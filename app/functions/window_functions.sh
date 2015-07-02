@@ -8,9 +8,17 @@ evalchx() { chxy=$((chxy - 20)); }
 
 window_setup () {
   # lang=$(locale | grep LANG | cut -d\" -f2 | cut -d_ -f1)
-  lang=$($PlistBuddy "print AppleLocale" "$home/Library/Preferences/.GlobalPreferences.plist" | cut -d_ -f1)
   app_windows="$scriptDirectory"/windows/en
-  if [[ -e "$scriptDirectory"/windows/"$lang" ]]; then app_windows="$scriptDirectory"/windows/"$lang"; fi
+  lang=$($PlistBuddy "print AppleLanguages:0" "$home/Library/Preferences/.GlobalPreferences.plist")
+  if [[ $lang = "" ]]; then
+    lang=$($PlistBuddy "print AppleLocale" "$home/Library/Preferences/.GlobalPreferences.plist" | cut -d_ -f1)
+  fi
+  if [[ $lang != "" ]]; then
+    if [[ -e "$scriptDirectory"/windows/"$lang" ]]; then
+      app_windows="$scriptDirectory"/windows/"$lang"
+    fi
+  fi
+
   # app_windows="$scriptDirectory"/windows/it   # Testing...
   main_window_establish
   settings_window_establish

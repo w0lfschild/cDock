@@ -19,7 +19,7 @@ restart_SIMBL() {
 		restart_count=$((restart_count + 1))
 		echo $restart_count >/tmp/dmpipe
 		echo "restart count is now : "$restart_count
-		{ open -a "$injec_path"; sleep 1; exit; } &
+		{ simbl_run; sleep 1; exit; } &
 	fi
 }
 
@@ -36,33 +36,6 @@ crash_monitor() {
 	echo "Stopping crash loop monitoring"
 }
 
-install_SIMBL() {
-	if [[ ! -e /Library/ScriptingAdditions/SIMBL.osax || ! -e /Library/LaunchAgents/net.culater.SIMBL.Agent.plist ]]; then
-		pass_res=$(ask_pass)
-		mkdir -p /Library/Application Support/SIMBL/Plugins
-		if [[ $pass_res = "_success" ]]; then
-			sudo installer -verbose -pkg "$simbl_inst" -target /
-			if [[ -e "$HOME/Library/Application Support/SIMBL/Plugins" ]]; then
-				mv "$HOME/Library/Application Support/SIMBL/Plugins" "$HOME/Library/Application Support/SIMBL/Plugins.tmp"
-				ln -s "/Library/Application Support/SIMBL/Plugins" "$HOME/Library/Application Support/SIMBL/Plugins"
-				mv "$HOME/Library/Application Support/SIMBL/Plugins.tmp/"* "$HOME/Library/Application Support/SIMBL/Plugins"
-				rm -r "$HOME/Library/Application Support/SIMBL/Plugins.tmp"
-			else
-				mkdir -p "/Library/Application Support/SIMBL/Plugins"
-				ln -s "/Library/Application Support/SIMBL/Plugins" "$HOME/Library/Application Support/SIMBL/Plugins"
-			fi
-		fi
-	fi
-}
-
-is_SIMBL_runnning() {
-	simbl_id=$(ps ax | grep [M]acOS/SIMBL | sed -e 's/^[ \t]*//' | cut -f1 -d" ")
-	if [[ -z $simbl_id ]]; then
-		exec "/Library/ScriptingAdditions/SIMBL.osax/Contents/Resources/SIMBL Agent.app/Contents/MacOS/SIMBL Agent" &
-		open -a "$injec_path"
-	fi
-}
-
 #	Integers
 total_count=0
 restart_count=0
@@ -73,9 +46,10 @@ resource_folder=$(cd "${0%/*}" && echo $PWD)
 for i in {1..4}; do resource_folder=$(dirname "$resource_folder"); done
 
 source "$resource_folder"/functions/shared_functions.sh
+source "$resource_folder"/functions/simbl.sh
 
 simbl_inst="$resource_folder/helpers/SIMBL-0.9.9.pkg"
-injec_path="$resource_folder/helpers/cDock_injection.app"
+injec_path="$resource_folder/helpers/inject.sh"
 wupdt_path="$resource_folder/updates/wUpdater.app/Contents/MacOS/wUpdater"
 PlistBuddy=/usr/libexec/PlistBuddy" -c"
 cdock_pl="$HOME"/Library/Preferences/org.w0lf.cDock.plist
@@ -84,9 +58,8 @@ scriptDirectory="$resource_folder"
 
 #	App execution
 echo $restart_count >/tmp/dmpipe
-ask_pass
-install_SIMBL
-is_SIMBL_runnning
+simbl_setup
+simbl_run
 
 update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add autoInstall integer 0" "$cdock_pl"; echo -n 0; } )
 update_auto_check=$($PlistBuddy "Print autoCheck" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add autoCheck integer 1" "$cdock_pl"; echo -n 1; } )

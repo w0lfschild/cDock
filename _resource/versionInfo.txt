@@ -1,12 +1,18 @@
 ------------------------------------------------
-Version		: 8.0
-Build date	: Jul / 01 / 2015
+Version		   : 8.1
+Build date	 : Jul / 01 / 2015
 
-NOTES:
+Notes:
+- This update has limited testing, it may break some functionality.
 - cDock themes do not work on 10.11
 - ETA of fix for 10.11+ unknown
-- If automatic updates fail get the latest here:
-https://github.com/w0lfschild/cDock/releases/latest
+------------------------------------------------
+
+8.1
+
+Fixed
+- A hand full of issues with 8.0
+
 ------------------------------------------------
 
 8.0
@@ -14,13 +20,13 @@ https://github.com/w0lfschild/cDock/releases/latest
 New
 - Return to using original SIMBL
   - http://www.culater.net/software/SIMBL/SIMBL.php
- 	- this will require admin password to install*
-  - this should add support for 10.9.5 (13F1096)**
-  - this should add support for 10.10.4 (14E46)**
+ 	- this will require admin password to install
+  - this may add support for 10.9.5 (13F1096)
+  - this may add support for 10.10.4 (14E46)
 - Option to not auto-launch menubar applet in settings
 - Menubar applet
-  > Check for updates
-  > Visit website
+  - Check for updates
+  - Visit website
 
 Fixed
 - Localizations not showing (maybe)
@@ -33,16 +39,8 @@ Fixed
 Changed
 - Show theme folder after importing a theme
 - Email now zips alls logs instead of just attaching 1.log and apps.log
-    > Please don't send me blank emails with a log, it doesn't really help me at all
+    - Please don't send me blank emails with a log, it doesn't really help me at all
 - More logging
 - Refactored a bunch of stuff
-
-Notes
-  -- This update has limited testing, it may break some functionality.
-  -- If you follow the "if it ain't broke, don't fix it" philosophy
-  -- and are running an out of date version of OSX this might not be for you.
-  * If you don't know your password... you should.
-  * Google search how to change it or create a new admin account.
-  ** I don't have either of these versions of OSX installed to test on...
 
 ------------------------------------------------

@@ -69,7 +69,6 @@ ask_pass() {
 update_check() {
 	cur_date=$(date "+%y%m%d")
   lastupdateCheck=$($PlistBuddy "Print lastupdateCheck:" "$cdock_pl" 2>/dev/null || defaults write org.w0lf.cDock "lastupdateCheck" 0 2>/dev/null)
-  echo "$5"
 	if [[ "$5" = "w" ]]; then
   	weekly=$((lastupdateCheck + 7))
     if [[ "$weekly" = "$cur_date" ]]; then

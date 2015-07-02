@@ -15,6 +15,7 @@
 source ./functions/shared_functions.sh
 source ./functions/base_functions.sh
 source ./functions/window_functions.sh
+source ./functions/simbl.sh
 
 #	Strings
 start_time=$(date +%s)
@@ -24,7 +25,8 @@ app_bundles="$scriptDirectory"/bundles
 app_helpers="$scriptDirectory"/helpers
 app_directory="$scriptDirectory"
 for i in {1..2}; do app_directory=$(dirname "$app_directory"); done
-app_windows=""
+simbl_inst="$app_directory"/Contents/Resources/helpers/SIMBL-0.9.9.pkg
+injec_path="$app_directory"/Contents/Resources/helpers/inject.sh
 cdock_path="$app_directory"/Contents/Resources/helpers/"cDock Agent".app
 wupdt_path="$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/MacOS/wUpdater
 cocoa_path="$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/Resource/cocoaDialog.app/Contents/MacOS/CocoaDialog
@@ -57,7 +59,11 @@ window_setup																							# Set up windows
 firstrun_display_check																		# Check if app has been opened before and if it's a newer version than saved in the preferences
 # first_run_window; exit																		# Testing...
 sync_themes																								# Make sure themes are synced
+launch_agent																							# Setup that launch agent
 plistbud "Set" "version" "string" "$curver" "$cdock_pl"		# Set version
+simbl_setup																								# Make sure we got that sweet sweet SIMBL installed
+simbl_run																									# Make sure we got that sweet sweet SIMBL running and injected
+open -a "$cdock_path" &																		# Start Agent
 
 # Check for updates
 if [[ $update_auto_check == 1 ]]; then
@@ -73,6 +79,7 @@ echo -e "Approximate startup time is ${total_time} seconds\n"
 if [[ $launch_menu_applet == "1" ]]; then
 	open ./helpers/cDock_refresh.app
 fi
+
 main_window_draw
 
 #END
