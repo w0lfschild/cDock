@@ -13,21 +13,21 @@
 * [Donate](http://w0lfschild.github.io/pages/donate.html)
 
 ### Translations:
-Wolfgang Baird - English
-Dmitry Kudryashov - Russian, Chinese (Simplified)
-Mauro Ferreri - Italian
+Wolfgang Baird - English    
+Dmitry Kudryashov - Russian, Chinese (Simplified)    
+Mauro Ferreri - Italian    
 
 ### Credits:
 
-[SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)
-[CocoaDialog](http://mstratman.github.io/cocoadialog/)
-[Pashua](http://bluem.net/en/mac/pashua/)
-[BlackDock](http://cooviewerzoom.web.fc2.com/blackdock)
-[DarkDock](http://github.com/b3ll/DarkDock)
-[ColorfulSidebar](http://cooviewerzoom.web.fc2.com/)
-[platypus](http://sveinbjorn.org/platypus)
-[CocoaBackports](http://github.com/petroules/CocoaBackports)
-[Icon](http://scafer31000.deviantart.com)
+[SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)    
+[CocoaDialog](http://mstratman.github.io/cocoadialog/)    
+[Pashua](http://bluem.net/en/mac/pashua/)    
+[BlackDock](http://cooviewerzoom.web.fc2.com/blackdock)    
+[DarkDock](http://github.com/b3ll/DarkDock)    
+[ColorfulSidebar](http://cooviewerzoom.web.fc2.com/)    
+[platypus](http://sveinbjorn.org/platypus)    
+[CocoaBackports](http://github.com/petroules/CocoaBackports)    
+[Icon](http://scafer31000.deviantart.com)    
 
 ### License:
 Pretty much the BSD license, just don't repackage it and call it your own please!
