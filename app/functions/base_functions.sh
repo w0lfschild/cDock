@@ -63,6 +63,8 @@ app_has_updated() {
 		rsync -ru /tmp/cDock_junk/active/"$current_theme" "$HOME"/Library/Application\ Support/cDock/themes
 	fi
 
+	rm -r /tmp/cDock_junk
+
 	# Restart logging
 	app_logging
 }
@@ -166,9 +168,16 @@ apply_main() {
 			plistbud "Set" "single-app" "bool" "false" "$pl_alt"
 		fi
 
+		# Enhanced list view // Mav only
+		if [[ $chk13 -eq 1 ]]; then
+			plistbud "Set" "use-new-list-stack" "bool" "true" "$pl_alt"
+		else
+			plistbud "Set" "use-new-list-stack" "bool" "false" "$pl_alt"
+		fi
+
 		# Change the Dock’s Position // Mav only
 		if [[ $pop4 != "" ]]; then
-			plistbud "Set" "pinning" "$pop4" "$pl_alt"
+			plistbud "Set" "pinning" "string" "$pop4" "$pl_alt"
 		fi
 
 		# App icon counts
@@ -568,7 +577,7 @@ install_cdock_bundle() {
 	if [[ ! -e "$HOME/Library/Application Support/SIMBL/Plugins/cDock.bundle" ]]; then ln -s "$app_bundles"/cDock.bundle "$HOME/Library/Application Support"/SIMBL/Plugins/cDock.bundle; fi
 
 	# Mirror check
-	if [[ $($PlistBuddy "Print hide-mirror:" "$dock_plist") != true ]]; then defaults write com.apple.dock hide-mirror -bool true; fi
+	if [[ $($PlistBuddy "Print hide-mirror:" "$dock_plist") != false ]]; then defaults write com.apple.dock hide-mirror -bool false; fi
 
 	# DockMod check
 	if [[ $($PlistBuddy "Print dockmod-enabled:" "$dock_plist") != false ]]; then defaults write com.apple.dock dockmod-enabled -bool false; fi
@@ -604,6 +613,10 @@ install_finder_bundle() {
 }
 
 install_finish() {
+	if ($start_agent); then
+		killall -s cDock\ Agent || { echo -e "Starting dockmonitor"; open "$cdock_path"; }
+	fi
+
 	if ($reboot_dock); then killall "Dock"; fi
 	if ($reboot_finder); then
 		if [[ $(lsof -c Finder | grep MacOS/XtraFinder) ]]; then
@@ -616,10 +629,9 @@ install_finish() {
 			killall "Finder"
 		fi
 	fi
-	if ($start_agent); then
-		ps ax | grep [M]acOS/cDock\ Agent || { echo -e "Starting dockmonitor"; open "$cdock_path"; }
-		# ps ax | grep [c]Dock\ Agent || { echo -e "Starting dockmonitor"; open "$cdock_path"; }
-	fi
+
+	exec "$injec_path" &
+
 	# logging info
 	ls -l "$HOME"/Library/Application\ Support/SIMBL/Plugins
 	ls -l /Library/Application\ Support/SIMBL/Plugins
@@ -635,8 +647,8 @@ launch_agent() {
 	# Blacklist apps that have been reported to crash for SIMBL
 	espl=("$HOME"/Library/Preferences/com.github.norio-nomura.SIMBL-Agent.plist "$HOME"/Library/Preferences/net.culater.SIMBL_Agent.plist)
 	for zzz in ${espl[@]}; do
-		if [[ ! -e "$zzz" ]]; then touch "$zzz"; fi
-		$PlistBuddy "Add SIMBLApplicationIdentifierBlacklist array" "$zzz"
+		if [[ ! -s "$zzz" ]]; then rm "$zzz"; fi
+		$PlistBuddy "Add SIMBLApplicationIdentifierBlacklist array" "$zzz" &>/dev/null
 		plistbud "Set" "SIMBLApplicationIdentifierBlacklist:0" "string" "com.skype.skype" "$zzz"
 		plistbud "Set" "SIMBLApplicationIdentifierBlacklist:1" "string" "com.FilterForge.FilterForge4" "$zzz"
 	done

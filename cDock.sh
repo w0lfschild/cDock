@@ -4,8 +4,8 @@
 #
 # cDock
 # Maintained By	: Wolfgang Baird
-# Version				: 8.0
-# Updated				: Jul / 01 / 2015
+# Version				: 8.2
+# Updated				: Jul / 05 / 2015
 #
 # # # # # # # # # # # # # # # # # # # #
 
@@ -68,7 +68,7 @@ open -a "$cdock_path" &																		# Start Agent
 # Check for updates
 if [[ $update_auto_check == 1 ]]; then
 	# 1 wupdater_path 2 app_directory 3 curver 4 update_auto_install 5 update_interval
-	update_check "$wupdt_path" "$app_directory" "$curver" "$update_auto_install" "d" &
+	update_check "$wupdt_path" "$app_directory" "$curver" "$update_auto_install" "n" &
 fi
 
 # Log time it took to open cDock
@@ -77,7 +77,9 @@ echo -e "Approximate startup time is ${total_time} seconds\n"
 
 # Show main window
 if [[ $launch_menu_applet == "1" ]]; then
-	open ./helpers/cDock_refresh.app
+	if [[ -z $(ps ax | grep [c]Dock_refresh) ]]; then
+		open ./helpers/cDock_refresh.app
+	fi
 fi
 
 main_window_draw

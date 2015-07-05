@@ -3,8 +3,8 @@
 # # # # # # # # # # # # # # # # # # # #
 #
 # Maintained By	: Wolfgang Baird
-# Version				: 3.0
-# Updated				: Jun / 30 / 2014
+# Version				: 3.1
+# Updated				: Jul / 04 / 2014
 #
 # # # # # # # # # # # # # # # # # # # #
 
@@ -65,22 +65,22 @@ update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null |
 update_auto_check=$($PlistBuddy "Print autoCheck" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add autoCheck integer 1" "$cdock_pl"; echo -n 1; } )
 curver=$($PlistBuddy "Print version" "$cdock_pl" 2>/dev/null || echo -n 1 )
 if [[ $update_auto_check == 1 ]]; then
-	update_check "$wupdt_path" "$resource_folder" "$curver" "$update_auto_install" "w" &
+	update_check "$wupdt_path" "$resource_folder" "$curver" "$update_auto_install" "d" &
 fi
 
 # Main monitor loop
 while [ 1 ]; do
 	# Grab dockID
-	newid=$(ps ax | grep [M]acOS/Dock | sed -e 's/^[ \t]*//' | cut -f1 -d" ")
+	newid=$(killall -s Dock | cut -f3 -d" ")
 
 	# If dock has been restarted it will have a new ID
 	if [[ $newid != $dockpid ]]; then
 		dockpid=$newid
 		restart_SIMBL
 		if [[ $restart_count -eq 1 ]]; then crash_monitor; fi &
-		sleep 4
+		sleep 5
 	else
-		sleep 2 # Sleep time between checks
+		sleep 5 # Sleep time between checks
 	fi
 done
 

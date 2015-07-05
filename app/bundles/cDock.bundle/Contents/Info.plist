@@ -3,41 +3,43 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>14D72i</string>
+	<string>14E46</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>cDockBundle</string>
+	<string>cDock</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.w0lf.cDockBundle</string>
+	<string>org.w0lf.cDock</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>cDockBundle</string>
+	<string>cDock</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.14</string>
+	<string>0.21</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>80</string>
+	<string>0.21</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>6A2008a</string>
+	<string>6C131e</string>
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
-	<string>14A382</string>
+	<string>14A383</string>
 	<key>DTSDKName</key>
 	<string>macosx10.10</string>
 	<key>DTXcode</key>
-	<string>0611</string>
+	<string>0620</string>
 	<key>DTXcodeBuild</key>
-	<string>6A2008a</string>
+	<string>6C131e</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2013 cvz, © 2014 w0lf, © 2014 Adam Bell</string>
+	<string>Copyright © 2015 Wolfgang Baird. All rights reserved.</string>
+	<key>NSPrincipalClass</key>
+	<string>cDock</string>
 	<key>SIMBLTargetApplications</key>
 	<array>
 		<dict>

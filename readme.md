@@ -1,34 +1,33 @@
 # [cDock](http://w0lfschild.github.io/pages/cdock.html)
 
 ### Information:
-* cDock installs part of [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if it is not already installed.
+* cDock installs [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if it is not already installed.
 * cDock works for both the Bottom Dock and Side dock.
 * cDock theming requires OSX 10.9+.
-* **Note**: This may break in the future.
+* cDock may break in the future, and I'm not obligated to fix it, be careful when updating.
 	* Working on:
-	    * **10.9 - 10.9.5** (13F34)
-	    * **10.10 - 10.10.3** (14D131)
-	* Not working on:
-	    * **10.11** (15A178w)
+	    * **10.9** to **10.9.5** (13F1096)
+	    * **10.10** to **10.10.4** (14E46)
+	* Not working:
+	    * **10.11** (15A204h)
+* [Donate](http://w0lfschild.github.io/pages/donate.html)
 
 ### Translations:
-Wolfgang Baird - English    
-Dmitry Kudryashov - Russian, Chinese (Simplified)    
-Mauro Ferreri - Italian    
+Wolfgang Baird - English
+Dmitry Kudryashov - Russian, Chinese (Simplified)
+Mauro Ferreri - Italian
 
 ### Credits:
 
-[SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)    
-[CocoaDialog](http://mstratman.github.io/cocoadialog/)    
-[Pashua](http://bluem.net/en/mac/pashua/)    
-[BlackDock](http://cooviewerzoom.web.fc2.com/blackdock)    
-[DarkDock](http://github.com/b3ll/DarkDock)    
-[ColorfulSidebar](http://cooviewerzoom.web.fc2.com/)    
-[platypus](http://sveinbjorn.org/platypus)    
-[CocoaBackports](http://github.com/petroules/CocoaBackports)       
-[Icon](http://scafer31000.deviantart.com)    
-
-### [Donate](http://w0lfschild.github.io/pages/donate.html)
+[SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)
+[CocoaDialog](http://mstratman.github.io/cocoadialog/)
+[Pashua](http://bluem.net/en/mac/pashua/)
+[BlackDock](http://cooviewerzoom.web.fc2.com/blackdock)
+[DarkDock](http://github.com/b3ll/DarkDock)
+[ColorfulSidebar](http://cooviewerzoom.web.fc2.com/)
+[platypus](http://sveinbjorn.org/platypus)
+[CocoaBackports](http://github.com/petroules/CocoaBackports)
+[Icon](http://scafer31000.deviantart.com)
 
 ### License:
 Pretty much the BSD license, just don't repackage it and call it your own please!

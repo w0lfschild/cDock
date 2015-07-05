@@ -1,6 +1,7 @@
 4LE Media, L.L.C.
+Andrew Howse
 Ang Edwin
-Anonymous x1
+Anonymous
 Anthony Giusti
 Aron Yoffe
 Barry Chiarello
@@ -25,15 +26,24 @@ David Kaminsky
 Denis Stewar
 Denny Forster
 Donation
+Dr Joel J Levitz
+Edgar Braun
 Edgar Kraus
+Edmund L Windeler Jr
 Ekvia Ltd
-erick genaude
+Eric Ackerman
 Frank Thurber
+Gary T Fields
 Gregory A Petsko
 Gregory Pitta
 Hans Henningsson
+Harvey Rubinstein
+Haydon Enterprises
 Howard Dym
 Howard Katz
+Ian Summers
+Jacqueline Lawson
+James Barley
 James Powell
 Jan Wade
 Jay Gould
@@ -46,6 +56,7 @@ John Lustman
 John McGrew
 John Mueller
 John Parr
+John Scott
 Julie Lindsey-Halls
 Justin Dailey
 Ken Hoyle
@@ -62,12 +73,13 @@ Mark Warren
 Marten Claridge
 Michael Fontana
 Mike Bessy
+Neil Pomeroy
 Niels van Kruiningen
 Niyi Afelumo
 Noelle De Guzman
+Othmar Vetrovetz
 Paul Babadi Bamba
 Pete Askew
-peter faiman
 Petr Smrz
 Rainer Kühnel
 Richard Nolan
@@ -77,8 +89,10 @@ Robert Bailey
 Robert Nace
 Ross Green
 Ryoichi Morita
+Sabine Zimmermann
 Samir Benmammar
 Sean Greenwood
+Stefano Brocco
 Tata Parker
 Thai Tran
 Trang Tran
@@ -89,4 +103,8 @@ William Griffith
 William M Sorem
 Winston Maxwell
 Wolbe, Inc.
+erick genaude
+michael kreiser
+p.r. austin unlimited visions
+peter faiman
 吳 駿維

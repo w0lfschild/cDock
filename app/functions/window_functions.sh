@@ -365,12 +365,12 @@ main_window_establish() {
 	if [[ "$mvr" = "<" ]]; then
 	# Enhanced list view
 	main_window=$main_window"
-	chk8.tooltip = When enabled folders set to list view will use larger icons and allow dragging icons just like in grid view.
-	chk8.type = checkbox
-	chk8.label = Improved list view
-	chk8.default = 0
-	chk8.x = 225
-	chk8.y = $chxy"
+	chk13.tooltip = When enabled folders set to list view will use larger icons and allow dragging icons just like in grid view.
+	chk13.type = checkbox
+	chk13.label = Improved list view
+	chk13.default = $dock_use_new_list_stack
+	chk13.x = 225
+	chk13.y = $chxy"
 	evalchx
 	fi
 
@@ -435,7 +435,8 @@ main_window_update() {
 	if [[ "$mvr" = "<" ]]; then
 		main_window="$main_window
 		tb4.default = Dock position:
-		pop4.default = $pop4"
+		pop4.default = $pop4
+    chk13.default = $chk13"
 	fi
 }
 

@@ -17,7 +17,6 @@
 		<string>/Users/w0lf/GitHub/cDock_fork/app/helpers</string>
 		<string>/Users/w0lf/GitHub/cDock_fork/app/support</string>
 		<string>/Users/w0lf/GitHub/cDock_fork/app/updates</string>
-		<string>/Users/w0lf/GitHub/cDock_fork/app/variables</string>
 		<string>/Users/w0lf/GitHub/cDock_fork/app/windows</string>
 		<string>/Users/w0lf/GitHub/cDock_fork/app/resource/Pashua.app</string>
 		<string>/Users/w0lf/GitHub/cDock_fork/app/resource/Credits.html</string>
@@ -96,6 +95,6 @@
 	<key>UseXMLPlistFormat</key>
 	<false/>
 	<key>Version</key>
-	<string>8.0</string>
+	<string>8.2</string>
 </dict>
 </plist>

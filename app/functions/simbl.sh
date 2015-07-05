@@ -1,10 +1,5 @@
 #! /bin/bash
 
-agent_setup() {
-    echo "hello"
-    # osascript -e 'tell application "System Events" to delete login item "cDock Agent"'
-}
-
 simbl_setup() {
   if [[ ! -e /Library/ScriptingAdditions/SIMBL.osax || ! -e /Library/LaunchAgents/net.culater.SIMBL.Agent.plist ]]; then
     lib_plug="/Library/Application Support/SIMBL/Plugins"
@@ -16,10 +11,10 @@ simbl_setup() {
     dir_check "$lib_plug"
     dir_check "$usr_plug"
     if [[ $(readlink "$usr_plug") != "$lib_plug" ]]; then
-      mv "$HOME/Library/Application Support/SIMBL/Plugins" "$HOME/Library/Application Support/SIMBL/Plugins.tmp"
-      ln -s "/Library/Application Support/SIMBL/Plugins" "$HOME/Library/Application Support/SIMBL/Plugins"
-      mv "$HOME/Library/Application Support/SIMBL/Plugins.tmp/"* "$HOME/Library/Application Support/SIMBL/Plugins"
-      rm -r "$HOME/Library/Application Support/SIMBL/Plugins.tmp"
+      mv "$usr_plug" "$usr_plug.tmp"
+      ln -s "$lib_plug" "$usr_plug"
+      mv "$usr_plug.tmp/"* "$usr_plug"
+      rm -r "$usr_plug.tmp"
     fi
   fi
 }
@@ -36,9 +31,10 @@ imma_let_you_finish() {
 }
 
 simbl_run() {
+  exec "$injec_path" &
+  sleep 1
 	simbl_id=$(ps ax | grep [M]acOS/SIMBL | sed -e 's/^[ \t]*//' | cut -f1 -d" ")
 	if [[ -z $simbl_id ]]; then
 		exec "/Library/ScriptingAdditions/SIMBL.osax/Contents/Resources/SIMBL Agent.app/Contents/MacOS/SIMBL Agent" &
 	fi
-  exec "$injec_path" &
 }

@@ -12,8 +12,6 @@
 		FB19BD91197243F4001461C3 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = FB19BD8F197243F4001461C3 /* fishhook.c */; };
 		FB48B1581AC68F460026ADFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB48B1571AC68F460026ADFB /* CoreGraphics.framework */; };
 		FB48B1631AC690360026ADFB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB48B1621AC690360026ADFB /* Cocoa.framework */; };
-		FB48B16A1AC692200026ADFB /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FB48B1691AC692200026ADFB /* ZKSwizzle.m */; };
-		FB48B16D1AC692530026ADFB /* cDock_theme.c in Sources */ = {isa = PBXBuildFile; fileRef = FB48B16B1AC692530026ADFB /* cDock_theme.c */; };
 		FB58D31619526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m in Sources */ = {isa = PBXBuildFile; fileRef = FB58D31519526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m */; };
 /* End PBXBuildFile section */
 
@@ -27,10 +25,6 @@
 		FB19BD90197243F4001461C3 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
 		FB48B1571AC68F460026ADFB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CoreGraphics.framework; sourceTree = "<group>"; };
 		FB48B1621AC690360026ADFB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = ../../../../../../System/Library/Frameworks/Cocoa.framework; sourceTree = "<group>"; };
-		FB48B1681AC692200026ADFB /* ZKSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKSwizzle.h; sourceTree = "<group>"; };
-		FB48B1691AC692200026ADFB /* ZKSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKSwizzle.m; sourceTree = "<group>"; };
-		FB48B16B1AC692530026ADFB /* cDock_theme.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cDock_theme.c; sourceTree = "<group>"; };
-		FB48B16C1AC692530026ADFB /* cDock_theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cDock_theme.h; sourceTree = "<group>"; };
 		FB58D31419526D3F00A16617 /* NSProcessInfo+PECocoaBackports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSProcessInfo+PECocoaBackports.h"; sourceTree = "<group>"; };
 		FB58D31519526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSProcessInfo+PECocoaBackports.m"; sourceTree = "<group>"; };
 		FB58D31719526DBC00A16617 /* PECocoaBackportsGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECocoaBackportsGlobal.h; sourceTree = "<group>"; };
@@ -41,7 +35,6 @@
 		FB9C98AA1AD07FD800C84A6C /* DOCKTileLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOCKTileLayer.h; sourceTree = "<group>"; };
 		FB9C98AB1AD07FD800C84A6C /* ECMaterialLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECMaterialLayer.h; sourceTree = "<group>"; };
 		FB9C98AC1AD0800500C84A6C /* Tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
-		FB9C98B31AD0852800C84A6C /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,17 +71,13 @@
 		08FB77AFFE84173DC02AAC07 /* cDock */ = {
 			isa = PBXGroup;
 			children = (
-				FB9C98B31AD0852800C84A6C /* constants.h */,
 				C381D801181FEA2B008521C6 /* cDock.h */,
 				C381D802181FEA2B008521C6 /* cDock.m */,
-				FB48B16C1AC692530026ADFB /* cDock_theme.h */,
-				FB48B16B1AC692530026ADFB /* cDock_theme.c */,
 				FB48B1641AC6910B0026ADFB /* apple */,
 				FB19BD9419724487001461C3 /* backports */,
 				FB48B1591AC68FDF0026ADFB /* framework */,
 				FB19BD9319724474001461C3 /* fishhook */,
 				089C167CFE841241C02AAC07 /* resource */,
-				FB9C98B01AD082C600C84A6C /* swizzle */,
 			);
 			name = cDock;
 			sourceTree = "<group>";
@@ -142,15 +131,6 @@
 				FB9C98AB1AD07FD800C84A6C /* ECMaterialLayer.h */,
 			);
 			name = apple;
-			sourceTree = "<group>";
-		};
-		FB9C98B01AD082C600C84A6C /* swizzle */ = {
-			isa = PBXGroup;
-			children = (
-				FB48B1681AC692200026ADFB /* ZKSwizzle.h */,
-				FB48B1691AC692200026ADFB /* ZKSwizzle.m */,
-			);
-			name = swizzle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,11 +193,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB48B16D1AC692530026ADFB /* cDock_theme.c in Sources */,
 				FB58D31619526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m in Sources */,
 				FB19BD91197243F4001461C3 /* fishhook.c in Sources */,
 				C381D803181FEA2B008521C6 /* cDock.m in Sources */,
-				FB48B16A1AC692200026ADFB /* ZKSwizzle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

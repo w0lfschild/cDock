@@ -1,46 +1,58 @@
 ------------------------------------------------
-Version		   : 8.1
-Build date	 : Jul / 01 / 2015
+Version		   : 8.2
+Build date	 : Jul / 05 / 2015
 
 Notes:
-- This update has limited testing, it may break some functionality.
-- cDock themes do not work on 10.11
-- ETA of fix for 10.11+ unknown
+- cDock themes do not work on 10.11 ETA unknown
+------------------------------------------------
+
+8.2
+
+- Fix support for 10.9.5 (Mavericks - 13F1096)
+- Fix Dock border misalignment on bottom (Yosemite)
+- Fix pinning not working (Mavericks)
+- Fix Dock background not filling entire screen if pinned to start or end (Mavericks)
+- Fix improved list view option not showing (Mavericks)
+- Fix Dock border drawing on top of background (Mavericks)
+- Fix to prevent cDock from opening multiple instances of menubar applet
+- Indicators/Menu backgrounds match system setting (Yosemite)
+- Draw separator setting works on Mavericks
+- 3D dock setting works on Mavericks
+- Dock background drawing incorrectly until updated, most noticeable with corner radius
+- cDock prints to console that it has loaded
+- Increase update check frequency
+- Improved update cleanup
+- Improved cDock Agent
+- Slightly faster load of dock theme after applying
+- Updated credits / readme / donor list / webpage
+- http://w0lfschild.github.io/pages/cdock.html
+
 ------------------------------------------------
 
 8.1
 
-Fixed
-- A hand full of issues with 8.0
+- Fix localizations not showing (maybe)
+- Fix app not opening if no language found
+- Miscellaneous fixes
 
 ------------------------------------------------
 
 8.0
 
-New
 - Return to using original SIMBL
   - http://www.culater.net/software/SIMBL/SIMBL.php
  	- this will require admin password to install
-  - this may add support for 10.9.5 (13F1096)
-  - this may add support for 10.10.4 (14E46)
+  - this may adds support for 10.10.4 (14E46)
 - Option to not auto-launch menubar applet in settings
 - Menubar applet
   - Check for updates
   - Visit website
-
-Fixed
-- Localizations not showing (maybe)
 - Hide dock tooltips > showing as applied when it wasn't on some systems
 - Hide dock tooltips > not hiding trash name on some systems
-- cDock Agent still using SourceForge for update urls instead of GitHub
-- Miscellaneous fixes
-- Some update fixes... hopefully
-
-Changed
+- Fix cDock Agent using wrong update urls instead of GitHub
 - Show theme folder after importing a theme
 - Email now zips alls logs instead of just attaching 1.log and apps.log
-    - Please don't send me blank emails with a log, it doesn't really help me at all
 - More logging
-- Refactored a bunch of stuff
+- Refactored code
 
 ------------------------------------------------
