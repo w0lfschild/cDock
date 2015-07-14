@@ -3,7 +3,7 @@
 # # # # # # # # # # # # # # # # # # # #
 #
 # cDock
-# Maintained By	: Wolfgang Baird
+# Maintained By			: Wolfgang Baird
 # Version				: 8.2
 # Updated				: Jul / 05 / 2015
 #
@@ -30,6 +30,7 @@ injec_path="$app_directory"/Contents/Resources/helpers/inject.sh
 cdock_path="$app_directory"/Contents/Resources/helpers/"cDock Agent".app
 wupdt_path="$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/MacOS/wUpdater
 cocoa_path="$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/Resource/cocoaDialog.app/Contents/MacOS/CocoaDialog
+appsupport_dir="$HOME"/Library/'Application Support'/cDock
 app_themes="$HOME"/Library/'Application Support'/cDock/themes
 save_folder="$HOME"/Library/'Application Support'/cDock/.bak
 backup_name_data="$HOME"/Library/'Application Support'/cDock/.app_name_data.bak
@@ -49,21 +50,21 @@ start_agent=false
 pwd_req=false
 folders_OT=0
 
-where_are_we																							# Make sure we're in /Applications or ~/Applications
-app_logging																								# Start logging
-firstrun_check 																						# Check if it's the firstrun
-get_preferences																						# Read all the preferences we need to show
-dir_setup																									# Setup all our directories
-check_bundles																							# Check if our bundles are already in place
-window_setup																							# Set up windows
-firstrun_display_check																		# Check if app has been opened before and if it's a newer version than saved in the preferences
-# first_run_window; exit																		# Testing...
-sync_themes																								# Make sure themes are synced
-launch_agent																							# Setup that launch agent
+where_are_we												# Make sure we're in /Applications or ~/Applications
+app_logging													# Start logging
+firstrun_check 												# Check if it's the firstrun
+get_preferences												# Read all the preferences we need to show
+dir_setup													# Setup all our directories
+check_bundles												# Check if our bundles are already in place
+window_setup												# Set up windows
+firstrun_display_check										# Check if app has been opened before and if it's a newer version than saved in the preferences
+# first_run_window; exit									# Testing...
+sync_themes													# Make sure themes are synced
+launch_agent												# Setup that launch agent
 plistbud "Set" "version" "string" "$curver" "$cdock_pl"		# Set version
-simbl_setup																								# Make sure we got that sweet sweet SIMBL installed
-simbl_run																									# Make sure we got that sweet sweet SIMBL running and injected
-open -a "$cdock_path" &																		# Start Agent
+simbl_setup													# Make sure we got that sweet sweet SIMBL installed
+simbl_run &													# Make sure we got that sweet sweet SIMBL running and injected
+open -a "$cdock_path" &										# Start Agent
 
 # Check for updates
 if [[ $update_auto_check == 1 ]]; then

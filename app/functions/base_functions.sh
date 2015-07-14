@@ -6,6 +6,7 @@ app_clean() {
 	killall "cDock Agent"
 
 	file_cleanup \
+	/Library/ScriptingAdditions/EasySIMBL.osax \
 	/Library/Application\ Support/SIMBL/Plugins/BlackDock.bundle \
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/BlackDock.bundle \
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle \
@@ -21,7 +22,6 @@ app_clean() {
 	plistbud "set" "colorfulsidebarActive" "integer" "0" "$cdock_pl"
 	defaults write org.w0lf.cDock theme -string "None"
 	osascript -e 'tell application "System Events" to delete login item "cDock Agent"'
-	osascript -e 'tell application "System Events" to delete login item "cDock Agent"'
 
 	echo "Clean up complete"
 }
@@ -29,19 +29,20 @@ app_clean() {
 app_has_updated() {
 	# Read current theme if there is one
 	current_theme=$($PlistBuddy "Print theme:" "$cdock_pl" 2>/dev/null || echo -n None)
+	cdock_tmp="$HOME"/Library/"Application Support"/cDock_tmp
 
 	# Directory junk
-	dir_check /tmp/cDock_junk/active
-	dir_check /tmp/cDock_junk/themes
+	dir_check "$cdock_tmp"/active
+	dir_check "$cdock_tmp"/themes
 	dir_check "$HOME"/Library/Application\ Support/cDock/theme_stash
 
 	# Save theme folder, logs, and current theme if one was active
 	if [[ $current_theme != "None" ]]; then
-		rsync -ru "$HOME"/Library/Application\ Support/cDock/themes/"$current_theme" /tmp/cDock_junk/active
+		rsync -ru "$HOME"/Library/Application\ Support/cDock/themes/"$current_theme" "$cdock_tmp"/active
 	fi
-	rsync -ru "$HOME"/Library/Application\ Support/cDock/.bak /tmp/cDock_junk
-	rsync -ru "$HOME"/Library/Application\ Support/cDock/themes /tmp/cDock_junk
-	rsync -ru "$HOME"/Library/Application\ Support/cDock/logs /tmp/cDock_junk
+	rsync -ru "$HOME"/Library/Application\ Support/cDock/.bak "$cdock_tmp"
+	rsync -ru "$HOME"/Library/Application\ Support/cDock/themes "$cdock_tmp"
+	rsync -ru "$HOME"/Library/Application\ Support/cDock/logs "$cdock_tmp"
 
 	# Clean out everything cDock
 	app_clean
@@ -56,14 +57,14 @@ app_has_updated() {
 	defaults write org.w0lf.cDock theme "$current_theme"
 
 	# Move back theme folder, logs, and current theme if one was active
-	rsync -ru /tmp/cDock_junk/themes/ "$HOME"/Library/Application\ Support/cDock/theme_stash
-	rsync -ru /tmp/cDock_junk/logs "$HOME"/Library/Application\ Support/cDock
-	rsync -ru /tmp/cDock_junk/.bak "$HOME"/Library/Application\ Support/cDock
+	rsync -ru "$cdock_tmp"/themes/ "$HOME"/Library/Application\ Support/cDock/theme_stash
+	rsync -ru "$cdock_tmp"/logs "$HOME"/Library/Application\ Support/cDock
+	rsync -ru "$cdock_tmp"/.bak "$HOME"/Library/Application\ Support/cDock
 	if [[ $current_theme != "None" ]]; then
-		rsync -ru /tmp/cDock_junk/active/"$current_theme" "$HOME"/Library/Application\ Support/cDock/themes
+		rsync -ru "$cdock_tmp"/active/"$current_theme" "$HOME"/Library/Application\ Support/cDock/themes
 	fi
 
-	rm -r /tmp/cDock_junk
+	rm -r "$cdock_tmp"
 
 	# Restart logging
 	app_logging
@@ -90,222 +91,224 @@ app_logging() {
 }
 
 apply_main() {
-		reboot_dock=true
+	reboot_dock=true
 
-		# Custom dock
-		dock_theme="${pop0}"
-		if [[ $pop0 = "Custom" ]]; then
-			custom_dock=true
-			install_dock=true
-		elif [[ $pop0 = "None" ]]; then
-			install_dock=false
-			file_cleanup "$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle
-			plistbud "Set" "cdockActive" "integer" "0" "$cdock_pl"
-			plistbud "Set" "theme" "string" "$dock_theme" "$cdock_pl"
-		else
-			install_dock=true
-			echo "Theme: $pop0"
+	# Custom dock
+	dock_theme="${pop0}"
+	if [[ $pop0 = "Custom" ]]; then
+		custom_dock=true
+		install_dock=true
+	elif [[ $pop0 = "None" ]]; then
+		install_dock=false
+		file_cleanup "$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle
+		file_cleanup "/Library/Application Support/SIMBL/Plugins/cDock.bundle"
+		plistbud "Set" "cdockActive" "integer" "0" "$cdock_pl"
+		plistbud "Set" "theme" "string" "$dock_theme" "$cdock_pl"
+	else
+		install_dock=true
+		echo "Theme: $pop0"
+	fi
+
+	# Check for other SIMBL bundles
+	plugin_list=""
+	plugin_list_1=""
+	displayWarning=$($PlistBuddy "Print displayWarning:" "$cdock_pl" 2>/dev/null || echo 1)
+	for item in "$HOME/Library/Application Support/SIMBL/Plugins/"*; do
+		if [[ "$item" != *cDock.bundle && "$item" != *ColorfulSidebar.bundle && "$item" != "$HOME/Library/Application Support/SIMBL/Plugins/*" ]]; then
+			found_Warning=1
+			plugin_list="$item[return]$plugin_list"
+			plugin_list_1="$item $plugin_list_1"
 		fi
+	done
+	if [[ $found_Warning = "1" && $displayWarning = "1" ]]; then alert_window; fi
 
-		# Check for other SIMBL bundles
-		plugin_list=""
-		plugin_list_1=""
-		displayWarning=$($PlistBuddy "Print displayWarning:" "$cdock_pl" 2>/dev/null || echo 1)
-		for item in "$HOME/Library/Application Support/SIMBL/Plugins/"*; do
-			if [[ "$item" != *cDock.bundle && "$item" != *ColorfulSidebar.bundle && "$item" != "$HOME/Library/Application Support/SIMBL/Plugins/*" ]]; then
-				found_Warning=1
-				plugin_list="$item[return]$plugin_list"
-				plugin_list_1="$item $plugin_list_1"
+	# dupe dock plist
+	pl_alt="$HOME"/Library/Application\ Support/cDock/tmp/com.apple.dock.plist
+	dir_check "$HOME"/Library/Application\ Support/cDock/tmp
+	cp -f "$dock_plist" "$pl_alt"
+
+		# Show Only Active Applications
+	if [[ $chk2 -eq 1 ]]; then
+		plistbud "Set" "static-only" "bool" "true" "$pl_alt"
+	else
+		plistbud "Set" "static-only" "bool" "false" "$pl_alt"
+	fi
+
+	# Dim hidden items
+	if [[ $chk3 -eq 1 ]]; then
+		plistbud "Set" "showhidden" "bool" "true" "$pl_alt"
+	else
+		plistbud "Set" "showhidden" "bool" "false" "$pl_alt"
+	fi
+
+	# Lock dock contents
+	if [[ $chk4 -eq 1 ]]; then
+		plistbud "Set" "contents-immutable" "bool" "true" "$pl_alt"
+	else
+		plistbud "Set" "contents-immutable" "bool" "false" "$pl_alt"
+	fi
+
+	# Mouse over highlight
+	if [[ $chk5 -eq 1 ]]; then
+		plistbud "Set" "mouse-over-hilite-stack" "bool" "true" "$pl_alt"
+	else
+		plistbud "Set" "mouse-over-hilite-stack" "bool" "false" "$pl_alt"
+	fi
+
+	# No bounce
+	if [[ $chk9 -eq 1 ]]; then
+		plistbud "Set" "no-bouncing" "bool" "true" "$pl_alt"
+		plistbud "Set" "launchanim" "bool" "false" "$pl_alt"
+	else
+		plistbud "Set" "no-bouncing" "bool" "false" "$pl_alt"
+		plistbud "Set" "launchanim" "bool" "true" "$pl_alt"
+	fi
+
+	# Single app mode
+	if [[ $chk10 -eq 1 ]]; then
+		plistbud "Set" "single-app" "bool" "true" "$pl_alt"
+	else
+		plistbud "Set" "single-app" "bool" "false" "$pl_alt"
+	fi
+
+	# Enhanced list view // Mav only
+	if [[ $chk13 -eq 1 ]]; then
+		plistbud "Set" "use-new-list-stack" "bool" "true" "$pl_alt"
+	else
+		plistbud "Set" "use-new-list-stack" "bool" "false" "$pl_alt"
+	fi
+
+	# Change the Dock’s Position // Mav only
+	if [[ $pop4 != "" ]]; then
+		plistbud "Set" "pinning" "string" "$pop4" "$pl_alt"
+	fi
+
+	# App icon counts
+	a_count=$($PlistBuddy "Print persistent-apps:" "$pl_alt" | grep -a "    Dict {" | wc -l | tr -d ' ')
+	a_spacers=$($PlistBuddy "Print persistent-apps:" "$pl_alt" | grep -a "spacer-tile" | wc -l | tr -d ' ')
+
+	# Document icon counts
+	d_count=$($PlistBuddy "Print persistent-others:" "$pl_alt" | grep -a "    Dict {" | wc -l | tr -d ' ')
+	d_spacers=$($PlistBuddy "Print persistent-others:" "$pl_alt" | grep -a "spacer-tile" | wc -l | tr -d ' ')
+
+	# Recent Items Folder
+	if [[ $chk6 -eq 1 ]]; then
+		(( $($PlistBuddy "Print persistent-others:" "$pl_alt" | grep -a recents-tile | wc -l) )) || { \
+			$PlistBuddy "Add persistent-others array" "$pl_alt"; \
+			$PlistBuddy "Add persistent-others: dict" "$pl_alt"; \
+			$PlistBuddy "Add persistent-others:$d_count:tile-type string recents-tile" "$pl_alt"; \
+			$PlistBuddy "Add persistent-others:$d_count:tile-data dict" "$pl_alt"; \
+			$PlistBuddy "Add persistent-others:$d_count:tile-data:list-type integer 1" "$pl_alt"; }
+	else
+		for (( idx=0; idx < $d_count; idx++ )); do
+			if [[ $($PlistBuddy "Print persistent-others:$idx:tile-type" "$pl_alt") = "recents-tile" ]]; then
+				$PlistBuddy "Delete persistent-others:$idx" "$pl_alt"
+				idx=$_count
 			fi
 		done
-		if [[ $found_Warning = "1" && $displayWarning = "1" ]]; then alert_window; fi
+	fi
 
-		# dupe dock plist
-		pl_alt=/tmp/com.apple.dock.plist
-		cp -f "$dock_plist" "$pl_alt"
+	# Tooltips
+    dock_findtrashname
+    dock_hide_tooltips=$($PlistBuddy "Print TrashName" "$dock_trashname" || echo Trash)
+	if [[ $dock_hide_tooltips = "Trash" ]]; then dock_hide_tooltips=0; else dock_hide_tooltips=1; fi
+	if [[ $chk7 -eq 1 ]]; then
+		if [[ $dock_hide_tooltips = 0 ]]; then tooltips_hide; dock_hide_tooltips = 1; fi
+	else
+		if [[ $dock_hide_tooltips = 1 ]]; then tooltips_restore; dock_hide_tooltips = 0; fi
+	fi
+	echo "Tooltips hidden: "$dock_hide_tooltips
 
- 		# Show Only Active Applications
-		if [[ $chk2 -eq 1 ]]; then
-			plistbud "Set" "static-only" "bool" "true" "$pl_alt"
+	# Finder and Trash close
+	dock_FT_can_kill=$($PlistBuddy "Print trash" /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist | grep 1004 || echo "")
+	if [[ $dock_FT_can_kill = "" ]]; then dock_FT_can_kill=0; else dock_FT_can_kill=1; fi
+	if [[ $chk8 -eq 1 ]]; then
+		if [[ $dock_FT_can_kill = 0 ]]; then closable_FinderTrash_ENABLE; dock_FT_can_kill=1; fi
+	else
+		if [[ $dock_FT_can_kill = 1 ]]; then closable_FinderTrash_DISABLE; dock_FT_can_kill=0; fi
+	fi
+	echo "Trash and Finder removable: "$dock_FT_can_kill
+
+	if [[ $a_count -gt 0 ]]; then a_count=$(( $a_count - 1 )); fi
+	if [[ $d_count -gt 0 ]]; then d_count=$(( $d_count - 1 )); fi
+
+	# App Spacers
+	if [[ $a_spacers != $pop1 ]]; then
+		_alt=$(( $pop1 - $a_spacers ))
+		if [[ $_alt -gt 0 ]]; then
+			for ((a=0; a < $_alt ; a++)); do
+				a_count=$(( $a_count + 1 ))
+				$PlistBuddy "Add persistent-apps: dict" "$pl_alt"
+				$PlistBuddy "Add persistent-apps:$a_count:tile-type string spacer-tile" "$pl_alt"
+			done
 		else
-			plistbud "Set" "static-only" "bool" "false" "$pl_alt"
-		fi
-
-		# Dim hidden items
-		if [[ $chk3 -eq 1 ]]; then
-			plistbud "Set" "showhidden" "bool" "true" "$pl_alt"
-		else
-			plistbud "Set" "showhidden" "bool" "false" "$pl_alt"
-		fi
-
-		# Lock dock contents
-		if [[ $chk4 -eq 1 ]]; then
-			plistbud "Set" "contents-immutable" "bool" "true" "$pl_alt"
-		else
-			plistbud "Set" "contents-immutable" "bool" "false" "$pl_alt"
-		fi
-
-		# Mouse over highlight
-		if [[ $chk5 -eq 1 ]]; then
-			plistbud "Set" "mouse-over-hilite-stack" "bool" "true" "$pl_alt"
-		else
-			plistbud "Set" "mouse-over-hilite-stack" "bool" "false" "$pl_alt"
-		fi
-
-		# No bounce
-		if [[ $chk9 -eq 1 ]]; then
-			plistbud "Set" "no-bouncing" "bool" "true" "$pl_alt"
-			plistbud "Set" "launchanim" "bool" "false" "$pl_alt"
-		else
-			plistbud "Set" "no-bouncing" "bool" "false" "$pl_alt"
-			plistbud "Set" "launchanim" "bool" "true" "$pl_alt"
-		fi
-
-		# Single app mode
-		if [[ $chk10 -eq 1 ]]; then
-			plistbud "Set" "single-app" "bool" "true" "$pl_alt"
-		else
-			plistbud "Set" "single-app" "bool" "false" "$pl_alt"
-		fi
-
-		# Enhanced list view // Mav only
-		if [[ $chk13 -eq 1 ]]; then
-			plistbud "Set" "use-new-list-stack" "bool" "true" "$pl_alt"
-		else
-			plistbud "Set" "use-new-list-stack" "bool" "false" "$pl_alt"
-		fi
-
-		# Change the Dock’s Position // Mav only
-		if [[ $pop4 != "" ]]; then
-			plistbud "Set" "pinning" "string" "$pop4" "$pl_alt"
-		fi
-
-		# App icon counts
-		a_count=$($PlistBuddy "Print persistent-apps:" $pl_alt | grep -a "    Dict {" | wc -l | tr -d ' ')
-		a_spacers=$($PlistBuddy "Print persistent-apps:" $pl_alt | grep -a "spacer-tile" | wc -l | tr -d ' ')
-
-		# Document icon counts
-		d_count=$($PlistBuddy "Print persistent-others:" $pl_alt | grep -a "    Dict {" | wc -l | tr -d ' ')
-		d_spacers=$($PlistBuddy "Print persistent-others:" $pl_alt | grep -a "spacer-tile" | wc -l | tr -d ' ')
-
-		# Recent Items Folder
-		if [[ $chk6 -eq 1 ]]; then
-			(( $($PlistBuddy "Print persistent-others:" $pl_alt | grep -a recents-tile | wc -l) )) || { \
-				$PlistBuddy "Add persistent-others array" $pl_alt; \
-				$PlistBuddy "Add persistent-others: dict" $pl_alt; \
-				$PlistBuddy "Add persistent-others:$d_count:tile-type string recents-tile" $pl_alt; \
-				$PlistBuddy "Add persistent-others:$d_count:tile-data dict" $pl_alt; \
-				$PlistBuddy "Add persistent-others:$d_count:tile-data:list-type integer 1" $pl_alt; }
-		else
-			for (( idx=0; idx < $d_count; idx++ )); do
-				if [[ $($PlistBuddy "Print persistent-others:$idx:tile-type" $pl_alt) = "recents-tile" ]]; then
-					$PlistBuddy "Delete persistent-others:$idx" $pl_alt
-					idx=$_count
+			for ((a=0; a <= $a_count ; a++)); do
+				if [[ $_alt -lt 0 ]]; then
+					if [[ $($PlistBuddy "Print persistent-apps:$a:tile-type" "$pl_alt") = "spacer-tile" ]]; then
+						$PlistBuddy "Delete persistent-apps:$a" "$pl_alt"
+						a=$(( $a - 1 ))
+						a_count=$(( $a_count - 1 ))
+						_alt=$(( $_alt + 1 ))
+					fi
 				fi
 			done
 		fi
+	fi
 
-		# Tooltips
-    dock_findtrashname
-    dock_hide_tooltips=$($PlistBuddy "Print TrashName" "$dock_trashname" || echo Trash)
-		if [[ $dock_hide_tooltips = "Trash" ]]; then dock_hide_tooltips=0; else dock_hide_tooltips=1; fi
-		if [[ $chk7 -eq 1 ]]; then
-			if [[ $dock_hide_tooltips = 0 ]]; then tooltips_hide; dock_hide_tooltips = 1; fi
+	# Document Spacers
+	if [[ $d_spacers != $pop2 ]]; then
+		_alt=$(( $pop2 - $d_spacers ))
+		if [[ $_alt -gt 0 ]]; then
+			for ((a=0; a < $_alt ; a++)); do
+				d_count=$(( $d_count + 1 ))
+				$PlistBuddy "Add persistent-others: dict" "$pl_alt"
+				$PlistBuddy "Add persistent-others:$d_count:tile-data dict" "$pl_alt"
+				$PlistBuddy "Add persistent-others:$d_count:tile-type string spacer-tile" "$pl_alt"
+			done
 		else
-			if [[ $dock_hide_tooltips = 1 ]]; then tooltips_restore; dock_hide_tooltips = 0; fi
-		fi
-		echo "Tooltips hidden: "$dock_hide_tooltips
-
-		# Finder and Trash close
-		dock_FT_can_kill=$($PlistBuddy "Print trash" /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist | grep 1004 || echo "")
-		if [[ $dock_FT_can_kill = "" ]]; then dock_FT_can_kill=0; else dock_FT_can_kill=1; fi
-		if [[ $chk8 -eq 1 ]]; then
-			if [[ $dock_FT_can_kill = 0 ]]; then closable_FinderTrash_ENABLE; dock_FT_can_kill=1; fi
-		else
-			if [[ $dock_FT_can_kill = 1 ]]; then closable_FinderTrash_DISABLE; dock_FT_can_kill=0; fi
-		fi
-		echo "Trash and Finder removable: "$dock_FT_can_kill
-
-		if [[ $a_count -gt 0 ]]; then a_count=$(( $a_count - 1 )); fi
-		if [[ $d_count -gt 0 ]]; then d_count=$(( $d_count - 1 )); fi
-
-		# App Spacers
-		if [[ $a_spacers != $pop1 ]]; then
-			_alt=$(( $pop1 - $a_spacers ))
-			if [[ $_alt -gt 0 ]]; then
-				for ((a=0; a < $_alt ; a++)); do
-					a_count=$(( $a_count + 1 ))
-					$PlistBuddy "Add persistent-apps: dict" $pl_alt
-					$PlistBuddy "Add persistent-apps:$a_count:tile-type string spacer-tile" $pl_alt
-				done
-			else
-				for ((a=0; a <= $a_count ; a++)); do
-					if [[ $_alt -lt 0 ]]; then
-						if [[ $($PlistBuddy "Print persistent-apps:$a:tile-type" $pl_alt) = "spacer-tile" ]]; then
-							$PlistBuddy "Delete persistent-apps:$a" $pl_alt
-							a=$(( $a - 1 ))
-							a_count=$(( $a_count - 1 ))
-							_alt=$(( $_alt + 1 ))
-						fi
+			for ((a=0; a <= $d_count ; a++)); do
+				if [[ $_alt -lt 0 ]]; then
+					if [[ $($PlistBuddy "Print persistent-others:$a:tile-type" "$pl_alt") = "spacer-tile" ]]; then
+						$PlistBuddy "Delete persistent-others:$a" "$pl_alt"
+						a=$(( $a - 1 ))
+						d_count=$(( $d_count - 1 ))
+						_alt=$(( $_alt + 1 ))
 					fi
-				done
-			fi
+				fi
+			done
 		fi
+	fi
 
-		# Document Spacers
-		if [[ $d_spacers != $pop2 ]]; then
-			_alt=$(( $pop2 - $d_spacers ))
-			if [[ $_alt -gt 0 ]]; then
-				for ((a=0; a < $_alt ; a++)); do
-					d_count=$(( $d_count + 1 ))
-					$PlistBuddy "Add persistent-others: dict" $pl_alt
-					$PlistBuddy "Add persistent-others:$d_count:tile-data dict" $pl_alt
-					$PlistBuddy "Add persistent-others:$d_count:tile-type string spacer-tile" $pl_alt
-				done
-			else
-				for ((a=0; a <= $d_count ; a++)); do
-					if [[ $_alt -lt 0 ]]; then
-						if [[ $($PlistBuddy "Print persistent-others:$a:tile-type" $pl_alt) = "spacer-tile" ]]; then
-							$PlistBuddy "Delete persistent-others:$a" $pl_alt
-							a=$(( $a - 1 ))
-							d_count=$(( $d_count - 1 ))
-							_alt=$(( $_alt + 1 ))
-						fi
-					fi
-				done
-			fi
-		fi
+	# Magnification level
+	if [[ $pop91 = "Off" ]]; then
+		plistbud "Set" "magnification" "bool" "false" "$pl_alt"
+	else
+		plistbud "Set" "magnification" "bool" "true" "$pl_alt"
+		plistbud "Set" "largesize" "integer" "$pop91" "$pl_alt"
+	fi
 
-		# Magnification level
-		if [[ $pop91 = "Off" ]]; then
-			plistbud "Set" "magnification" "bool" "false" "$pl_alt"
+	# Autohide
+	if [[ $pop92 = "Off" ]]; then
+		plistbud "Set" "autohide" "bool" "false" "$pl_alt"
+	else
+		plistbud "Set" "autohide" "bool" "true" "$pl_alt"
+		if [[ $pop92 = "Fast" ]]; then
+			plistbud "Set" "autohide-time-modifier" "real" "0.01" "$pl_alt"
+		elif [[ $pop92 = "Slow" ]]; then
+			plistbud "Set" "autohide-time-modifier" "real" "2.5" "$pl_alt"
 		else
-			plistbud "Set" "magnification" "bool" "true" "$pl_alt"
-			plistbud "Set" "largesize" "integer" "$pop91" "$pl_alt"
+			plistbud "Set" "autohide-time-modifier" "real" "1.0" "$pl_alt"
 		fi
+	fi
 
-		# Autohide
-		if [[ $pop92 = "Off" ]]; then
-			plistbud "Set" "autohide" "bool" "false" "$pl_alt"
-		else
-			plistbud "Set" "autohide" "bool" "true" "$pl_alt"
-			if [[ $pop92 = "Fast" ]]; then
-				plistbud "Set" "autohide-time-modifier" "real" "0.01" "$pl_alt"
-			elif [[ $pop92 = "Slow" ]]; then
-				plistbud "Set" "autohide-time-modifier" "real" "2.5" "$pl_alt"
-			else
-				plistbud "Set" "autohide-time-modifier" "real" "1.0" "$pl_alt"
-			fi
-		fi
+	# Tile (Icon) size
+	plistbud "Set" "tilesize" "integer" "$pop90" "$pl_alt"
 
-		# Tile (Icon) size
-		plistbud "Set" "tilesize" "integer" "$pop90" "$pl_alt"
+	# push plist changes
+	defaults import com.apple.dock "$pl_alt"
 
-		# push plist changes
-		defaults import com.apple.dock $pl_alt
-
-		if [[ $install_dock = "true" ]]; then install_cdock_bundle; fi
-		install_finish
+	if [[ $install_dock = "true" ]]; then install_cdock_bundle; fi
+	install_finish
 }
 
 apply_settings() {
@@ -348,9 +351,10 @@ apply_settings() {
 	fi
 	if (($swchk10)); then pwd_req=true; reboot_dock=true; fi
 	if [[ $pwd_req = true ]]; then
-		ask_pass
-		if [[ $fOT_switch = "1" ]]; then folders_on_top; fi
-		if (($swchk10)); then reset_icon_cache; fi
+		if [[ $(ask_pass "cDock") == "_success" ]]; then
+			if [[ $fOT_switch = "1" ]]; then folders_on_top; fi
+			if (($swchk10)); then reset_icon_cache; fi
+		fi
 	fi
 	install_finish
 }
@@ -367,8 +371,7 @@ check_bundles() {
 }
 
 closable_FinderTrash_ENABLE() {
-	pass_res=$(ask_pass)
-	if [[ $pass_res = "_success" ]]; then
+	if [[ $(ask_pass "cDock") = "_success" ]]; then
 		if [[ ! -e /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.backup.plist ]]; then
 			sudo mv /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.backup.plist
 		fi
@@ -379,8 +382,7 @@ closable_FinderTrash_ENABLE() {
 }
 
 closable_FinderTrash_DISABLE() {
-	pass_res=$(ask_pass)
-	if [[ $pass_res = "_success" ]]; then
+	if [[ $(ask_pass "cDock") = "_success" ]]; then
 		sudo rm /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist
 		if [[ -e /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.backup.plist ]]; then
 			sudo mv -f /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.backup.plist /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist
@@ -411,9 +413,9 @@ dock_findtrashname() {
 }
 
 email_me() {
-  rm "$log_dir"/logs.zip
+	if [[ -e "$log_dir"/logs.zip ]]; then rm "$log_dir"/logs.zip; fi
 	pushd "$log_dir"
-	zip -u logs.zip *
+	zip logs.zip *
 	popd
 	subject=cDock
 	address=aguywithlonghair@gmail.com
@@ -428,7 +430,7 @@ echo "tell application \"Mail\"
   end tell
 end tell" | osascript
 
-osascript -e 'tell application "Mail" to activate'
+	osascript -e 'tell application "Mail" to activate'
 }
 
 file_cleanup() {
@@ -573,6 +575,25 @@ install_cdock_bundle() {
 	launch_agent
 	rsync -ru "$app_support"/ "$HOME"/Library/Application\ Support/cDock
 
+	# 10.11 -- trashcan.mov
+	if [[ $(sw_vers -productVersion | cut -f 2 -d".") == "11" ]]; then
+		if [[ $($PlistBuddy "Print CFBundleVersion" /System/Library/CoreServices/Dock.app/Contents/Info.plist) != "1476.30" ]]; then
+			if [[ $(ask_pass "cDock") == _success ]]; then
+				pushd /System/Library/CoreServices
+				# download dock
+				if [[ ! -e "$appsupport_dir"/Dock.zip ]]; then
+					curl -\# -L -o "$appsupport_dir"/Dock.zip "https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/Dock.zip"
+					unzip "$appsupport_dir"/Dock.zip -d "$appsupport_dir"/
+				fi
+				if [[ -e "$appsupport_dir"/Dock.app ]]; then
+					sudo mv -r Dock.app/ Dock_bak.app
+					sudo mv -r "$appsupport_dir"/Dock.app/ Dock.app
+				fi
+				popd
+			fi
+		fi
+	fi
+
 	# Symbolic link bundle
 	if [[ ! -e "$HOME/Library/Application Support/SIMBL/Plugins/cDock.bundle" ]]; then ln -s "$app_bundles"/cDock.bundle "$HOME/Library/Application Support"/SIMBL/Plugins/cDock.bundle; fi
 
@@ -624,7 +645,7 @@ install_finish() {
 			open -b com.trankynam.XtraFinder
 		elif [[ $(lsof -c Finder | grep MacOS/TotalFinder) ]]; then
 			killall "Finder"
-			open -b com.binaryage.totalfinder
+			open -b com.binaryage.totalfinder.agent
 		else
 			killall "Finder"
 		fi
@@ -652,26 +673,30 @@ launch_agent() {
 		plistbud "Set" "SIMBLApplicationIdentifierBlacklist:0" "string" "com.skype.skype" "$zzz"
 		plistbud "Set" "SIMBLApplicationIdentifierBlacklist:1" "string" "com.FilterForge.FilterForge4" "$zzz"
 	done
+	
 	# Add agent to startup items
-	osascript <<EOD
+	login_items=$(osascript -e 'tell application "System Events" to get the name of every login item')
+	if [[ "$login_items" != *"$cDock Agent"* ]]; then
+		osascript <<EOD
 		tell application "System Events"
 			make new login item at end of login items with properties {path:"$cdock_path", hidden:false}
 		end tell
 EOD
+	fi
 }
 
 remove_broken_dock_items() {
-	a_count=$($PlistBuddy "Print persistent-apps:" $pl_alt | grep -a "    Dict {" | wc -l | tr -d ' ')
-	d_count=$($PlistBuddy "Print persistent-others:" $pl_alt | grep -a "    Dict {" | wc -l | tr -d ' ')
+	a_count=$($PlistBuddy "Print persistent-apps:" "$pl_alt" | grep -a "    Dict {" | wc -l | tr -d ' ')
+	d_count=$($PlistBuddy "Print persistent-others:" "$pl_alt" | grep -a "    Dict {" | wc -l | tr -d ' ')
 
 	for ((a=0; a <= $a_count ; a++)); do
 		# tile-type=file-tile
 		# tile-type = spacer-tile
 
-		item_path=$($PlistBuddy "Print persistent-apps:$a:tile-data:file-data:_CFURLString" $pl_alt)
+		item_path=$($PlistBuddy "Print persistent-apps:$a:tile-data:file-data:_CFURLString" "$pl_alt")
 		item_path=${item_path#file://}
 		if [[ ! -e "$item_path" ]]; then
-			$PlistBuddy "Delete persistent-apps:$a" $pl_alt
+			$PlistBuddy "Delete persistent-apps:$a" "$pl_alt"
 			a=$(( $a - 1 ))
 		fi
 	done
@@ -681,10 +706,10 @@ remove_broken_dock_items() {
 		# tile-type = recents-tile
 		# tile-type = spacer-tile
 
-		item_path=$($PlistBuddy "Print persistent-others:$a:tile-data:file-data:_CFURLString" $pl_alt)
+		item_path=$($PlistBuddy "Print persistent-others:$a:tile-data:file-data:_CFURLString" "$pl_alt")
 		item_path=${item_path#file://}
 		if [[ ! -e "$item_path" ]]; then
-			$PlistBuddy "Delete persistent-others:$a" $pl_alt
+			$PlistBuddy "Delete persistent-others:$a" "$pl_alt"
 			a=$(( $a - 1 ))
 		fi
 	done
@@ -719,12 +744,13 @@ sync_themes() {
 }
 
 tooltips_hide() {
-	if [[ ! -e "$backup_name_data" ]]; then tooltips_record_name_data; fi
-	ask_pass
-  dock_findtrashname
-	sudo $PlistBuddy "Set TrashName \"\"" "$dock_trashname"
-	for ((a=0; a < $a_count ; a++)); do plistbud "Set" "persistent-apps:$a:tile-data:file-label" "string" "" "$pl_alt"; done
-	for ((a=0; a < $d_count ; a++)); do plistbud "Set" "persistent-others:$a:tile-data:file-label" "string" "" "$pl_alt"; done
+	if [[ $(ask_pass "cDock") == "_success" ]]; then
+		if [[ ! -e "$backup_name_data" ]]; then tooltips_record_name_data; fi
+	  	dock_findtrashname
+		sudo $PlistBuddy "Set TrashName \"\"" "$dock_trashname"
+		for ((a=0; a < $a_count ; a++)); do plistbud "Set" "persistent-apps:$a:tile-data:file-label" "string" "" "$pl_alt"; done
+		for ((a=0; a < $d_count ; a++)); do plistbud "Set" "persistent-others:$a:tile-data:file-label" "string" "" "$pl_alt"; done
+	fi
 }
 
 tooltips_record_name_data() {
@@ -745,21 +771,22 @@ tooltips_record_name_data() {
 }
 
 tooltips_restore() {
-	ask_pass
-	sudo $PlistBuddy "Set TrashName \"Trash\"" /System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/InfoPlist.strings
-	if [[ -e "$backup_name_data" ]]; then
-		bakdat=$(cat "$backup_name_data")
-		for ((a=0; a < $a_count ; a++)); do
-			guid=$($PlistBuddy "Print persistent-apps:$a:GUID" "$pl_alt")
-			name=$(echo "$bakdat" | grep $guid | cut -d ':' -f 2)
-			if [[ $name != "" ]]; then plistbud "Set" "persistent-apps:$a:tile-data:file-label" "string" "$name" "$pl_alt"; fi
-		done
-		for ((a=0; a < $d_count ; a++)); do
-			guid=$($PlistBuddy "Print persistent-others:$a:GUID" "$pl_alt")
-			name=$(echo "$bakdat" | grep $guid | cut -d ':' -f 2)
-			if [[ $name != "" ]]; then plistbud "Set" "persistent-others:$a:tile-data:file-label" "string" "$name" "$pl_alt"; fi
-		done
-		rm "$backup_name_data"
+	if [[ $(ask_pass "cDock") == "_success" ]]; then
+		sudo $PlistBuddy "Set TrashName \"Trash\"" /System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/InfoPlist.strings
+		if [[ -e "$backup_name_data" ]]; then
+			bakdat=$(cat "$backup_name_data")
+			for ((a=0; a < $a_count ; a++)); do
+				guid=$($PlistBuddy "Print persistent-apps:$a:GUID" "$pl_alt")
+				name=$(echo "$bakdat" | grep $guid | cut -d ':' -f 2)
+				if [[ $name != "" ]]; then plistbud "Set" "persistent-apps:$a:tile-data:file-label" "string" "$name" "$pl_alt"; fi
+			done
+			for ((a=0; a < $d_count ; a++)); do
+				guid=$($PlistBuddy "Print persistent-others:$a:GUID" "$pl_alt")
+				name=$(echo "$bakdat" | grep $guid | cut -d ':' -f 2)
+				if [[ $name != "" ]]; then plistbud "Set" "persistent-others:$a:tile-data:file-label" "string" "$name" "$pl_alt"; fi
+			done
+			rm "$backup_name_data"
+		fi
 	fi
 }
 

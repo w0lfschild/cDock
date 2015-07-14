@@ -1,9 +1,21 @@
 ------------------------------------------------
-Version		   : 8.2
-Build date	 : Jul / 05 / 2015
+Version		: 8.2
+Build date	: Jul / 13 / 2015
+------------------------------------------------
 
-Notes:
-- cDock themes do not work on 10.11 ETA unknown
+8.3
+
+- Fix cDock not opening on guest accounts
+- Fix some settings not applying on standard accounts
+- Fix not restarting TotalFinder when making changes to Finder
+- Password window cancel button
+- Test 10.11 support * 
+
+* Note this just replaces 10.11 Dock with 10.10 Dock 
+any new functionality of 10.11 will be lost
+this is probably as good of a workaround as I'll do
+even though it seems to totally break guest accounts
+
 ------------------------------------------------
 
 8.2

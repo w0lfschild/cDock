@@ -8,8 +8,9 @@
 	* Working on:
 	    * **10.9** to **10.9.5** (13F1096)
 	    * **10.10** to **10.10.4** (14E46)
+	    * **10.11**
 	* Not working:
-	    * **10.11** (15A204h)
+		* **10.8**
 * [Donate](http://w0lfschild.github.io/pages/donate.html)
 
 ### Translations:

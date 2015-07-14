@@ -364,9 +364,9 @@ if [[ "$#" = 0 ]]; then
 	echo "\$3 - app bundle ID"
 	echo "\$4 - local version"
 	echo "\$5 - URL to download current version"
-  echo "\$6 - URL to view changelog"
-  echo "\$7 - URL to download current version"
-  echo "\$8 - Update without prompt -- 0/1"
+    echo "\$6 - URL to view changelog"
+    echo "\$7 - URL to download current version"
+    echo "\$8 - Update without prompt -- 0/1"
 	echo ""
 	echo "END"
 fi
