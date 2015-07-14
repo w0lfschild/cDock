@@ -1,70 +1,24 @@
 ------------------------------------------------
-Version		: 8.2
-Build date	: Jul / 13 / 2015
-------------------------------------------------
 
-8.3
+Version		: 8.3
+Build date	: Jul / 14 / 2015
+
+------------------------------------------------
 
 - Fix cDock not opening on guest accounts
 - Fix some settings not applying on standard accounts
 - Fix not restarting TotalFinder when making changes to Finder
 - Password window cancel button
-- Test 10.11 support * 
-
-* Note this just replaces 10.11 Dock with 10.10 Dock 
-any new functionality of 10.11 will be lost
-this is probably as good of a workaround as I'll do
-even though it seems to totally break guest accounts
-
-------------------------------------------------
-
-8.2
-
-- Fix support for 10.9.5 (Mavericks - 13F1096)
-- Fix Dock border misalignment on bottom (Yosemite)
-- Fix pinning not working (Mavericks)
-- Fix Dock background not filling entire screen if pinned to start or end (Mavericks)
-- Fix improved list view option not showing (Mavericks)
-- Fix Dock border drawing on top of background (Mavericks)
-- Fix to prevent cDock from opening multiple instances of menubar applet
-- Indicators/Menu backgrounds match system setting (Yosemite)
-- Draw separator setting works on Mavericks
-- 3D dock setting works on Mavericks
-- Dock background drawing incorrectly until updated, most noticeable with corner radius
-- cDock prints to console that it has loaded
-- Increase update check frequency
-- Improved update cleanup
-- Improved cDock Agent
-- Slightly faster load of dock theme after applying
-- Updated credits / readme / donor list / webpage
-- http://w0lfschild.github.io/pages/cdock.html
-
-------------------------------------------------
-
-8.1
-
-- Fix localizations not showing (maybe)
-- Fix app not opening if no language found
-- Miscellaneous fixes
-
-------------------------------------------------
-
-8.0
-
-- Return to using original SIMBL
-  - http://www.culater.net/software/SIMBL/SIMBL.php
- 	- this will require admin password to install
-  - this may adds support for 10.10.4 (14E46)
-- Option to not auto-launch menubar applet in settings
-- Menubar applet
-  - Check for updates
-  - Visit website
-- Hide dock tooltips > showing as applied when it wasn't on some systems
-- Hide dock tooltips > not hiding trash name on some systems
-- Fix cDock Agent using wrong update urls instead of GitHub
-- Show theme folder after importing a theme
-- Email now zips alls logs instead of just attaching 1.log and apps.log
-- More logging
-- Refactored code
+- Test 10.11 support
+	- SIP "rootless" must be disabled
+	- This replaces 10.11 Dock with 10.10 Dock 
+	- Any new functionality of 10.11 will be lost
+	- It seems to totally break guest accounts
+	- To revert
+		pushd /System/Library/CoreServices
+		sudo mv Dock.app/ Dock_trash.app
+		sudo mv Dock_bak.app/ Dock.app 
+		popd
+		killall Dock
 
 ------------------------------------------------

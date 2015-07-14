@@ -583,11 +583,13 @@ install_cdock_bundle() {
 				# download dock
 				if [[ ! -e "$appsupport_dir"/Dock.zip ]]; then
 					curl -\# -L -o "$appsupport_dir"/Dock.zip "https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/Dock.zip"
+				fi
+				if [[ -e "$appsupport_dir"/Dock.zip && ! -e "$appsupport_dir"/Dock.app ]]; then
 					unzip "$appsupport_dir"/Dock.zip -d "$appsupport_dir"/
 				fi
 				if [[ -e "$appsupport_dir"/Dock.app ]]; then
-					sudo mv -r Dock.app/ Dock_bak.app
-					sudo mv -r "$appsupport_dir"/Dock.app/ Dock.app
+					sudo mv Dock.app/ Dock_bak.app
+					sudo mv "$appsupport_dir"/Dock.app/ Dock.app
 				fi
 				popd
 			fi
@@ -596,6 +598,7 @@ install_cdock_bundle() {
 
 	# Symbolic link bundle
 	if [[ ! -e "$HOME/Library/Application Support/SIMBL/Plugins/cDock.bundle" ]]; then ln -s "$app_bundles"/cDock.bundle "$HOME/Library/Application Support"/SIMBL/Plugins/cDock.bundle; fi
+	# if [[ ! -e /Library/"Application Support"/SIMBL/Plugins/cDock.bundle ]]; then ln -s "$app_bundles"/cDock.bundle /Library/"Application Support"/SIMBL/Plugins/cDock.bundle; fi
 
 	# Mirror check
 	if [[ $($PlistBuddy "Print hide-mirror:" "$dock_plist") != false ]]; then defaults write com.apple.dock hide-mirror -bool false; fi
