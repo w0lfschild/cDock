@@ -1,4 +1,50 @@
 ------------------------------------------------
+
+Version		: cDock 2 (1.0)
+Build date	: Jul / 30 / 2015
+
+------------------------------------------------
+
+- App is now written in Objective C
+- App window doesn't close and re-open when applying
+- App window focused when dock icon clicked
+- App window no longer floats above all other windows
+- Updates now via sparkle
+ 
+- Removed themes
+- Removed localizations
+
+- Proper 10.11 support
+
+- Fixed cDock not opening for some users
+
+- New Dock options
+	- Hide/Show labels
+	- Hide/Show glass layer
+	- Hide/Show Blur layer
+	- Hide/Show Separator layer
+	- Darken apps on mouse-over
+	- Customize label colors
+	- Custom indicator lights
+	- Edit dock colors in-app
+	- Color pickers
+	- Raised limit of app/doc spacers
+	- Indicator light color toggle
+
+- Extra settings is now preferences accessible via menubar
+
+- Tone played when apply is clicked
+
+- Copy bundles to Plugins folder instead of linking
+
+- Menu-bar applet
+	- Fix text in dark mode being black
+	- Fix menu items not always showing
+	- icon changed to a basic gear
+
+------------------------------------------------
+
+------------------------------------------------
 Version		: 8.3
 Build date	: Jul / 14 / 2015
 ------------------------------------------------
@@ -9,17 +55,6 @@ Build date	: Jul / 14 / 2015
 - Fix some settings not applying on standard accounts
 - Fix not restarting TotalFinder when making changes to Finder
 - Password window cancel button
-- Test 10.11 support
-	- SIP "rootless" must be disabled
-	- This replaces 10.11 Dock with 10.10 Dock 
-	- Any new functionality of 10.11 will be lost
-	- It seems to totally break guest accounts
-	- To revert
-		pushd /System/Library/CoreServices
-		sudo mv Dock.app/ Dock_trash.app
-		sudo mv Dock_bak.app/ Dock.app 
-		popd
-		killall Dock
 
 ------------------------------------------------
 

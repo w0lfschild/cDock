@@ -1,24 +1,34 @@
 ------------------------------------------------
 
-Version		: 8.3
-Build date	: Jul / 14 / 2015
+Version		: 8.4
+Build date	: Jul / 25 / 2015
 
 ------------------------------------------------
 
-- Fix cDock not opening on guest accounts
-- Fix some settings not applying on standard accounts
-- Fix not restarting TotalFinder when making changes to Finder
-- Password window cancel button
-- Test 10.11 support
-	- SIP "rootless" must be disabled
-	- This replaces 10.11 Dock with 10.10 Dock 
-	- Any new functionality of 10.11 will be lost
-	- It seems to totally break guest accounts
-	- To revert
-		pushd /System/Library/CoreServices
-		sudo mv Dock.app/ Dock_trash.app
-		sudo mv Dock_bak.app/ Dock.app 
-		popd
-		killall Dock
+- 10.11 support (that's not terrible!)
+
+- 10.10 and 10.11 changes
+	- customize application indicators
+	- customize icon shadows
+	- customize laybel background
+	- hide labels (better implementation)
+	- icon reflections (similar to 10.9 and below)
+	- ability to color blurred glass layer
+	- darken icons on mouse over
+	- freely resize background removed for now
+
+- Fix themes not showing the first time the app is opened
+- Hopefully fixed cDock not opening in some cases
+- Prevent cDock from running in /applications/Utilities
+- Removed beta updates option
+- Adjustments to extra settings window
+- Copy bundles to Plugins folder instead of linking
+- Updated italian translation
+
+- Menu-bar applet
+	- Fix text in dark mode being black
+	- Fix menu items not always showing
+	- removed update option
+	- icon changed to a basic gear
 
 ------------------------------------------------
