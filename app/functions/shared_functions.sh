@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Functions shared by cDock and cDock Agent and cDock menubar applet
+# Functions shared by cDock and cDock Agent
 
 ask_pass() {
 	pass_window="
@@ -64,60 +64,8 @@ ask_pass() {
 	fi
 }
 
-# Update check required args
-# 1 wupdater_path
-# 2 app_directory
-# 3 curver
-# 4 update_auto_install
-# 5 update_interval
-
-update_check() {
-	cur_date=$(date "+%y%m%d")
-  	lastupdateCheck=$($PlistBuddy "Print lastupdateCheck:" "$cdock_pl" 2>/dev/null || defaults write org.w0lf.cDock "lastupdateCheck" 0 2>/dev/null)
-	if [[ "$5" = "w" ]]; then
-  		weekly=$((lastupdateCheck + 7))
-    	if [[ "$weekly" = "$cur_date" ]]; then
-    		update_check_step2 "$1" "$2" "$3" "$4"
-    	fi
-  	elif [[ "$5" = "n" ]]; then
-  		update_check_step2 "$1" "$2" "$3" "$4"
-	else
-		if [[ "$lastupdateCheck" != "$cur_date" ]]; then
-  			update_check_step2 "$1" "$2" "$3" "$4"
-  		fi
-  	fi
-}
-
-update_check_step2() {
-	results=$(ping -c 1 -t 5 "https://www.github.com" 2>/dev/null || echo "Unable to connect to internet")
-  	if [[ $results = *"Unable to"* ]]; then
-		echo "ping failed : $results"
-  	else
-    	echo "ping success"
-    	beta_updates=$($PlistBuddy "Print betaUpdates:" "$cdock_pl" 2>/dev/null || echo -n 0)
-	    update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null || { defaults write org.w0lf.cDock "autoInstall" 0; echo -n 0; } )
-
-	    # Stable urls
-	    dlurl=$(curl -s https://api.github.com/repos/w0lfschild/cDock/releases/latest | grep 'browser_' | cut -d\" -f4)
-	    verurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/version.txt"
-	    logurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/versionInfo.txt"
-
-	    # Beta or Stable updates
-    if [[ $beta_updates -eq 1 ]]; then
-	    stable_version=$(verres $(curl -\# -L "https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/version.txt") $(curl -\# -L "http://sourceforge.net/projects/cdock/files/cDock%20Beta/versionBeta.txt"))
-
-	    if [[ $stable_version = "<" ]]; then
-	        # Beta urls
-	        dlurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/beta_build.zip"
-	        verurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/beta/versionBeta.txt"
-	        logurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/beta/versionInfoBeta.txt"
-	    fi
-    fi
-
-    defaults write org.w0lf.cDock "lastupdateCheck" "${cur_date}"
-    # ./updates/wUpdater.app/Contents/MacOS/wUpdater c "$app_directory" org.w0lf.cDock $curver $verurl $logurl $dlurl $update_auto_install &
-    "$1" c "$2" org.w0lf.cDock "$3" "$verurl" "$logurl" "$dlurl" "$4" &
-  fi
+dir_check() {
+	if [[ ! -e "$1" ]]; then mkdir -pv "$1"; fi
 }
 
 pashua_run() {
@@ -178,16 +126,76 @@ pashua_run() {
 
 plistbud() {
 	pb=/usr/libexec/PlistBuddy" -c"
-	# $1 - Set or Delete
-	# $2 - name
-	# $3 - type
-	# $4 - value
-	# $5 - plist
+	# $1 - Set / $2 - name / $3 - type / $4 - value / $5 - plist
 	if [[ $1 = "Set" ]]; then
 		$pb "Set $2 $4" "$5" 2>/dev/null || $pb "Add $2 $3 $4" "$5"
-	elif [[ $1 = "Delete" ]]; then
-		$pb "Delete $2" "$5"
 	fi
+	
+	# $1 - Delete / $2 - name / $3 - plist
+	if [[ $1 = "Delete" ]]; then
+		$pb "Delete $2" "$3"
+	fi
+
+	# $1 - Print / $2 - name / $3 - plist
+	if [[ $1 = "Print" ]]; then
+		$pb "Print $2" "$3"
+	fi
+}
+
+# Update check required args
+# 1 wupdater_path
+# 2 app_directory
+# 3 curver
+# 4 update_auto_install
+# 5 update_interval
+
+update_check() {
+	cur_date=$(date "+%y%m%d")
+  	lastupdateCheck=$($PlistBuddy "Print lastupdateCheck:" "$cdock_pl" 2>/dev/null || defaults write org.w0lf.cDock "lastupdateCheck" 0 2>/dev/null)
+	if [[ "$5" = "w" ]]; then
+  		weekly=$((lastupdateCheck + 7))
+    	if [[ "$weekly" = "$cur_date" ]]; then
+    		update_check_step2 "$1" "$2" "$3" "$4"
+    	fi
+  	elif [[ "$5" = "n" ]]; then
+  		update_check_step2 "$1" "$2" "$3" "$4"
+	else
+		if [[ "$lastupdateCheck" != "$cur_date" ]]; then
+  			update_check_step2 "$1" "$2" "$3" "$4"
+  		fi
+  	fi
+}
+
+update_check_step2() {
+	results=$(ping -c 1 -t 5 "https://www.github.com" 2>/dev/null || echo "Unable to connect to internet")
+  	if [[ $results = *"Unable to"* ]]; then
+		echo "ping failed : $results"
+  	else
+    	echo "ping success"
+    	beta_updates=$($PlistBuddy "Print betaUpdates:" "$cdock_pl" 2>/dev/null || echo -n 0)
+	    update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null || { defaults write org.w0lf.cDock "autoInstall" 0; echo -n 0; } )
+
+	    # Stable urls
+	    dlurl=$(curl -s https://api.github.com/repos/w0lfschild/cDock/releases/latest | grep 'browser_' | cut -d\" -f4)
+	    verurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/version.txt"
+	    logurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/versionInfo.txt"
+
+	    # Beta or Stable updates
+    if [[ $beta_updates -eq 1 ]]; then
+	    stable_version=$(verres $(curl -\# -L "https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/version.txt") $(curl -\# -L "http://sourceforge.net/projects/cdock/files/cDock%20Beta/versionBeta.txt"))
+
+	    if [[ $stable_version = "<" ]]; then
+	        # Beta urls
+	        dlurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/beta_build.zip"
+	        verurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/beta/versionBeta.txt"
+	        logurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/beta/versionInfoBeta.txt"
+	    fi
+    fi
+
+    defaults write org.w0lf.cDock "lastupdateCheck" "${cur_date}"
+    # ./updates/wUpdater.app/Contents/MacOS/wUpdater c "$app_directory" org.w0lf.cDock $curver $verurl $logurl $dlurl $update_auto_install &
+    "$1" c "$2" org.w0lf.cDock "$3" "$verurl" "$logurl" "$dlurl" "$4" &
+  fi
 }
 
 vercomp() {
