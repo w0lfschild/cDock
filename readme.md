@@ -4,14 +4,19 @@
 * cDock installs [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if it is not already installed.
 * cDock works for both the Bottom Dock and Side dock.
 * cDock theming requires OSX 10.9+.
+* Not all features are available on all versions of OSX
 * cDock may break in the future, and I'm not obligated to fix it, be careful when updating.
 	* Working on:
 	    * **10.9** to **10.9.5** (13F1096)
-	    * **10.10** to **10.10.4** (14E46)
-	    * **10.11**
+	    * **10.10** to **10.10.5** (14E46)
+	    * **10.11** (15A226f)
 	* Not working:
 		* **10.8**
 * [Donate](http://w0lfschild.github.io/pages/donate.html)
+
+### Note:
+* This project isn't meant to be downloaded and built, the UI is hacked together with a combination of Pashua and Platypus.
+* This is more of a hosting / distribution for the project
 
 ### Translations:
 Wolfgang Baird - English    
@@ -19,13 +24,15 @@ Dmitry Kudryashov - Russian, Chinese (Simplified)
 Mauro Ferreri - Italian    
 
 ### Credits:
+[BlackDock](http://cooviewerzoom.web.fc2.com/blackdock)    
+[DarkDock](http://github.com/b3ll/DarkDock)    
+[ColorfulSidebar](http://cooviewerzoom.web.fc2.com/)    
+[Dockify](https://github.com/alexzielenski/dockify)
+[modck](https://github.com/mstg/Modck)
 
 [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)    
 [CocoaDialog](http://mstratman.github.io/cocoadialog/)    
 [Pashua](http://bluem.net/en/mac/pashua/)    
-[BlackDock](http://cooviewerzoom.web.fc2.com/blackdock)    
-[DarkDock](http://github.com/b3ll/DarkDock)    
-[ColorfulSidebar](http://cooviewerzoom.web.fc2.com/)    
 [platypus](http://sveinbjorn.org/platypus)    
 [CocoaBackports](http://github.com/petroules/CocoaBackports)    
 [Icon](http://scafer31000.deviantart.com)    
