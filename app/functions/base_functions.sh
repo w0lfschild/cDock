@@ -66,6 +66,9 @@ app_has_updated() {
 
 	rm -r "$cdock_tmp"
 
+	plistbud "Delete" "null" "$cdock_pl"
+	plistbud "Delete" "beta_updates" "$cdock_pl"
+
 	# Restart logging
 	app_logging
 }
@@ -100,10 +103,10 @@ apply_main() {
 		install_dock=true
 	elif [[ $pop0 = "None" ]]; then
 		install_dock=false
-		file_cleanup "$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle
 		file_cleanup "/Library/Application Support/SIMBL/Plugins/cDock.bundle"
 		plistbud "Set" "cdockActive" "integer" "0" "$cdock_pl"
 		plistbud "Set" "theme" "string" "$dock_theme" "$cdock_pl"
+		plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
 	else
 		install_dock=true
 		echo "Theme: $pop0"
@@ -113,21 +116,23 @@ apply_main() {
 	plugin_list=""
 	plugin_list_1=""
 	displayWarning=$($PlistBuddy "Print displayWarning:" "$cdock_pl" 2>/dev/null || echo 1)
-	for item in "$HOME/Library/Application Support/SIMBL/Plugins/"*; do
-		if [[ "$item" != *cDock.bundle && "$item" != *ColorfulSidebar.bundle && "$item" != "$HOME/Library/Application Support/SIMBL/Plugins/*" ]]; then
-			found_Warning=1
-			plugin_list="$item[return]$plugin_list"
-			plugin_list_1="$item $plugin_list_1"
-		fi
-	done
-	if [[ $found_Warning = "1" && $displayWarning = "1" ]]; then alert_window; fi
+	if [[ $displayWarning = "1" ]]; then
+		for item in "$HOME/Library/Application Support/SIMBL/Plugins/"*; do
+			if [[ "$item" != *cDock.bundle && "$item" != *ColorfulSidebar.bundle && "$item" != "$HOME/Library/Application Support/SIMBL/Plugins/*" ]]; then
+				found_Warning=1
+				plugin_list="$item[return]$plugin_list"
+				plugin_list_1="$item $plugin_list_1"
+			fi
+		done
+		if [[ $found_Warning = "1" ]]; then alert_window; fi
+	fi
 
 	# dupe dock plist
 	pl_alt="$HOME"/Library/Application\ Support/cDock/tmp/com.apple.dock.plist
 	dir_check "$HOME"/Library/Application\ Support/cDock/tmp
 	cp -f "$dock_plist" "$pl_alt"
 
-		# Show Only Active Applications
+	# Show Only Active Applications
 	if [[ $chk2 -eq 1 ]]; then
 		plistbud "Set" "static-only" "bool" "true" "$pl_alt"
 	else
@@ -183,6 +188,14 @@ apply_main() {
 		plistbud "Set" "pinning" "string" "$pop4" "$pl_alt"
 	fi
 
+	# Labels
+	cd_theme="$app_themes"/"${pop0}"/"${pop0}".plist
+	if [[ $chk7 -eq 1 ]]; then
+		plistbud "Set" "cd_hideLabels" "bool" "true" "$cd_theme"
+	else
+		plistbud "Set" "cd_hideLabels" "bool" "false" "$cd_theme"
+	fi
+
 	# App icon counts
 	a_count=$($PlistBuddy "Print persistent-apps:" "$pl_alt" | grep -a "    Dict {" | wc -l | tr -d ' ')
 	a_spacers=$($PlistBuddy "Print persistent-apps:" "$pl_alt" | grep -a "spacer-tile" | wc -l | tr -d ' ')
@@ -207,17 +220,6 @@ apply_main() {
 			fi
 		done
 	fi
-
-	# Tooltips
-    dock_findtrashname
-    dock_hide_tooltips=$($PlistBuddy "Print TrashName" "$dock_trashname" || echo Trash)
-	if [[ $dock_hide_tooltips = "Trash" ]]; then dock_hide_tooltips=0; else dock_hide_tooltips=1; fi
-	if [[ $chk7 -eq 1 ]]; then
-		if [[ $dock_hide_tooltips = 0 ]]; then tooltips_hide; dock_hide_tooltips = 1; fi
-	else
-		if [[ $dock_hide_tooltips = 1 ]]; then tooltips_restore; dock_hide_tooltips = 0; fi
-	fi
-	echo "Tooltips hidden: "$dock_hide_tooltips
 
 	# Finder and Trash close
 	dock_FT_can_kill=$($PlistBuddy "Print trash" /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist | grep 1004 || echo "")
@@ -315,11 +317,9 @@ apply_settings() {
 	pwd_req=false
 	plistbud "Set" "autoCheck" "integer" "$swchk0" "$cdock_pl"
 	plistbud "Set" "autoInstall" "integer" "$swchk2" "$cdock_pl"
-	plistbud "Set" "betaUpdates" "integer" "$swchk3" "$cdock_pl"
 	plistbud "Set" "displayWarning" "integer" "$swchk5" "$cdock_pl"
 	plistbud "Set" "menu_applet" "integer" "$swchk12" "$cdock_pl"
-	(($swchk1)) && { plistbud "Set" "lastupdateCheck" "integer" "0" "$cdock_pl"; update_check "$wupdt_path" "$app_directory" "$curver" "$update_auto_install" "n"; }
-	(($swchk4)) && { if [[ "$swpop0" != "Select a restore point" ]]; then defaults import "$dock_plist" "$save_folder"/"$swpop0"; reboot_dock=true; main_window_establish; refresh_win=true; fi; }
+	(($swchk4)) && { if [[ "$swpop0" != "Select a restore point" ]]; then defaults import "$dock_plist" "$save_folder"/"$swpop0"; reboot_dock=true; main_window_establish; refresh_win=true; fi; }	
 	(($swchk6)) && { app_clean; reboot_dock=true; }
 	(($swchk7)) && { rm "$dock_plist"; reboot_dock=true; }
 	if (($swchk8)); then
@@ -366,8 +366,8 @@ backup_dock_plist() {
 }
 
 check_bundles() {
-  [ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ] && { colorfulsidebar_active=1; $PlistBuddy "Set colorfulsidebarActive 1" "$cdock_pl" || $PlistBuddy "Add colorfulsidebarActive integer 1" "$cdock_pl"; }
-  [ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle ] && { cdock_active=1; $PlistBuddy "Set cdockActive 1" "$cdock_pl" || $PlistBuddy "Add cdockActive integer 1" "$cdock_pl"; }
+  [ -e /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ] && { colorfulsidebar_active=1; plistbud "Set" "colorfulsidebarActive" "integer" "1" "$cdock_pl"; }
+  [ -e /Library/Application\ Support/SIMBL/Plugins/cDock.bundle ] && { cdock_active=1; plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"; }
 }
 
 closable_FinderTrash_ENABLE() {
@@ -393,23 +393,12 @@ closable_FinderTrash_DISABLE() {
 	fi
 }
 
-dir_check() {
-	if [[ ! -e "$1" ]]; then mkdir -pv "$1"; fi
-}
-
 dir_setup() {
 	dir_check "$HOME"/Library/Application\ Support/cDock
 	dir_check "$HOME"/Library/Application\ Support/cDock/logs
 	dir_check "$HOME"/Library/Application\ Support/cDock/.bak
 	dir_check "$HOME"/Library/Application\ Support/SIMBL/Plugins
 	dir_check "$HOME"/Library/Application\ Support/wUpdater/logs
-}
-
-dock_findtrashname() {
-	dock_trashname=/System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/Localizable.strings
-	if [[ -e /System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/InfoPlist.strings ]]; then
-		dock_trashname=/System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/InfoPlist.strings
-	fi
 }
 
 email_me() {
@@ -421,7 +410,6 @@ email_me() {
 	address=aguywithlonghair@gmail.com
 	theAttachment1="$log_dir"/logs.zip
 	nill=""
-
 echo "tell application \"Mail\"
   set theEmail to make new outgoing message with properties {visible:true, subject:\"${subject}\", content:\"${nill}\"}
   tell theEmail
@@ -429,7 +417,6 @@ echo "tell application \"Mail\"
 			make new attachment with properties {file name:\"${theAttachment1}\"} at after the last paragraph
   end tell
 end tell" | osascript
-
 	osascript -e 'tell application "Mail" to activate'
 }
 
@@ -475,6 +462,7 @@ get_preferences() {
 	if [[ $rez != [0-1] ]]; then
 		echo "creating cdock plist"
 		defaults write "$cdock_pl" null 0
+		defaults delete "$cdock_pl" null
 	fi
 
 	# Dock Preferences
@@ -491,8 +479,7 @@ get_preferences() {
 	dock_autohide=$($PlistBuddy "Print autohide:" "$dock_plist" 2>/dev/null || echo 0)											# Autohide the dock
 
 	# Dock advanced pref
-	dock_findtrashname
-	dock_hide_tooltips=$($PlistBuddy "Print TrashName" "$dock_trashname" || echo Trash)
+	dock_hide_tooltips=$($PlistBuddy "Print cd_hideLabels:" "$cd_theme" 2>/dev/null || echo 0)
 	dock_FT_can_kill=$($PlistBuddy "Print trash" /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist | grep 1004 || echo "")
 
 	# Mavericks only dock preferences
@@ -506,38 +493,43 @@ get_preferences() {
 	# cDock preferences
 	update_auto_check=$($PlistBuddy "Print autoCheck:" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add autoCheck integer 1" "$cdock_pl"; echo 1; } ) 			# Automatic update checking
 	update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add autoInstall integer 0" "$cdock_pl"; echo 0; } ) 	# Automatic update installation
-	beta_updates=$($PlistBuddy "Print betaUpdates:" "$cdock_pl" 2>/dev/null || echo 0) 																		# Beta updates
 	displayWarning=$($PlistBuddy "Print displayWarning:" "$cdock_pl" 2>/dev/null || echo 1) 																# Display SIMBL warnings
-	launch_menu_applet=$($PlistBuddy "Print menu_applet:" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add menu_applet integer 1" "$cdock_pl"; echo 1; })
+	launch_menu_applet=$($PlistBuddy "Print menu_applet:" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add menu_applet integer 1" "$cdock_pl"; echo 1; })		# Launch menubar applet
 
 	# Change true/false to 1/0
 	if [[ $finder_folders_on_top = " Folder" ]]; then finder_folders_on_top=1; else finder_folders_on_top=0; fi
-
-	if [[ $dock_hide_tooltips = "Trash" ]]; then dock_hide_tooltips=0; else dock_hide_tooltips=1; fi
+	if [[ $dock_hide_tooltips = true ]]; then dock_hide_tooltips=1; else dock_hide_tooltips=0; fi
 	if [[ $dock_FT_can_kill = "" ]]; then dock_FT_can_kill=0; else dock_FT_can_kill=1; fi
-
 	if [[ $dock_single_app = true ]]; then dock_single_app=1; else dock_single_app=0; fi
 	if [[ $dock_no_bouncing = true ]]; then dock_no_bouncing=1; else dock_no_bouncing=0; fi
 	if [[ $dock_autohide = true ]]; then dock_autohide=1; else dock_autohide=0; fi
-
-	if [[ "$dock_autohide" -eq "0" ]]; then
-		dock_autohide_val="Off"
-	else
-		if [[ "$dock_autohide_time_modifier" < "1.0" ]]; then
-			dock_autohide_val="Fast"
-		elif [[ "$dock_autohide_time_modifier" > "1.0" ]]; then
-			dock_autohide_val="Slow"
-		else
-			dock_autohide_val="Med"
-		fi
-	fi
-
 	if [[ $dock_magnification = true ]]; then dock_magnification=1; else dock_magnification=0; fi
 	if [[ $dock_static_only = true ]]; then dock_static_only=1; else dock_static_only=0; fi
 	if [[ $dock_showhidden = true ]]; then dock_showhidden=1; else dock_showhidden=0; fi
 	if [[ $dock_contents_immutable = true ]]; then dock_contents_immutable=1; else dock_contents_immutable=0; fi
 	if [[ $dock_mouse_over_hilite_stack = true ]]; then dock_mouse_over_hilite_stack=1; else dock_mouse_over_hilite_stack=0; fi
 	if [[ $dock_use_new_list_stack = true ]]; then dock_use_new_list_stack=1; else dock_use_new_list_stack=0; fi
+	if [[ "$dock_autohide" -eq "0" ]]; then
+		dock_autohide_val="Off"
+	else
+		dock_autohide_val="Med"
+		if [[ "$dock_autohide_time_modifier" < "1.0" ]]; then dock_autohide_val="Fast"; fi
+		if [[ "$dock_autohide_time_modifier" > "1.0" ]]; then dock_autohide_val="Slow"; fi
+	fi
+}
+
+get_bundle_info() {
+	cd_bv0=$(plistbud "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/cDock.bundle/Contents/Info.plist)
+	cf_bv0=$(plistbud "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle/Contents/Info.plist)
+	cf_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/ColorfulSidebar.bundle/Contents/Info.plist)
+	if [[ $versionMinor != "9" ]]; then
+		opee_local=$(plistbud "Print" "CFBundleShortVersionString" /Library/Frameworks/Opee.framework/Versions/A/Resources/Info.plist)
+		opee_curre=$(plistbud "Print" "CFBundleShortVersionString" "$app_bundles"/Opee.framework/Versions/A/Resources/Info.plist)
+		cd_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/cDock.bundle/Contents/Info.plist)
+	else
+		cd_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/cDockMav.bundle/Contents/Info.plist)
+	fi
+	
 }
 
 import_theme_() {
@@ -563,7 +555,7 @@ import_theme_() {
 	            echo "Ignoring regular file: $file"
 	        fi
 	    done
-			open -R "$app_themes"
+		open -R "$app_themes"
 	else
 	    echo "No files chosen"
 	fi
@@ -575,30 +567,32 @@ install_cdock_bundle() {
 	launch_agent
 	rsync -ru "$app_support"/ "$HOME"/Library/Application\ Support/cDock
 
-	# 10.11 -- trashcan.mov
-	if [[ $(sw_vers -productVersion | cut -f 2 -d".") == "11" ]]; then
-		if [[ $($PlistBuddy "Print CFBundleVersion" /System/Library/CoreServices/Dock.app/Contents/Info.plist) != "1476.30" ]]; then
-			if [[ $(ask_pass "cDock") == _success ]]; then
-				pushd /System/Library/CoreServices
-				# download dock
-				if [[ ! -e "$appsupport_dir"/Dock.zip ]]; then
-					curl -\# -L -o "$appsupport_dir"/Dock.zip "https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/Dock.zip"
-				fi
-				if [[ -e "$appsupport_dir"/Dock.zip && ! -e "$appsupport_dir"/Dock.app ]]; then
-					unzip "$appsupport_dir"/Dock.zip -d "$appsupport_dir"/
-				fi
-				if [[ -e "$appsupport_dir"/Dock.app ]]; then
-					sudo mv Dock.app/ Dock_bak.app
-					sudo mv "$appsupport_dir"/Dock.app/ Dock.app
-				fi
-				popd
-			fi
+	if [[ -h /Library/Application\ Support/SIMBL/Plugins ]]; then 
+		rm /Library/Application\ Support/SIMBL/Plugins
+		dir_check /Library/Application\ Support/SIMBL/Plugins
+	fi
+
+	if [[ $versionMinor != "9" ]]; then
+		# echo -e "Opee Local: $opee_local\nOpee Current: $opee_curre"
+		if [[ $opee_local != $opee_curre ]]; then
+osascript <<EOD
+	tell application "Finder"
+		set sourceFolder to POSIX file "$app_bundles/Opee.framework"
+		set destFolder to POSIX file "/Library/Frameworks/"
+		duplicate sourceFolder to destFolder with replacing
+	end tell
+EOD
 		fi
 	fi
 
-	# Symbolic link bundle
-	if [[ ! -e "$HOME/Library/Application Support/SIMBL/Plugins/cDock.bundle" ]]; then ln -s "$app_bundles"/cDock.bundle "$HOME/Library/Application Support"/SIMBL/Plugins/cDock.bundle; fi
-	# if [[ ! -e /Library/"Application Support"/SIMBL/Plugins/cDock.bundle ]]; then ln -s "$app_bundles"/cDock.bundle /Library/"Application Support"/SIMBL/Plugins/cDock.bundle; fi
+	if [[ "$cd_bv0" != "$cd_bv1" ]]; then
+		if [[ $versionMinor != "9" ]]; then
+			cp -rf "$app_bundles"/cDock.bundle /Library/Application\ Support/SIMBL/Plugins/cDock.bundle
+		else
+			cp -rf "$app_bundles"/cDockMav.bundle /Library/Application\ Support/SIMBL/Plugins/cDock.bundle
+		fi
+		cd_bv0="$cd_bv1"
+	fi
 
 	# Mirror check
 	if [[ $($PlistBuddy "Print hide-mirror:" "$dock_plist") != false ]]; then defaults write com.apple.dock hide-mirror -bool false; fi
@@ -608,14 +602,21 @@ install_cdock_bundle() {
 
 	# If custom dock is selected open settings and "instructions" for user also open dock refresher
 	if ($custom_dock); then
-		open ./"Dock Refresh".app
-		open -e "$HOME"/Library/Application\ Support/cDock/themes/Custom/settings.txt
-		open -e "$HOME"/Library/Application\ Support/cDock/settings\ info.rtf
+		open ./helpers/cDock-Menubar.app
+
+		if [[ $versionMinor != "9" ]]; then
+			open -e "$HOME"/Library/Application\ Support/cDock/themes/Custom/Custom.plist
+			open -e "$HOME"/Library/Application\ Support/cDock/Settings\ 10.10+.rtf
+		else
+			open -e "$HOME"/Library/Application\ Support/cDock/themes/Custom/settings.txt
+			open -e "$HOME"/Library/Application\ Support/cDock/settings\ 10.9.rtf
+		fi
 		custom_dock=false
 	fi
 
 	plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"
-	#$PlistBuddy "Set cdockActive 1" "$cdock_pl" || $PlistBuddy "Add cdockActive integer 1" "$cdock_pl"
+	plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
+	# plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
 	defaults write org.w0lf.cDock theme -string "${dock_theme}"
 }
 
@@ -624,16 +625,21 @@ install_finder_bundle() {
 	start_agent=true
 	launch_agent
 
-	# Symbolic link bundle
-	if [[ ! -e "$HOME/Library/Application Support/SIMBL/Plugins/ColorfulSidebar.bundle" ]]; then ln -s "$app_bundles"/ColorfulSidebar.bundle "$HOME/Library/Application Support"/SIMBL/Plugins/ColorfulSidebar.bundle; fi
+	if [[ -h /Library/Application\ Support/SIMBL/Plugins ]]; then 
+		rm /Library/Application\ Support/SIMBL/Plugins
+		dir_check /Library/Application\ Support/SIMBL/Plugins
+	fi
 
-	# 10.10+ checking to determine icon plist
+	if [[ "$cf_bv0" != "$cf_bv1" ]]; then
+		cp -rf "$app_bundles"/ColorfulSidebar.bundle /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
+		cf_bv0="$cf_bv1"
+	fi
+
 	icns="icons10.9.plist"
-	if [[ $mvr != "<" ]]; then icns="icons10.10.plist"; fi
+	if [[ $versionMinor != "9" ]]; then icns="icons10.10.plist"; fi
 
 	cp -f "$app_bundles"/"$icns" "$app_bundles"/ColorfulSidebar.bundle/Contents/Resources/icons.plist
 	plistbud "Set" "colorfulsidebarActive" "integer" "1" "$cdock_pl"
-	echo -n "Finished installing colored finder sidebar bundle"
 }
 
 install_finish() {
@@ -654,7 +660,7 @@ install_finish() {
 		fi
 	fi
 
-	exec "$injec_path" &
+	{ sleep 1; exec "$injec_path"; }
 
 	# logging info
 	ls -l "$HOME"/Library/Application\ Support/SIMBL/Plugins
@@ -746,59 +752,11 @@ sync_themes() {
   fi
 }
 
-tooltips_hide() {
-	if [[ $(ask_pass "cDock") == "_success" ]]; then
-		if [[ ! -e "$backup_name_data" ]]; then tooltips_record_name_data; fi
-	  	dock_findtrashname
-		sudo $PlistBuddy "Set TrashName \"\"" "$dock_trashname"
-		for ((a=0; a < $a_count ; a++)); do plistbud "Set" "persistent-apps:$a:tile-data:file-label" "string" "" "$pl_alt"; done
-		for ((a=0; a < $d_count ; a++)); do plistbud "Set" "persistent-others:$a:tile-data:file-label" "string" "" "$pl_alt"; done
-	fi
-}
-
-tooltips_record_name_data() {
-	bakdat=""
-	for ((a=0; a < $a_count ; a++)); do
-		bakdat="$bakdat$($PlistBuddy "Print persistent-apps:$a:GUID" "$pl_alt")"
-		bakdat="$bakdat:$($PlistBuddy "Print persistent-apps:$a:tile-data:file-label" "$pl_alt")"
-		bakdat="$bakdat
-"
-	done
-	for ((a=0; a < $d_count ; a++)); do
-		bakdat="$bakdat$($PlistBuddy "Print persistent-others:$a:GUID" "$pl_alt")"
-		bakdat="$bakdat:$($PlistBuddy "Print persistent-others:$a:tile-data:file-label" "$pl_alt")"
-		bakdat="$bakdat
-"
-	done
-	echo "$bakdat" > "$backup_name_data"
-}
-
-tooltips_restore() {
-	if [[ $(ask_pass "cDock") == "_success" ]]; then
-		sudo $PlistBuddy "Set TrashName \"Trash\"" /System/Library/CoreServices/Dock.app/Contents/Resources/en.lproj/InfoPlist.strings
-		if [[ -e "$backup_name_data" ]]; then
-			bakdat=$(cat "$backup_name_data")
-			for ((a=0; a < $a_count ; a++)); do
-				guid=$($PlistBuddy "Print persistent-apps:$a:GUID" "$pl_alt")
-				name=$(echo "$bakdat" | grep $guid | cut -d ':' -f 2)
-				if [[ $name != "" ]]; then plistbud "Set" "persistent-apps:$a:tile-data:file-label" "string" "$name" "$pl_alt"; fi
-			done
-			for ((a=0; a < $d_count ; a++)); do
-				guid=$($PlistBuddy "Print persistent-others:$a:GUID" "$pl_alt")
-				name=$(echo "$bakdat" | grep $guid | cut -d ':' -f 2)
-				if [[ $name != "" ]]; then plistbud "Set" "persistent-others:$a:tile-data:file-label" "string" "$name" "$pl_alt"; fi
-			done
-			rm "$backup_name_data"
-		fi
-	fi
-}
-
 where_are_we() {
-	if [[ "$app_directory" != "/Applications/"* && "$app_directory" != "$HOME/Applications/"* ]]; then
-		waw_qb=0
-		waw_ab=0
+	waw_qb=0
+	waw_ab=0
 
-		info_popup="
+	info_popup="
 	*.transparency=1
 	*.title = Welcome to cDock
 
@@ -815,6 +773,8 @@ where_are_we() {
 	waw_ab.type = defaultbutton
 	waw_ab.label = Continue
 	"
+
+	if [[ "$app_directory" = "/Applications/Utilities/"* || "$app_directory" != "/Applications/"* && "$app_directory" != "$HOME/Applications/"* ]]; then
 		pashua_run "$info_popup" 'utf8'
 
 		if [[ $waw_qb = "1" ]]; then
@@ -823,8 +783,19 @@ where_are_we() {
 
 		if [[ $waw_ab = "1" ]]; then
 			echo "$app_directory"
-			"$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/Resource/trash "/Applications/cDock.app"
-			mv -v "$app_directory" /Applications/cDock.app
+	osascript <<EOD
+	tell application "Finder"
+		set sourceFolder to POSIX file "/Applications/cDock.app"
+		try
+			delete sourceFolder
+		end try
+		set sourceFolder to POSIX file "$app_directory"
+		set destFolder to POSIX file "/Applications/"
+		move sourceFolder to destFolder
+	end tell
+EOD
+			# "$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/Resource/trash "/Applications/cDock.app"
+			# mv -v "$app_directory" /Applications/cDock.app
 			/Applications/cDock.app/Contents/Resources/relaunch &
 			exit
 		fi
