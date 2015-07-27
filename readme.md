@@ -15,8 +15,7 @@
 * [Donate](http://w0lfschild.github.io/pages/donate.html)
 
 ### Note:
-* This project isn't meant to be downloaded and built, the UI is hacked together with a combination of Pashua and Platypus.
-* This is more of a hosting / distribution for the project
+* This project isn't meant to be downloaded and built, the UI is hacked together with a combination of Pashua and Platypus. This is more of a hosting / distribution for the project
 
 ### Translations:
 Wolfgang Baird - English    
@@ -27,8 +26,8 @@ Mauro Ferreri - Italian
 [BlackDock](http://cooviewerzoom.web.fc2.com/blackdock)    
 [DarkDock](http://github.com/b3ll/DarkDock)    
 [ColorfulSidebar](http://cooviewerzoom.web.fc2.com/)    
-[Dockify](https://github.com/alexzielenski/dockify)
-[modck](https://github.com/mstg/Modck)
+[Dockify](https://github.com/alexzielenski/dockify)    
+[modck](https://github.com/mstg/Modck)    
 
 [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)    
 [CocoaDialog](http://mstratman.github.io/cocoadialog/)    
