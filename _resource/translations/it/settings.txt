@@ -17,14 +17,14 @@ swchk1.relx = 20
 # Auto check for updates
 swchk0.type = checkbox
 swchk0.label = Controlla aggiornamenti Automaticamente
-swchk0.tooltip = Quando abilitato cDock controllerà automaticamente gli aggiornamenti una volta la settimana e più di una volta al giorno quando cDock è in funzione.
+swchk0.tooltip = Quando abilitato, cDock controllerà automaticamente gli aggiornamenti una volta la settimana e più di una volta al giorno quando cDock è in funzione.
 swchk0.rely = -18
 swchk0.relx = 20
 
 # Auto install updates
 swchk2.type = checkbox
 swchk2.label = Installa Aggiornamenti Automaticamente
-swchk2.tooltip = Quando abilitato cDock cercherà automaticamente di installare l’aggiornamento senza prima avvisare l’utente.
+swchk2.tooltip = Quando abilitato, cDock cercherà automaticamente di installare l’aggiornamento senza prima avvisare l’utente.
 swchk2.rely = -18
 swchk2.relx = 20
 
@@ -49,7 +49,7 @@ swchk10.relx = 20
 
 # remove_broken_dock_items
 swchk11.type = checkbox
-swchk11.label = Clear Dock backups
+swchk11.label = Cancella i backups del Dock
 swchk11.disabled = 1
 swchk11.tooltip = Rimuovi gli elementi del Dock che puntano a file o cartelle non esistenti e si vedono come punto interrogativo.
 swchk11.rely = -18
@@ -73,7 +73,7 @@ swchk4.relx = 20
 swpop0.type = popup
 swpop0.rely = -10
 swpop0.relx = 40
-swpop0.option = Select a restore point
+swpop0.option = Seleziona data di ripristino
 
 # Finder text
 swtb3.type = text
@@ -82,7 +82,7 @@ swtb3.text = Finder:
 
 # Colored sidebar
 swchk8.type = checkbox
-swchk8.label = Icone colorate della barra laterale
+swchk8.label = Icone colorate nella barra laterale
 swchk8.tooltip = Mostra i colori nella barra laterale.
 swchk8.rely = -18
 swchk8.relx = 20
@@ -102,14 +102,14 @@ swtb2.text = cDock:
 # Display SIMBL warnings
 swchk5.type = checkbox
 swchk5.label = Mostra l’allerta SIMBL
-swchk5.tooltip = Quando abilitato cDock permette di rimuovere i plugin SIMBL sebbene siano usate da cDock.
+swchk5.tooltip = Quando abilitato, cDock permette di rimuovere i plugin SIMBL sebbene siano usati da cDock.
 swchk5.rely = -18
 swchk5.relx = 20
 
 # Auto-launch menubar applet
 swchk12.type = checkbox
-swchk12.label = Auto-launch menubar applet
-swchk12.tooltip = When enabled cDock automatically launches a menubar applet when you open cDock.
+swchk12.label = Lancio automatico di cDock nel menubar
+swchk12.tooltip = Quando abilitato cDock si lancerà automaticamente nella barra del menu.
 swchk12.rely = -18
 swchk12.relx = 20
 
