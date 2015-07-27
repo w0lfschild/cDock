@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# osascript -e 'tell application "Dock"' -e 'inject SIMBL into Snow Leopard' -e 'end tell'
+# osascript -e 'tell application "Dock" to inject SIMBL into Snow Leopard'
 
 osascript <<EOD
   tell application "Dock"
