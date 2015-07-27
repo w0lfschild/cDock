@@ -1,7 +1,7 @@
 ------------------------------------------------
 
 Version		: cDock 2 (1.0)
-Build date	: Jul / 30 / 2015
+Build date	: Soon™
 
 ------------------------------------------------
 
@@ -45,8 +45,47 @@ Build date	: Jul / 30 / 2015
 ------------------------------------------------
 
 ------------------------------------------------
-Version		: 8.3
-Build date	: Jul / 14 / 2015
+
+Version		: 8.4
+Build date	: Soon™
+
+------------------------------------------------
+
+- 10.11 support (that's not terrible!)
+
+- 10.10 and 10.11 changes
+	Additions:
+	- customize application indicators
+	- customize label background
+	- icon reflections (similar to 10.9 and below)
+	- icon shadows
+	- darken icons on mouse over
+	- option to show blurred glass layer
+	
+	Improved:
+	- hide labels
+
+	Removed: (temporarily)
+	- background border layer 
+	- freely resize background
+
+	Issues:
+	- icon reflections and icon	
+
+- Fix themes not showing the first time the app is opened
+- Hopefully fixed cDock not opening in some cases
+- Prevent cDock from running in /applications/Utilities
+- Removed beta updates option
+- Adjustments to extra settings window
+- Copy bundles to Plugins folder instead of linking
+- Updated Italian translation
+
+- Menu-bar applet
+	- Fix text in dark mode being black
+	- Fix menu items not always showing
+	- removed update option
+	- icon changed to a basic gear
+
 ------------------------------------------------
 
 8.3

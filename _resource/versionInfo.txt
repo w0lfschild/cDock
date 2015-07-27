@@ -1,34 +1,59 @@
 ------------------------------------------------
 
 Version		: 8.4
-Build date	: Jul / 25 / 2015
+Build date	: SOMETIME / SOMETIME / 2015
 
 ------------------------------------------------
 
-- 10.11 support (that's not terrible!)
+- 10.11 support (that's not terrible! 🙌)
+	- 10.11 requires that SIP aka "rootless" be
+	turned off during the initial install for
+	SIMBL and Opee
 
-- 10.10 and 10.11 changes
+- 10.10 and 10.11
+	Additions:
 	- customize application indicators
-	- customize icon shadows
-	- customize laybel background
-	- hide labels (better implementation)
+	- customize label background
 	- icon reflections (similar to 10.9 and below)
-	- ability to color blurred glass layer
+	- icon shadows
 	- darken icons on mouse over
-	- freely resize background removed for now
+	- option to show blurred glass layer
+	
+	Improved:
+	- hide labels
+	- picture themes use 2 background images so your 
+	theme can have a horizontal and vertical image
 
+	Removed: (temporarily)
+	- background border layer 
+	- freely resize background
+	- indicator force color white/black
+
+	Issues:
+	- icon reflections and icon shadows will not show
+	until dock is resized. you can resize the dock
+	by grabbing the separator area and dragging.
+
+- 10.9
+	Removed:
+	- hide labels
+
+- Removed some stock themes
 - Fix themes not showing the first time the app is opened
 - Hopefully fixed cDock not opening in some cases
 - Prevent cDock from running in /applications/Utilities
 - Removed beta updates option
 - Adjustments to extra settings window
 - Copy bundles to Plugins folder instead of linking
-- Updated italian translation
+- Updated Italian translation
 
 - Menu-bar applet
 	- Fix text in dark mode being black
 	- Fix menu items not always showing
 	- removed update option
 	- icon changed to a basic gear
+	- open cDock option
+
+- 😘
 
 ------------------------------------------------
