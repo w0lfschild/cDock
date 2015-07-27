@@ -7,16 +7,15 @@ evalsel() { sely=$((sely - 24)); }
 evalchx() { chxy=$((chxy - 20)); }
 
 window_setup () {
-  # lang=$(locale | grep LANG | cut -d\" -f2 | cut -d_ -f1)
   app_windows="$scriptDirectory"/windows/en
   lang=$($PlistBuddy "print AppleLanguages:0" "$home/Library/Preferences/.GlobalPreferences.plist")
   if [[ $lang = "" ]]; then
     lang=$($PlistBuddy "print AppleLocale" "$home/Library/Preferences/.GlobalPreferences.plist" | cut -d_ -f1)
   fi
-  if [[ $lang != "" ]]; then
-    if [[ -e "$scriptDirectory"/windows/"$lang" ]]; then
-      app_windows="$scriptDirectory"/windows/"$lang"
-    fi
+  if [[ "$lang" = "it" || "$lang" = "zh" || "$lang" = "ru" ]]; then
+  		app_windows="$scriptDirectory"/windows/"$lang"
+  else
+  		app_windows="$scriptDirectory"/windows/en
   fi
 
   # app_windows="$scriptDirectory"/windows/it   # Testing...
@@ -77,9 +76,7 @@ settings_window_establish() {
 	settings_window=$(cat "$app_windows"/settings.txt)
 	settings_window="$settings_window
 	swchk0.default = $update_auto_check
-	swchk1.default = 0
 	swchk2.default = $update_auto_install
-	swchk3.default = $beta_updates
 	swchk4.default = 0
 	swchk5.default = $displayWarning
 	swchk6.default = 0
@@ -87,8 +84,7 @@ settings_window_establish() {
 	swchk8.default = $colorfulsidebar_active
 	swchk9.default = $finder_folders_on_top
 	swchk10.default = 0
-	swchk11.default = 0
-  swchk12.default = $launch_menu_applet
+  	swchk12.default = $launch_menu_applet
 	swOK.type = defaultbutton"
 
 	if [[ -e "$save_folder" ]]; then
@@ -108,9 +104,7 @@ settings_window_update() {
 	settings_window=$(echo "$settings_window" | sed -e "/default/d")
 	settings_window="$settings_window
 	swchk0.default = $swchk0
-	swchk1.default = 0
 	swchk2.default = $swchk2
-	swchk3.default = $swchk3
 	swchk4.default = 0
 	swchk5.default = $swchk5
 	swchk6.default = 0
@@ -118,8 +112,7 @@ settings_window_update() {
 	swchk8.default = $swchk8
 	swchk9.default = $swchk9
 	swchk10.default = 0
-	swchk11.default = 0
-  swchk12.default = $swchk12
+  	swchk12.default = $swchk12
 	swOK.type = defaultbutton"
 
 	if [[ -e "$save_folder" ]]; then
@@ -137,8 +130,6 @@ settings_window_update() {
 
 settings_window_draw() {
 	swOK=0
-	swchk0=0
-	swchk2=0
 	pashua_run "$settings_window" 'utf8'
 	if [[ $swOK -eq 1 ]]; then
 		settings_window_update
@@ -155,11 +146,7 @@ main_window_establish() {
 		sely=244
 		chxy=248
 	fi
-	if [[ $curver = *.*.*.* ]]; then
-		my_title="cDock Beta - $curver"
-	else
-		my_title="cDock - $curver"
-	fi
+	my_title="cDock - $curver"
 
 	# Window Appearance
 	main_window=$(cat "$app_windows"/main.txt)
@@ -393,7 +380,7 @@ main_window_establish() {
 		do
 			theme_name=$(basename "$theme")
 			main_window="$main_window
-	pop0.option = $theme_name"
+			pop0.option = $theme_name"
 		done
 	fi
 }
