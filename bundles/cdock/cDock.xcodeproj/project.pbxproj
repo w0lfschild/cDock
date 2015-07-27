@@ -13,6 +13,7 @@
 		FB48B1581AC68F460026ADFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB48B1571AC68F460026ADFB /* CoreGraphics.framework */; };
 		FB48B1631AC690360026ADFB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB48B1621AC690360026ADFB /* Cocoa.framework */; };
 		FB58D31619526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m in Sources */ = {isa = PBXBuildFile; fileRef = FB58D31519526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m */; };
+		FBD286A11B661D99002B4192 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD286A01B661D99002B4192 /* Preferences.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		FB9C98AA1AD07FD800C84A6C /* DOCKTileLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOCKTileLayer.h; sourceTree = "<group>"; };
 		FB9C98AB1AD07FD800C84A6C /* ECMaterialLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECMaterialLayer.h; sourceTree = "<group>"; };
 		FB9C98AC1AD0800500C84A6C /* Tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		FBD2869F1B661D99002B4192 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		FBD286A01B661D99002B4192 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,24 +63,24 @@
 			name = BlackDock;
 			sourceTree = "<group>";
 		};
-		089C167CFE841241C02AAC07 /* resource */ = {
+		089C167CFE841241C02AAC07 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 			);
-			name = resource;
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		08FB77AFFE84173DC02AAC07 /* cDock */ = {
 			isa = PBXGroup;
 			children = (
-				C381D801181FEA2B008521C6 /* cDock.h */,
-				C381D802181FEA2B008521C6 /* cDock.m */,
-				FB48B1641AC6910B0026ADFB /* apple */,
-				FB19BD9419724487001461C3 /* backports */,
-				FB48B1591AC68FDF0026ADFB /* framework */,
-				FB19BD9319724474001461C3 /* fishhook */,
-				089C167CFE841241C02AAC07 /* resource */,
+				FBD2869E1B661D38002B4192 /* cDock */,
+				FBD2869D1B661D22002B4192 /* Preferences */,
+				FB48B1641AC6910B0026ADFB /* Apple */,
+				FB19BD9419724487001461C3 /* Backports */,
+				FB48B1591AC68FDF0026ADFB /* Frameworks */,
+				FB19BD9319724474001461C3 /* Fishhook */,
+				089C167CFE841241C02AAC07 /* Resource */,
 			);
 			name = cDock;
 			sourceTree = "<group>";
@@ -90,36 +93,36 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FB19BD9319724474001461C3 /* fishhook */ = {
+		FB19BD9319724474001461C3 /* Fishhook */ = {
 			isa = PBXGroup;
 			children = (
 				FB19BD8F197243F4001461C3 /* fishhook.c */,
 				FB19BD90197243F4001461C3 /* fishhook.h */,
 			);
-			name = fishhook;
+			name = Fishhook;
 			sourceTree = "<group>";
 		};
-		FB19BD9419724487001461C3 /* backports */ = {
+		FB19BD9419724487001461C3 /* Backports */ = {
 			isa = PBXGroup;
 			children = (
 				FB58D31719526DBC00A16617 /* PECocoaBackportsGlobal.h */,
 				FB58D31419526D3F00A16617 /* NSProcessInfo+PECocoaBackports.h */,
 				FB58D31519526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m */,
 			);
-			name = backports;
+			name = Backports;
 			sourceTree = "<group>";
 		};
-		FB48B1591AC68FDF0026ADFB /* framework */ = {
+		FB48B1591AC68FDF0026ADFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				FB48B1621AC690360026ADFB /* Cocoa.framework */,
 				FB48B1571AC68F460026ADFB /* CoreGraphics.framework */,
 				C3E0CF3118250383005B4BC1 /* QuartzCore.framework */,
 			);
-			name = framework;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		FB48B1641AC6910B0026ADFB /* apple */ = {
+		FB48B1641AC6910B0026ADFB /* Apple */ = {
 			isa = PBXGroup;
 			children = (
 				FB9C98AC1AD0800500C84A6C /* Tile.h */,
@@ -130,7 +133,25 @@
 				FB9C98AA1AD07FD800C84A6C /* DOCKTileLayer.h */,
 				FB9C98AB1AD07FD800C84A6C /* ECMaterialLayer.h */,
 			);
-			name = apple;
+			name = Apple;
+			sourceTree = "<group>";
+		};
+		FBD2869D1B661D22002B4192 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				FBD2869F1B661D99002B4192 /* Preferences.h */,
+				FBD286A01B661D99002B4192 /* Preferences.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		FBD2869E1B661D38002B4192 /* cDock */ = {
+			isa = PBXGroup;
+			children = (
+				C381D801181FEA2B008521C6 /* cDock.h */,
+				C381D802181FEA2B008521C6 /* cDock.m */,
+			);
+			name = cDock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,7 +181,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "cDock" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -195,6 +216,7 @@
 			files = (
 				FB58D31619526D3F00A16617 /* NSProcessInfo+PECocoaBackports.m in Sources */,
 				FB19BD91197243F4001461C3 /* fishhook.c in Sources */,
+				FBD286A11B661D99002B4192 /* Preferences.m in Sources */,
 				C381D803181FEA2B008521C6 /* cDock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,6 +242,7 @@
 				GCC_PREFIX_HEADER = cDockBundle_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.w0lf.${PRODUCT_NAME:rfc1034Identifier}";
 				PRODUCT_NAME = cDock;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -240,6 +263,7 @@
 				GCC_PREFIX_HEADER = cDockBundle_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.w0lf.${PRODUCT_NAME:rfc1034Identifier}";
 				PRODUCT_NAME = cDock;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -248,6 +272,7 @@
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

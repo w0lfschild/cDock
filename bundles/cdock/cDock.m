@@ -1,15 +1,5 @@
 //
 //  cDock.m
-//  cDock
-//
-//  Created by Wolfgang Baird
-//  Copyright (c) 2015 Wolfgang Baird. All rights reserved.
-//
-//  Based on work by
-//
-//  Adam Bell       - darkdock
-//  cvz             - blackdock
-//  Alex Zielenski  - dockify
 //
 
 // imports
@@ -17,9 +7,10 @@
 #import "fishhook.h"
 #import <objc/objc-class.h>
 #import <dlfcn.h>
+#import "Preferences.h"
 
 // includes
-#include <stdlib.h>
+// #include <stdlib.h>
 
 void SwizzleInstanceMethod (Class cls, SEL old, SEL new) {
 	Method mold = class_getInstanceMethod(cls, old);
@@ -192,7 +183,7 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
     layer.shadowOpacity = validateFloat(my_settings, 11, 100.);
     
     // Return
-    return layer;
+    return (BlackDockBorderLayer *)layer;
 }
 
 @end
@@ -362,7 +353,7 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
     // Background
     if (validateInt(my_settings, 19) == 1) {
         if (orientation == 0)
-            layer.contents = getImg(@"3D.png");
+            layer.contents = getImg(@"background.png");
         layer.opacity = validateFloat(my_settings, 13, 100.);
     } else {
         if (picture == 0){
