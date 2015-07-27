@@ -1,4 +1,4 @@
-*.title = cDock Extra Settings
+*.title = cDock Settings
 *.floating = 1
 *.autosavekey = cDock_settings
 
@@ -6,13 +6,6 @@
 swtb0.type = text
 swtb0.rely = -18
 swtb0.text = Updates:
-
-# Check for updates now
-swchk1.type = checkbox
-swchk1.label = Check for updates now
-swchk1.tooltip = Check for updates when you click apply.
-swchk1.rely = -18
-swchk1.relx = 20
 
 # Auto check for updates
 swchk0.type = checkbox
@@ -28,13 +21,6 @@ swchk2.tooltip = When enabled cDock will automatically try to install updates wi
 swchk2.rely = -18
 swchk2.relx = 20
 
-# Check for BETA updates
-swchk3.type = checkbox
-swchk3.label = Include beta releases
-swchk3.tooltip = Include Beta updates in searches. Only for the savvy user, bugs are likely to occur.
-swchk3.rely = -10
-swchk3.relx = 20
-
 # Dock text
 swtb1.type = text
 swtb1.rely = -18
@@ -47,17 +33,9 @@ swchk10.tooltip = Reset icon cache to fix icons not showing.
 swchk10.rely = -18
 swchk10.relx = 20
 
-# remove_broken_dock_items
-swchk11.type = checkbox
-swchk11.label = Clear Dock backups
-swchk11.disabled = 1
-swchk11.tooltip = Deletes current Dock backups.
-swchk11.rely = -18
-swchk11.relx = 20
-
 # Restore stock
 swchk7.type = checkbox
-swchk7.label = Restore Dock to factory settings
+swchk7.label = Reset Dock to factory settings
 swchk7.tooltip = Restore dock to the same as a fresh install of OS X.
 swchk7.rely = -18
 swchk7.relx = 20
@@ -115,7 +93,7 @@ swchk12.relx = 20
 
 # Reset cDock
 swchk6.type = checkbox
-swchk6.label = Reset cDock (Uninstall)
+swchk6.label = Reset cDock
 swchk6.tooltip = Resets cDock and removes all files it stored in ~/Library/Application Support.
 swchk6.rely = -10
 swchk6.relx = 20

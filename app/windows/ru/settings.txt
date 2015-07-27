@@ -7,13 +7,6 @@ swtb0.type = text
 swtb0.rely = -18
 swtb0.text = Обновления:
 
-# Check for updates now
-swchk1.type = checkbox
-swchk1.label = Проверить наличие обновлений сейчас
-swchk1.tooltip = Проверка наличия обновлений будет выполнена при нажатии кнопки "Применить".
-swchk1.rely = -18
-swchk1.relx = 20
-
 # Auto check for updates
 swchk0.type = checkbox
 swchk0.label = Автоматически проверять наличие обновлений
@@ -28,13 +21,6 @@ swchk2.tooltip = Если этот флажок установлен, cDock ав
 swchk2.rely = -18
 swchk2.relx = 20
 
-# Check for BETA updates
-swchk3.type = checkbox
-swchk3.label = Разрешить бета-версии
-swchk3.tooltip = Бета-версии обновлений учитываются при поиске. Только для опытных пользователей, возможны сбои.
-swchk3.rely = -10
-swchk3.relx = 20
-
 # Dock text
 swtb1.type = text
 swtb1.rely = -18
@@ -46,14 +32,6 @@ swchk10.label = Сбрсить кэш значков
 swchk10.tooltip = Кэш значков сбрасывается для устранения проблем, когда значки не отображаются.
 swchk10.rely = -18
 swchk10.relx = 20
-
-# remove_broken_dock_items
-swchk11.type = checkbox
-swchk11.label = Удалить нерабочие объекты Dock
-swchk11.disabled = 1
-swchk11.tooltip = Удаляются объекты Dock, которые связаны с несуществующим файлом или папкой и отображаются в виде вопросительного знака.
-swchk11.rely = -18
-swchk11.relx = 20
 
 # Restore stock
 swchk7.type = checkbox

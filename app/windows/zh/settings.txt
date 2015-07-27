@@ -7,13 +7,6 @@ swtb0.type = text
 swtb0.rely = -18
 swtb0.text =更新：
 
-# Check for updates now
-swchk1.type = checkbox
-swchk1.label =现在检查更新
-swchk1.tooltip =点击“申请”时，检查更新。
-swchk1.rely = -18
-swchk1.relx = 20
-
 # Auto check for updates
 swchk0.type = checkbox
 swchk0.label =自动检查更新
@@ -28,13 +21,6 @@ swchk2.tooltip =启动时，cDock会在没有自动提示用户首次安装更�
 swchk2.rely = -18
 swchk2.relx = 20
 
-# Check for BETA updates
-swchk3.type = checkbox
-swchk3.label =包括测试版本
-swchk3.tooltip =包括搜索测试更新版本。有可能出现错误，仅供专业用户使用。
-swchk3.rely = -10
-swchk3.relx = 20
-
 # Dock text
 swtb1.type = text
 swtb1.rely = -18
@@ -46,14 +32,6 @@ swchk10.label =重置图标缓存
 swchk10.tooltip =如果图标不显示，请重置图标缓存。
 swchk10.rely = -18
 swchk10.relx = 20
-
-# remove_broken_dock_items
-swchk11.type = checkbox
-swchk11.label =移除断开的Dock项
-swchk11.disabled = 1
-swchk11.tooltip =将文件或文件夹的链接不存在的Dock项以及显示问号的Dock项移除。
-swchk11.rely = -18
-swchk11.relx = 20
 
 # Restore stock
 swchk7.type = checkbox
