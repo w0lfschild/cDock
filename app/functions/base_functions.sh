@@ -4,19 +4,12 @@
 
 app_clean() {
 	killall "cDock Agent"
-
 	file_cleanup \
 	/Library/ScriptingAdditions/EasySIMBL.osax \
-	/Library/Application\ Support/SIMBL/Plugins/BlackDock.bundle \
-	"$HOME"/Library/Application\ Support/SIMBL/Plugins/BlackDock.bundle \
-	"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle \
+	/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
+	/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle \
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
-	"$HOME"/Library/LaunchAgents/com.w0lf.BlackDock.plist \
-	"$HOME"/Library/LaunchAgents/com.w0lf.cDock.plist \
-	"$HOME"/Library/LaunchAgents/org.w0lf.cDock.plist \
-	"$HOME"/Library/Application\ Scripts/BlackDock \
-	"$HOME"/Library/Application\ Scripts/cDock \
-	"$HOME"/Library/Application\ Support/cDock
+	"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle \
 
 	plistbud "set" "cdockActive" "integer" "0" "$cdock_pl"
 	plistbud "set" "colorfulsidebarActive" "integer" "0" "$cdock_pl"
