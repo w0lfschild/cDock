@@ -199,7 +199,7 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
 	CALayer *layer = [super layer];
 	layer.contents = getImg(@"separator.png");
 	layer.contentsGravity = kCAGravityResizeAspect;
-	return layer;
+	return (BlackDockSeparatorLayer *)layer;
 }
 
 - (void)resizeWithOldSuperlayerSize:(CGSize)size
@@ -371,7 +371,7 @@ CGFloat validateFloat (NSArray* arr, int check, CGFloat div) {
     }
 
     // Return
-	return layer;
+	return (BlackDockFloorLayer *)layer;
 }
 
 @end
