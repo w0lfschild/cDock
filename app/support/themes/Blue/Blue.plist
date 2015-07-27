@@ -7,15 +7,15 @@
 	<key>cd_darkenMouseOver</key>
 	<true/>
 	<key>cd_dockBG</key>
-	<false/>
+	<true/>
 	<key>cd_dockBGA</key>
-	<integer>0</integer>
+	<integer>75</integer>
 	<key>cd_dockBGB</key>
-	<integer>0</integer>
+	<integer>240</integer>
 	<key>cd_dockBGG</key>
-	<integer>0</integer>
+	<integer>210</integer>
 	<key>cd_dockBGR</key>
-	<real>0.0</real>
+	<integer>115</integer>
 	<key>cd_fullWidth</key>
 	<false/>
 	<key>cd_hideLabels</key>
@@ -31,21 +31,21 @@
 	<key>cd_iconShadowBGG</key>
 	<integer>0</integer>
 	<key>cd_iconShadowBGR</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>cd_iconShadowBGS</key>
 	<integer>0</integer>
 	<key>cd_labelBG</key>
-	<false/>
-	<key>cd_labelBGA</key>
-	<integer>0</integer>
-	<key>cd_labelBGB</key>
-	<real>0.0</real>
-	<key>cd_labelBGG</key>
-	<real>0.0</real>
-	<key>cd_labelBGR</key>
-	<integer>0</integer>
-	<key>cd_pictureBG</key>
 	<true/>
+	<key>cd_labelBGA</key>
+	<integer>50</integer>
+	<key>cd_labelBGB</key>
+	<integer>240</integer>
+	<key>cd_labelBGG</key>
+	<integer>210</integer>
+	<key>cd_labelBGR</key>
+	<integer>115</integer>
+	<key>cd_pictureBG</key>
+	<false/>
 	<key>cd_pictureTile</key>
 	<false/>
 	<key>cd_showFrost</key>
@@ -53,6 +53,6 @@
 	<key>cd_showGlass</key>
 	<false/>
 	<key>cd_showSeparator</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

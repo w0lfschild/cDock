@@ -9,15 +9,15 @@
 	<key>cd_dockBG</key>
 	<false/>
 	<key>cd_dockBGA</key>
-	<integer>0</integer>
+	<integer>65</integer>
 	<key>cd_dockBGB</key>
-	<integer>0</integer>
+	<integer>35</integer>
 	<key>cd_dockBGG</key>
-	<integer>0</integer>
+	<integer>35</integer>
 	<key>cd_dockBGR</key>
-	<real>0.0</real>
+	<integer>35</integer>
 	<key>cd_fullWidth</key>
-	<false/>
+	<true/>
 	<key>cd_hideLabels</key>
 	<false/>
 	<key>cd_iconReflection</key>
@@ -31,7 +31,7 @@
 	<key>cd_iconShadowBGG</key>
 	<integer>0</integer>
 	<key>cd_iconShadowBGR</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>cd_iconShadowBGS</key>
 	<integer>0</integer>
 	<key>cd_labelBG</key>
@@ -39,20 +39,20 @@
 	<key>cd_labelBGA</key>
 	<integer>0</integer>
 	<key>cd_labelBGB</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>cd_labelBGG</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>cd_labelBGR</key>
 	<integer>0</integer>
 	<key>cd_pictureBG</key>
-	<true/>
+	<false/>
 	<key>cd_pictureTile</key>
 	<false/>
 	<key>cd_showFrost</key>
-	<false/>
+	<true/>
 	<key>cd_showGlass</key>
 	<false/>
 	<key>cd_showSeparator</key>
-	<false/>
+	<true/>
 </dict>
 </plist>
