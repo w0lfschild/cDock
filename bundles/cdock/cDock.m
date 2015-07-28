@@ -480,20 +480,16 @@ id hax_CFPreferencesCopyAppValue(CFStringRef key, CFStringRef applicationID) {
 
 - (void)setUp
 {
+    if (![[[Preferences sharedInstance2] objectForKey:@"cd_enabled"] boolValue])
+        return;
+    
     CALayer *layer = self.rootLayer;
     NSArray *arr = layer.sublayers;
     NSArray *my_settings = readPrefs();
     NSOperatingSystemVersion osver = [[NSProcessInfo processInfo] operatingSystemVersion];
     if (osver.majorVersion >= 10) {
-        
-        // OS X 10.11
-//        if (osver.minorVersion == 11) {
-//            [self dark_dock];
-//            NSLog(@"Yolo");
-//        }
-        
-        // OS X 10.10 + 10.11
-        if (osver.minorVersion >= 10) {
+        // OS X 10.10
+        if (osver.minorVersion == 10) {
             [self dark_dock];
             
             CALayer *floor_backup = [BlackDockFloorLayer layer];
