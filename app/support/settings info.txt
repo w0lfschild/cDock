@@ -19,6 +19,9 @@ cd_iconShadowBGG		shadow green			0 (none)  > 255 (max)
 cd_iconShadowBGR		shadow red			0 (none)  > 255 (max)
 cd_iconShadowBGS		shadow size			size in pixels
 
+cd_cornerRadius			corner radius			size in pixels
+
+cd_isTransparent		hide background			YES (hide) / NO (show)
 cd_fullWidth			full screen dock		YES (yes)  / NO (no)
 cd_hideLabels			hide labels			YES (hide) / NO (show)
 cd_iconReflection		show icon reflections		YES (show) / NO (hide)
