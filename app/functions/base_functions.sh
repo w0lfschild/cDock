@@ -3,7 +3,7 @@
 # Base functions used by cDock
 
 app_clean() {
-	killall "cDock Agent"
+	killall -KILL "cDock Agent"
 	file_cleanup \
 	/Library/ScriptingAdditions/EasySIMBL.osax \
 	/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
@@ -45,8 +45,8 @@ app_has_updated() {
 	rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock
 
 	# Move back bundles if they were installed
-	(($colorfulsidebar_active)) && { ln -s "$app_bundles"/ColorfulSidebar.bundle "$HOME/Library/Application Support"/SIMBL/Plugins/ColorfulSidebar.bundle; defaults write org.w0lf.cDock colorfulsidebarActive 1; launch_agent; }
-	(($cdock_active)) && { ln -s "$app_bundles"/cDock.bundle "$HOME/Library/Application Support"/SIMBL/Plugins/cDock.bundle; defaults write org.w0lf.cDock cdockActive 1; launch_agent; }
+	(($colorfulsidebar_active)) && { cp -r "$app_bundles"/ColorfulSidebar.bundle "/Library/Application Support"/SIMBL/Plugins/ColorfulSidebar.bundle; defaults write org.w0lf.cDock colorfulsidebarActive 1; launch_agent; }
+	(($cdock_active)) && { cp -r "$app_bundles"/cDock.bundle "/Library/Application Support"/SIMBL/Plugins/cDock.bundle; plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"; launch_agent; }
 	defaults write org.w0lf.cDock theme "$current_theme"
 
 	# Move back theme folder, logs, and current theme if one was active
@@ -637,19 +637,19 @@ install_finder_bundle() {
 
 install_finish() {
 	if ($start_agent); then
-		killall -s cDock\ Agent || { echo -e "Starting dockmonitor"; open "$cdock_path"; }
+		killall -KILL cDock\ Agent || { echo -e "Starting dockmonitor"; open "$cdock_path"; }
 	fi
 
-	if ($reboot_dock); then killall "Dock"; fi
+	if ($reboot_dock); then killall -KILL "Dock"; fi
 	if ($reboot_finder); then
 		if [[ $(lsof -c Finder | grep MacOS/XtraFinder) ]]; then
-			killall "Finder"
+			killall -KILL "Finder"
 			open -b com.trankynam.XtraFinder
 		elif [[ $(lsof -c Finder | grep MacOS/TotalFinder) ]]; then
-			killall "Finder"
+			killall -KILL "Finder"
 			open -b com.binaryage.totalfinder.agent
 		else
-			killall "Finder"
+			killall -KILL "Finder"
 		fi
 	fi
 
