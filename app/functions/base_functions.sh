@@ -514,15 +514,12 @@ get_preferences() {
 get_bundle_info() {
 	cd_bv0=$(plistbud "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/cDock.bundle/Contents/Info.plist)
 	cf_bv0=$(plistbud "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle/Contents/Info.plist)
-	cf_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/ColorfulSidebar.bundle/Contents/Info.plist)
-	if [[ $versionMinor != "9" ]]; then
-		opee_local=$(plistbud "Print" "CFBundleShortVersionString" /Library/Frameworks/Opee.framework/Versions/A/Resources/Info.plist)
-		opee_curre=$(plistbud "Print" "CFBundleShortVersionString" "$app_bundles"/Opee.framework/Versions/A/Resources/Info.plist)
-		cd_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/cDock.bundle/Contents/Info.plist)
-	else
-		cd_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/cDockMav.bundle/Contents/Info.plist)
-	fi
 	
+	cf_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/ColorfulSidebar.bundle/Contents/Info.plist)
+	cd_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/cDock.bundle/Contents/Info.plist)
+
+	opee_local=$(plistbud "Print" "CFBundleShortVersionString" /Library/Frameworks/Opee.framework/Versions/A/Resources/Info.plist)
+	opee_curre=$(plistbud "Print" "CFBundleShortVersionString" "$app_bundles"/Opee.framework/Versions/A/Resources/Info.plist)
 }
 
 import_theme_() {
@@ -564,10 +561,9 @@ install_cdock_bundle() {
 		rm /Library/Application\ Support/SIMBL/Plugins
 		dir_check /Library/Application\ Support/SIMBL/Plugins
 	fi
-
-	if [[ $versionMinor != "9" ]]; then
-		# echo -e "Opee Local: $opee_local\nOpee Current: $opee_curre"
-		if [[ $opee_local != $opee_curre ]]; then
+	
+	# echo -e "Opee Local: $opee_local\nOpee Current: $opee_curre"
+	if [[ $opee_local != $opee_curre ]]; then
 osascript <<EOD
 	tell application "Finder"
 		set sourceFolder to POSIX file "$app_bundles/Opee.framework"
@@ -575,15 +571,10 @@ osascript <<EOD
 		duplicate sourceFolder to destFolder with replacing
 	end tell
 EOD
-		fi
 	fi
 
 	if [[ "$cd_bv0" != "$cd_bv1" ]]; then
-		if [[ $versionMinor != "9" ]]; then
-			cp -rf "$app_bundles"/cDock.bundle /Library/Application\ Support/SIMBL/Plugins/cDock.bundle
-		else
-			cp -rf "$app_bundles"/cDockMav.bundle /Library/Application\ Support/SIMBL/Plugins/cDock.bundle
-		fi
+		cp -rf "$app_bundles"/cDock.bundle /Library/Application\ Support/SIMBL/Plugins/cDock.bundle
 		cd_bv0="$cd_bv1"
 	fi
 
@@ -596,14 +587,8 @@ EOD
 	# If custom dock is selected open settings and "instructions" for user also open dock refresher
 	if ($custom_dock); then
 		open ./helpers/cDock-Menubar.app
-
-		if [[ $versionMinor != "9" ]]; then
-			open -e "$HOME"/Library/Application\ Support/cDock/themes/Custom/Custom.plist
-			open -e "$HOME"/Library/Application\ Support/cDock/Settings\ 10.10+.rtf
-		else
-			open -e "$HOME"/Library/Application\ Support/cDock/themes/Custom/settings.txt
-			open -e "$HOME"/Library/Application\ Support/cDock/settings\ 10.9.rtf
-		fi
+		open "$HOME"/Library/Application\ Support/cDock/themes/Custom/Custom.plist
+		open -e "$HOME"/Library/Application\ Support/cDock/settings\ info.rtf
 		custom_dock=false
 	fi
 
