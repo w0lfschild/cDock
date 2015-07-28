@@ -10,7 +10,7 @@ Build date	: SOMETIME / SOMETIME / 2015
 	turned off during the initial install for
 	SIMBL and Opee
 
-- 10.10 and 10.11
+- Dock customization changes (10.9 > 10.11)
 	Additions:
 	- customize application indicators
 	- customize label background
@@ -27,18 +27,15 @@ Build date	: SOMETIME / SOMETIME / 2015
 	Removed: (temporarily)
 	- background border layer 
 	- freely resize background
-	- indicator force color white/black
+	- customizable separator
 
 	Issues:
 	- icon reflections and icon shadows will not show
 	until dock is resized. you can resize the dock
 	by grabbing the separator area and dragging.
 
-- 10.9
-	Removed:
-	- hide labels
-
 - Removed some stock themes
+- Fix minor issues on 10.9
 - Fix themes not showing the first time the app is opened
 - Hopefully fixed cDock not opening in some cases
 - Prevent cDock from running in /applications/Utilities
