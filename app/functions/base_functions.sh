@@ -637,7 +637,7 @@ install_finder_bundle() {
 
 install_finish() {
 	if ($start_agent); then
-		killall -KILL cDock\ Agent || { echo -e "Starting dockmonitor"; open "$cdock_path"; }
+		killall -s cDock\ Agent || { echo -e "Starting dockmonitor"; open "$cdock_path"; }
 	fi
 
 	if ($reboot_dock); then killall -KILL "Dock"; fi
@@ -776,15 +776,15 @@ where_are_we() {
 
 		if [[ $waw_ab = "1" ]]; then
 			echo "$app_directory"
+			# set sourceFolder to POSIX file "/Applications/cDock.app"
+			# try
+			# 	delete sourceFolder
+			# end try
 	osascript <<EOD
 	tell application "Finder"
-		set sourceFolder to POSIX file "/Applications/cDock.app"
-		try
-			delete sourceFolder
-		end try
 		set sourceFolder to POSIX file "$app_directory"
 		set destFolder to POSIX file "/Applications/"
-		move sourceFolder to destFolder
+		move sourceFolder to destFolder with replacing
 	end tell
 EOD
 			# "$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/Resource/trash "/Applications/cDock.app"
