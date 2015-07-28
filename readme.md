@@ -8,7 +8,7 @@
 * cDock may break in the future, and I'm not obligated to fix it, be careful when updating.
 	* Working on:
 	    * **10.9** to **10.9.5** (13F1096)
-	    * **10.10** to **10.10.5** (14E46)
+	    * **10.10** to **10.10.5** (14F6a)
 	    * **10.11** (15A226f)
 	* Not working:
 		* **10.8**
