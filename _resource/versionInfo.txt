@@ -1,16 +1,24 @@
 ------------------------------------------------
 
-Version		: 8.4
+Version		: 9.0
 Build date	: SOMETIME / SOMETIME / 2015
 
 ------------------------------------------------
+
+- It might not look like much has changed but
+this update was a huge amount of work compared to
+any other. In addition to working mostly seamlessly
+across 3 versions of OS X it's now got a bunch of
+new features 
+
+💯
 
 - 10.11 support (that's not terrible! 🙌)
 	- 10.11 requires that SIP aka "rootless" be
 	turned off during the initial install for
 	SIMBL and Opee
 
-- Dock customization changes (10.9 > 10.11)
+- Dock customization changes (10.9 to 10.11)
 	Additions:
 	- customize application indicators
 	- customize label background
@@ -21,6 +29,7 @@ Build date	: SOMETIME / SOMETIME / 2015
 	
 	Improved:
 	- hide labels
+	- background positioning
 	- picture themes use 2 background images so your 
 	theme can have a horizontal and vertical image
 
@@ -29,19 +38,17 @@ Build date	: SOMETIME / SOMETIME / 2015
 	- freely resize background
 	- customizable separator
 
-	Issues:
-	- icon reflections and icon shadows will not show
-	until dock is resized. you can resize the dock
-	by grabbing the separator area and dragging.
-
+- Updated stock themes
 - Removed some stock themes
 - Fix minor issues on 10.9
 - Fix themes not showing the first time the app is opened
+- Fix cDock not moving self to /Applications in some cases
 - Hopefully fixed cDock not opening in some cases
 - Prevent cDock from running in /applications/Utilities
 - Removed beta updates option
 - Adjustments to extra settings window
 - Copy bundles to Plugins folder instead of linking
+- Remove some outdated self cleanup
 - Updated Italian translation
 
 - Menu-bar applet
