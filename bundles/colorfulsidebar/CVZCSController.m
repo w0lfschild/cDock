@@ -62,7 +62,7 @@ struct TFENode {
 @implementation NSObject (CVZCSColorfulSidebar)
 
 - (void)CVZCSm_new_TSidebarItemCell_drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
-{	
+{
 	NSRect rect = [(NSCell *)self imageRectForBounds:cellFrame];
 	if (!NSIsEmptyRect(rect)) {
 		SEL aSEL = @selector(accessibilityAttributeNames);
