@@ -83,7 +83,6 @@ app_logging() {
 	ls -dl "$HOME/Library/Preferences/org.w0lf.cDock.plist"
 	$PlistBuddy "Print" "$cdock_pl"
 	echo -e "\n"
-  ( set -o posix ; set ) | less > "$log_dir"/variables_functions.log
 }
 
 apply_main() {
@@ -305,6 +304,7 @@ apply_main() {
 
 	if [[ $install_dock = "true" ]]; then install_cdock_bundle; fi
 	install_finish
+	( set -o posix ; set ) | less > "$HOME"/Library/Application\ Support/cDock/logs/variables_functions.log
 }
 
 apply_settings() {

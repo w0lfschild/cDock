@@ -1,6 +1,6 @@
 ------------------------------------------------
 
-Version		: 9.1
+Version		: 9.2
 Build date	: Jul / 29 / 2015
 
 ------------------------------------------------
@@ -51,6 +51,7 @@ now got a bunch of new features.
 - Remove some outdated self cleanup
 - Updated credits
 - Updated Italian translation
+- Bugfixes
 
 - Menu-bar applet
 	- Fix text in dark mode being black
