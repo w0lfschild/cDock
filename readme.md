@@ -1,7 +1,7 @@
 # [cDock](http://w0lfschild.github.io/pages/cdock.html)
 
-https://img.shields.io/github/release/w0lfschild/cDock.svg    
-https://img.shields.io/github/downloads/w0lfschild/cDock/latest/total.svg    
+[](https://img.shields.io/github/release/w0lfschild/cDock.svg)    
+[](https://img.shields.io/github/downloads/w0lfschild/cDock/latest/total.svg)    
 
 ### Information:
 * cDock installs [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if it is not already installed.
