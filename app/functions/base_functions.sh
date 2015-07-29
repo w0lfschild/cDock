@@ -45,8 +45,8 @@ app_has_updated() {
 	rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock
 
 	# Move back bundles if they were installed
-	(($colorfulsidebar_active)) && { cp -r "$app_bundles"/ColorfulSidebar.bundle "/Library/Application Support"/SIMBL/Plugins/ColorfulSidebar.bundle; defaults write org.w0lf.cDock colorfulsidebarActive 1; launch_agent; }
-	(($cdock_active)) && { cp -r "$app_bundles"/cDock.bundle "/Library/Application Support"/SIMBL/Plugins/cDock.bundle; plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"; launch_agent; }
+	(($colorfulsidebar_active)) && { move_file "$app_bundles/ColorfulSidebar.bundle" "/Library/Application Support/SIMBL/Plugins/"; defaults write org.w0lf.cDock colorfulsidebarActive 1; launch_agent; }
+	(($cdock_active)) && { move_file "$app_bundles/cDock.bundle" "/Library/Application Support/SIMBL/Plugins/"; plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"; launch_agent; }
 	defaults write org.w0lf.cDock theme "$current_theme"
 
 	# Move back theme folder, logs, and current theme if one was active
@@ -513,14 +513,14 @@ get_preferences() {
 }
 
 get_bundle_info() {
-	cd_bv0=$(plistbud "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/cDock.bundle/Contents/Info.plist)
-	cf_bv0=$(plistbud "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle/Contents/Info.plist)
+	cd_bv0=$($PlistBuddy "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/cDock.bundle/Contents/Info.plist)
+	cf_bv0=$($PlistBuddy "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle/Contents/Info.plist)
 	
-	cf_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/ColorfulSidebar.bundle/Contents/Info.plist)
-	cd_bv1=$(plistbud "Print CFBundleVersion" "$app_bundles"/cDock.bundle/Contents/Info.plist)
+	cf_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/ColorfulSidebar.bundle/Contents/Info.plist)
+	cd_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/cDock.bundle/Contents/Info.plist)
 
-	opee_local=$(plistbud "Print" "CFBundleShortVersionString" /Library/Frameworks/Opee.framework/Versions/A/Resources/Info.plist)
-	opee_curre=$(plistbud "Print" "CFBundleShortVersionString" "$app_bundles"/Opee.framework/Versions/A/Resources/Info.plist)
+	opee_local=$($PlistBuddy "Print" "CFBundleShortVersionString" /Library/Frameworks/Opee.framework/Versions/A/Resources/Info.plist)
+	opee_curre=$($PlistBuddy "Print" "CFBundleShortVersionString" "$app_bundles"/Opee.framework/Versions/A/Resources/Info.plist)
 }
 
 import_theme_() {
@@ -565,22 +565,15 @@ install_cdock_bundle() {
 	
 	# echo -e "Opee Local: $opee_local\nOpee Current: $opee_curre"
 	if [[ $opee_local != $opee_curre ]]; then
-osascript <<EOD
-	tell application "Finder"
-		set sourceFolder to POSIX file "$app_bundles/Opee.framework"
-		set destFolder to POSIX file "/Library/Frameworks/"
-		duplicate sourceFolder to destFolder with replacing
-	end tell
-EOD
+		move_file "$app_bundles/Opee.framework" "/Library/Frameworks/"
+		opee_local="$opee_curre"
 	fi
 
 	if [[ "$cd_bv0" != "$cd_bv1" ]]; then
-		cp -rf "$app_bundles"/cDock.bundle /Library/Application\ Support/SIMBL/Plugins/cDock.bundle
+		move_file	"$app_bundles/cDock.bundle" "/Library/Application Support/SIMBL/Plugins/"
+		# cp -rf "$app_bundles"/cDock.bundle /Library/Application\ Support/SIMBL/Plugins/cDock.bundle
 		cd_bv0="$cd_bv1"
 	fi
-
-	# Mirror check
-	if [[ $($PlistBuddy "Print hide-mirror:" "$dock_plist") != false ]]; then defaults write com.apple.dock hide-mirror -bool false; fi
 
 	# DockMod check
 	if [[ $($PlistBuddy "Print dockmod-enabled:" "$dock_plist") != false ]]; then defaults write com.apple.dock dockmod-enabled -bool false; fi
@@ -611,7 +604,8 @@ install_finder_bundle() {
 	fi
 
 	if [[ "$cf_bv0" != "$cf_bv1" ]]; then
-		cp -rf "$app_bundles"/ColorfulSidebar.bundle /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
+		move_file "$app_bundles/ColorfulSidebar.bundle"	"/Library/Application Support/SIMBL/Plugins/"
+		# cp -rf "$app_bundles"/ColorfulSidebar.bundle /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
 		cf_bv0="$cf_bv1"
 	fi
 
@@ -672,6 +666,24 @@ launch_agent() {
 		end tell
 EOD
 	fi
+}
+
+move_file () {
+
+	if [[ -e "$1" ]]; then
+		if [[ "$2" != "" ]]; then
+
+osascript <<EOD
+		tell application "Finder"
+			set sourceFolder to POSIX file "$1"
+			set destFolder to POSIX file "$2"
+			move sourceFolder to destFolder with replacing
+		end tell
+EOD
+
+		fi
+	fi
+
 }
 
 remove_broken_dock_items() {
@@ -754,7 +766,7 @@ where_are_we() {
 	waw_ab.label = Continue
 	"
 
-	if [[ "$app_directory" = "/Applications/Utilities/"* || "$app_directory" != "/Applications/"* && "$app_directory" != "$HOME/Applications/"* ]]; then
+	if [[ "$app_directory" == "/Applications/Utilities/"* || "$app_directory" != "/Applications/"* && "$app_directory" != "$HOME/Applications/"* ]]; then
 		pashua_run "$info_popup" 'utf8'
 
 		if [[ $waw_qb = "1" ]]; then
@@ -763,19 +775,7 @@ where_are_we() {
 
 		if [[ $waw_ab = "1" ]]; then
 			echo "$app_directory"
-			# set sourceFolder to POSIX file "/Applications/cDock.app"
-			# try
-			# 	delete sourceFolder
-			# end try
-	osascript <<EOD
-	tell application "Finder"
-		set sourceFolder to POSIX file "$app_directory"
-		set destFolder to POSIX file "/Applications/"
-		move sourceFolder to destFolder with replacing
-	end tell
-EOD
-			# "$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/Resource/trash "/Applications/cDock.app"
-			# mv -v "$app_directory" /Applications/cDock.app
+			move_file "$app_directory" "/Applications/"
 			/Applications/cDock.app/Contents/Resources/relaunch &
 			exit
 		fi

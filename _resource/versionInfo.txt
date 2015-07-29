@@ -39,15 +39,17 @@ now got a bunch of new features.
 
 - Updated stock themes
 - Removed some stock themes
-- Fix minor issues on 10.9
-- Fix themes not showing the first time the app is opened
+- Fix cDock not working on Guest/Standard accounts
 - Fix cDock not moving self to /Applications in some cases
+- Fix issues on 10.9 where dock might freeze after restarting
+- Fix themes not showing the first time the app is opened
 - Hopefully fixed cDock not opening in some cases
 - Prevent cDock from running in /applications/Utilities
 - Removed beta updates option
 - Adjustments to extra settings window
 - Copy bundles to Plugins folder instead of linking
 - Remove some outdated self cleanup
+- Updated credits
 - Updated Italian translation
 
 - Menu-bar applet

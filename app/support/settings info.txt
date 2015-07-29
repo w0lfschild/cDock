@@ -35,6 +35,8 @@ cd_showFrost			show blurred glass (10.10+)	YES (show) / NO (hide)
 cd_showGlass			show glass layer		YES (show) / NO (hide)
 cd_showSeparator 		draw separator			YES (show) / NO (hide)
 
+cd_darkMode			force Dark/Light mode		0 (system) / 1 (Light) / 2 (Dark)
+
 
 Q: What is a cDock theme?
 A: Folder with some files in it
