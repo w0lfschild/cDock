@@ -404,13 +404,13 @@ email_me() {
 	address=aguywithlonghair@gmail.com
 	theAttachment1="$log_dir"/logs.zip
 	nill=""
-	echo "tell application \"Mail\"
-	  set theEmail to make new outgoing message with properties {visible:true, subject:\"${subject}\", content:\"${nill}\"}
-	  tell theEmail
-	      make new recipient at end of to recipients with properties {address:\"${address}\"}
-				make new attachment with properties {file name:\"${theAttachment1}\"} at after the last paragraph
-	  end tell
-	end tell" | osascript
+echo "tell application \"Mail\"
+	set theEmail to make new outgoing message with properties {visible:true, subject:\"${subject}\", content:\"${nill}\"}
+	tell theEmail
+	    make new recipient at end of to recipients with properties {address:\"${address}\"}
+		make new attachment with properties {file name:\"${theAttachment1}\"} at after the last paragraph
+	end tell
+end tell" | osascript
 	osascript -e 'tell application "Mail" to activate'
 }
 
