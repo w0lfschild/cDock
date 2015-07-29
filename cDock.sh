@@ -4,8 +4,6 @@
 #
 # cDock
 # Maintained By			: Wolfgang Baird
-# Version				: 9.0
-# Updated				: Jul / 28 / 2015
 #
 # # # # # # # # # # # # # # # # # # # #
 
@@ -72,8 +70,8 @@ get_bundle_info												# Check bundle versions
 dir_setup													# Setup all our directories
 check_bundles												# Check if budles are in place
 sync_themes													# Make sure themes are synced
-window_setup												# Set up windows
 firstrun_display_check										# Check if app has been opened before and if it's a newer version than saved in the preferences
+window_setup												# Set up windows
 # first_run_window; exit									# Testing...
 launch_agent												# Setup that launch agent
 plistbud "Set" "version" "string" "$curver" "$cdock_pl"		# Set version

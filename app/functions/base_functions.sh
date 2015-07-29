@@ -57,10 +57,35 @@ app_has_updated() {
 		rsync -ru "$cdock_tmp"/active/"$current_theme" "$HOME"/Library/Application\ Support/cDock/themes
 	fi
 
+	# Delete legacy themes
+	if ! [[ -e "$app_themes" ]]; then echo "User themes folder doesn't exist!"; fi
+	for theme in "$HOME/Library/Application Support/cDock/themes/"*
+	do
+		theme_name=$(basename "$theme")
+		if [[ ! -e "$theme"/"$theme_name".plist ]]; then
+			if [[ "$theme" != "" ]]; then
+				echo "Removing legacy theme: $theme"
+				rm -r "$theme"
+			fi
+		fi
+	done
+
 	rm -r "$cdock_tmp"
 
 	plistbud "Delete" "null" "$cdock_pl"
 	plistbud "Delete" "beta_updates" "$cdock_pl"
+
+	if [[ ! -e "$HOME/Library/Application Support/cDock/themes/$current_theme" ]]; then
+		plistbud "Set" "theme" "string" "$current_theme" "$cdock_pl"
+		plistbud "Set" "cd_theme" "string" "$current_theme" "$cdock_pl"
+	else
+		plistbud "Set" "theme" "string" "default" "$cdock_pl"
+		plistbud "Set" "cd_theme" "string" "default" "$cdock_pl"
+	fi
+
+	if [[ "$current_theme" != "None" ]]; then
+		plistbud "Set" "cd_enabled" "bool" "1" "$cdock_pl"
+	fi
 
 	# Restart logging
 	app_logging
@@ -83,6 +108,7 @@ app_logging() {
 	ls -dl "$HOME/Library/Preferences/org.w0lf.cDock.plist"
 	$PlistBuddy "Print" "$cdock_pl"
 	echo -e "\n"
+	( set -o posix ; set ) | less > "$HOME"/Library/"Application Support"/cDock/logs/variables_functions.log
 }
 
 apply_main() {
@@ -304,7 +330,6 @@ apply_main() {
 
 	if [[ $install_dock = "true" ]]; then install_cdock_bundle; fi
 	install_finish
-	( set -o posix ; set ) | less > "$HOME"/Library/Application\ Support/cDock/logs/variables_functions.log
 }
 
 apply_settings() {
