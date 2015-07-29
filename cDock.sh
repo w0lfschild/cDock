@@ -4,8 +4,8 @@
 #
 # cDock
 # Maintained By			: Wolfgang Baird
-# Version				: 8.4
-# Updated				: Jul / 14 / 2015
+# Version				: 9.0
+# Updated				: Jul / 28 / 2015
 #
 # # # # # # # # # # # # # # # # # # # #
 

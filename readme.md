@@ -11,7 +11,7 @@
 	    * **10.10** to **10.10.5** (14F6a)
 	    * **10.11** (15A235d)
 	* Not working:
-		* **10.8**
+		* **None**
 * [Donate](http://w0lfschild.github.io/pages/donate.html)
 
 ### Note:

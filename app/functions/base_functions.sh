@@ -100,6 +100,7 @@ apply_main() {
 		plistbud "Set" "cdockActive" "integer" "0" "$cdock_pl"
 		plistbud "Set" "theme" "string" "$dock_theme" "$cdock_pl"
 		plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
+		plistbud "Set" "cd_enabled" "bool" "0" "$cdock_pl"
 	else
 		install_dock=true
 		echo "Theme: $pop0"
@@ -594,6 +595,7 @@ EOD
 
 	plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"
 	plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
+	plistbud "Set" "cd_enabled" "bool" "true" "$cdock_pl"
 	# plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
 	defaults write org.w0lf.cDock theme -string "${dock_theme}"
 }

@@ -1,59 +1,16 @@
 ------------------------------------------------
 
-Version		: cDock 2 (1.0)
+Version		: 6.9
 Build date	: Soon™
 
 ------------------------------------------------
 
-- App is now written in Objective C
-- App window doesn't close and re-open when applying
-- App window focused when dock icon clicked
-- App window no longer floats above all other windows
-- Updates now via sparkle
- 
-- Removed themes
-- Removed localizations
+- 10.11 support
+	- requires that SIP aka "rootless" be
+	turned off during the initial install for
+	SIMBL and Opee
 
-- Proper 10.11 support
-
-- Fixed cDock not opening for some users
-
-- New Dock options
-	- Hide/Show labels
-	- Hide/Show glass layer
-	- Hide/Show Blur layer
-	- Hide/Show Separator layer
-	- Darken apps on mouse-over
-	- Customize label colors
-	- Custom indicator lights
-	- Edit dock colors in-app
-	- Color pickers
-	- Raised limit of app/doc spacers
-	- Indicator light color toggle
-
-- Extra settings is now preferences accessible via menubar
-
-- Tone played when apply is clicked
-
-- Copy bundles to Plugins folder instead of linking
-
-- Menu-bar applet
-	- Fix text in dark mode being black
-	- Fix menu items not always showing
-	- icon changed to a basic gear
-
-------------------------------------------------
-
-------------------------------------------------
-
-Version		: 8.4
-Build date	: Soon™
-
-------------------------------------------------
-
-- 10.11 support (that's not terrible!)
-
-- 10.10 and 10.11 changes
+- Dock customization changes (10.9 to 10.11)
 	Additions:
 	- customize application indicators
 	- customize label background
@@ -64,20 +21,26 @@ Build date	: Soon™
 	
 	Improved:
 	- hide labels
+	- background positioning
+	- picture themes use 2 background images so your 
+	theme can have a horizontal and vertical image
 
 	Removed: (temporarily)
 	- background border layer 
 	- freely resize background
+	- customizable separator
 
-	Issues:
-	- icon reflections and icon	
-
+- Updated stock themes
+- Removed some stock themes
+- Fix minor issues on 10.9
 - Fix themes not showing the first time the app is opened
+- Fix cDock not moving self to /Applications in some cases
 - Hopefully fixed cDock not opening in some cases
 - Prevent cDock from running in /applications/Utilities
 - Removed beta updates option
 - Adjustments to extra settings window
 - Copy bundles to Plugins folder instead of linking
+- Remove some outdated self cleanup
 - Updated Italian translation
 
 - Menu-bar applet
@@ -85,6 +48,7 @@ Build date	: Soon™
 	- Fix menu items not always showing
 	- removed update option
 	- icon changed to a basic gear
+	- open cDock option
 
 ------------------------------------------------
 

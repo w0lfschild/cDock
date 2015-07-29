@@ -1,15 +1,14 @@
 ------------------------------------------------
 
 Version		: 9.0
-Build date	: SOMETIME / SOMETIME / 2015
+Build date	: Jul / 28 / 2015
 
 ------------------------------------------------
 
 - It might not look like much has changed but
-this update was a huge amount of work compared to
-any other. In addition to working mostly seamlessly
-across 3 versions of OS X it's now got a bunch of
-new features 
+this update was a lot work! In addition to working 
+mostly seamlessly across 3 versions of OS X it's 
+now got a bunch of new features.
 
 💯
 
