@@ -168,11 +168,11 @@ update_check() {
 
 update_check_step2() {
 	results=$(ping -c 1 -t 5 "https://www.github.com" 2>/dev/null || echo "Unable to connect to internet")
-  	if [[ $results = *"Unable to"* ]]; then
+	if [[ $results = *"Unable to"* ]]; then
 		echo "ping failed : $results"
-  	else
-    	echo "ping success"
-    	beta_updates=$($PlistBuddy "Print betaUpdates:" "$cdock_pl" 2>/dev/null || echo -n 0)
+	else
+		echo "ping success"
+		beta_updates=$($PlistBuddy "Print betaUpdates:" "$cdock_pl" 2>/dev/null || echo -n 0)
 	    update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null || { defaults write org.w0lf.cDock "autoInstall" 0; echo -n 0; } )
 
 	    # Stable urls
@@ -180,22 +180,9 @@ update_check_step2() {
 	    verurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/version.txt"
 	    logurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/versionInfo.txt"
 
-	    # Beta or Stable updates
-    if [[ $beta_updates -eq 1 ]]; then
-	    stable_version=$(verres $(curl -\# -L "https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/version.txt") $(curl -\# -L "http://sourceforge.net/projects/cdock/files/cDock%20Beta/versionBeta.txt"))
-
-	    if [[ $stable_version = "<" ]]; then
-	        # Beta urls
-	        dlurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/beta_build.zip"
-	        verurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/beta/versionBeta.txt"
-	        logurl="https://raw.githubusercontent.com/w0lfschild/cDock/master/_resource/beta/versionInfoBeta.txt"
-	    fi
-    fi
-
-    defaults write org.w0lf.cDock "lastupdateCheck" "${cur_date}"
-    # ./updates/wUpdater.app/Contents/MacOS/wUpdater c "$app_directory" org.w0lf.cDock $curver $verurl $logurl $dlurl $update_auto_install &
-    "$1" c "$2" org.w0lf.cDock "$3" "$verurl" "$logurl" "$dlurl" "$4" &
-  fi
+	    defaults write org.w0lf.cDock "lastupdateCheck" "${cur_date}"
+	    "$1" c "$2" org.w0lf.cDock "$3" "$verurl" "$logurl" "$dlurl" "$4" &
+  	fi
 }
 
 vercomp() {
