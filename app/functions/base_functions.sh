@@ -404,13 +404,13 @@ email_me() {
 	address=aguywithlonghair@gmail.com
 	theAttachment1="$log_dir"/logs.zip
 	nill=""
-echo "tell application \"Mail\"
-  set theEmail to make new outgoing message with properties {visible:true, subject:\"${subject}\", content:\"${nill}\"}
-  tell theEmail
-      make new recipient at end of to recipients with properties {address:\"${address}\"}
-			make new attachment with properties {file name:\"${theAttachment1}\"} at after the last paragraph
-  end tell
-end tell" | osascript
+	echo "tell application \"Mail\"
+	  set theEmail to make new outgoing message with properties {visible:true, subject:\"${subject}\", content:\"${nill}\"}
+	  tell theEmail
+	      make new recipient at end of to recipients with properties {address:\"${address}\"}
+				make new attachment with properties {file name:\"${theAttachment1}\"} at after the last paragraph
+	  end tell
+	end tell" | osascript
 	osascript -e 'tell application "Mail" to activate'
 }
 
@@ -519,8 +519,8 @@ get_bundle_info() {
 	cf_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/ColorfulSidebar.bundle/Contents/Info.plist)
 	cd_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/cDock.bundle/Contents/Info.plist)
 
-	opee_local=$($PlistBuddy "Print" "CFBundleShortVersionString" /Library/Frameworks/Opee.framework/Versions/A/Resources/Info.plist)
-	opee_curre=$($PlistBuddy "Print" "CFBundleShortVersionString" "$app_bundles"/Opee.framework/Versions/A/Resources/Info.plist)
+	opee_local=$($PlistBuddy "Print CFBundleShortVersionString" /Library/Frameworks/Opee.framework/Versions/A/Resources/Info.plist)
+	opee_curre=$($PlistBuddy "Print CFBundleShortVersionString" "$app_bundles"/Opee.framework/Versions/A/Resources/Info.plist)
 }
 
 import_theme_() {
@@ -557,22 +557,19 @@ install_cdock_bundle() {
 	start_agent=true
 	launch_agent
 	rsync -ru "$app_support"/ "$HOME"/Library/Application\ Support/cDock
+	get_bundle_info
 
 	if [[ -h /Library/Application\ Support/SIMBL/Plugins ]]; then 
 		rm /Library/Application\ Support/SIMBL/Plugins
 		dir_check /Library/Application\ Support/SIMBL/Plugins
 	fi
 	
-	# echo -e "Opee Local: $opee_local\nOpee Current: $opee_curre"
-	if [[ $opee_local != $opee_curre ]]; then
+	if [[ "$opee_local" != "$opee_curre" ]]; then
 		move_file "$app_bundles/Opee.framework" "/Library/Frameworks/"
-		opee_local="$opee_curre"
 	fi
 
 	if [[ "$cd_bv0" != "$cd_bv1" ]]; then
 		move_file	"$app_bundles/cDock.bundle" "/Library/Application Support/SIMBL/Plugins/"
-		# cp -rf "$app_bundles"/cDock.bundle /Library/Application\ Support/SIMBL/Plugins/cDock.bundle
-		cd_bv0="$cd_bv1"
 	fi
 
 	# DockMod check
@@ -597,6 +594,7 @@ install_finder_bundle() {
 	reboot_finder=true
 	start_agent=true
 	launch_agent
+	get_bundle_info
 
 	if [[ -h /Library/Application\ Support/SIMBL/Plugins ]]; then 
 		rm /Library/Application\ Support/SIMBL/Plugins
@@ -660,30 +658,16 @@ launch_agent() {
 	# Add agent to startup items
 	login_items=$(osascript -e 'tell application "System Events" to get the name of every login item')
 	if [[ "$login_items" != *"$cDock Agent"* ]]; then
-		osascript <<EOD
-		tell application "System Events"
-			make new login item at end of login items with properties {path:"$cdock_path", hidden:false}
-		end tell
-EOD
+		/usr/bin/osascript -e "tell application \"System Events\" to make new login item at end of login items with properties {path:\"$cdock_path\", hidden:false}"
 	fi
 }
 
 move_file () {
-
 	if [[ -e "$1" ]]; then
 		if [[ "$2" != "" ]]; then
-
-osascript <<EOD
-		tell application "Finder"
-			set sourceFolder to POSIX file "$1"
-			set destFolder to POSIX file "$2"
-			move sourceFolder to destFolder with replacing
-		end tell
-EOD
-
+			/usr/bin/osascript -e "tell application \"Finder\" to duplicate POSIX file \"$1\" to POSIX file \"$2\" with replacing"
 		fi
 	fi
-
 }
 
 remove_broken_dock_items() {

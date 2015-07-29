@@ -135,7 +135,7 @@ install_app() {
 	sleep 1
 	# mv "$replacementApp" $(dirname "$oldDirectory")
 	_oldDIR=$(dirname "$oldDirectory")
-	/usr/bin/osascript -e "tell application \"Finder\" to move POSIX file \"$replacementApp\" to POSIX file \"$_oldDIR\" with replace"
+	/usr/bin/osascript -e "tell application \"Finder\" to move POSIX file \"$replacementApp\" to POSIX file \"$_oldDIR\" with replacing"
 	echo ""
 	echo "Process complete"
 	sleep 1
