@@ -2,7 +2,7 @@
 
 
 [![Build Status](https://img.shields.io/github/release/w0lfschild/cDock.svg)](https://github.com/w0lfschild/cDock/releases/latest)   
-[![Build Status](https://img.shields.io/github/downloads/w0lfschild/cDock/latest/total.svg)]()    
+[![Build Status](https://img.shields.io/github/downloads/w0lfschild/cDock/latest/total.svg)](https://github.com/w0lfschild/cDock/archive/master.zip)    
 
 ### Information:
 * cDock installs [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if it is not already installed.
