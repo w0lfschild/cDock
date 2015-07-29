@@ -63,7 +63,7 @@ get_bundle_info												# Check bundle versions
 dir_setup													# Setup all our directories
 sync_themes													# Make sure themes are synced
 firstrun_display_check										# Check if app has been opened before and if it's a newer version than saved in the preferences
-app_has_updated
+# app_has_updated											# Testing...
 window_setup												# Set up windows
 # first_run_window; exit									# Testing...
 launch_agent												# Setup that launch agent

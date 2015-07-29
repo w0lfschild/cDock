@@ -3,16 +3,17 @@
 # Base functions used by cDock
 
 app_clean() {
+	# This is going to become an uninstall cDock option
+
 	killall -KILL "cDock Agent"
 	file_cleanup \
 	/Library/ScriptingAdditions/EasySIMBL.osax \
 	/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
 	/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle \
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
-	"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle \
+	"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
 
 	plistbud "set" "cd_enabled" "bool" "0" "$cdock_pl"
-	# plistbud "set" "cd_theme" "string" "None" "$cdock_pl"
 	osascript -e 'tell application "System Events" to delete login item "cDock Agent"'
 
 	echo "Clean up complete"
@@ -64,6 +65,13 @@ app_has_updated() {
 	plistbud "Delete" "theme" "$cdock_pl"
 	plistbud "Delete" "cdockActive" "$cdock_pl"
 	plistbud "Delete" "colorfulsidebarActive" "$cdock_pl"
+
+	# Make sure legacy bundles are gone
+	if [[ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle ]]; then
+		file_cleanup \
+		"$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
+		"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
+	fi
 
 	# Restart logging
 	app_logging
