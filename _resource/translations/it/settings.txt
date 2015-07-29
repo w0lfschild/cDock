@@ -7,13 +7,6 @@ swtb0.type = text
 swtb0.rely = -18
 swtb0.text = Aggiornamenti:
 
-# Check for updates now
-swchk1.type = checkbox
-swchk1.label = Controlla nuovi aggiornamenti adesso
-swchk1.tooltip = Controlla nuovi aggiornamenti quando clicchi applica.
-swchk1.rely = -18
-swchk1.relx = 20
-
 # Auto check for updates
 swchk0.type = checkbox
 swchk0.label = Controlla aggiornamenti Automaticamente
@@ -28,13 +21,6 @@ swchk2.tooltip = Quando abilitato, cDock cercherà automaticamente di installare
 swchk2.rely = -18
 swchk2.relx = 20
 
-# Check for BETA updates
-swchk3.type = checkbox
-swchk3.label = Includi le realizzazioni Beta
-swchk3.tooltip = Includi le realizzazioni Beta quando cerchi gli aggiornamenti. Solo per gli utenti di buon senso, gli errori a volte succedono.
-swchk3.rely = -10
-swchk3.relx = 20
-
 # Dock text
 swtb1.type = text
 swtb1.rely = -18
@@ -46,14 +32,6 @@ swchk10.label = Resetta la cache delle icone*
 swchk10.tooltip = Resetta la cache delle icone per sistemare quelle che non si vedono. swchk11.label = Rimuovi gli elementi corrotti del Dock
 swchk10.rely = -18
 swchk10.relx = 20
-
-# remove_broken_dock_items
-swchk11.type = checkbox
-swchk11.label = Cancella i backups del Dock
-swchk11.disabled = 1
-swchk11.tooltip = Rimuovi gli elementi del Dock che puntano a file o cartelle non esistenti e si vedono come punto interrogativo.
-swchk11.rely = -18
-swchk11.relx = 20
 
 # Restore stock
 swchk7.type = checkbox
