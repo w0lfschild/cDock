@@ -160,13 +160,28 @@ main_window_establish() {
 	main_window="$main_window
 	pop0.y = $sely"
 
-	cur_theme=$($PlistBuddy "Print theme:" "$cdock_pl")
+	# Themes
+	if [[ -e "$app_themes" ]]; then
+		for theme in "$HOME/Library/Application Support/cDock/themes/"*
+		do
+			theme_name=$(basename "$theme")
+			main_window="$main_window
+			pop0.option = $theme_name"
+		done
+	fi
+
+	cur_theme=$($PlistBuddy "Print cd_theme:" "$cdock_pl")
 	if [[ "$cur_theme" = "" ]]; then
 	main_window="$main_window
 	pop0.default = None";
 	else
-	main_window="$main_window
-	pop0.default = $cur_theme";
+		if [[ "$main_window" = *"pop0.option = $cur_theme"* ]]; then
+			main_window="$main_window
+			pop0.default = $cur_theme";
+		else
+			main_window="$main_window
+			pop0.default = None";
+		fi
 	fi
 	evaltxt
 	evalsel
@@ -373,16 +388,6 @@ main_window_establish() {
 
 	main_window="$main_window
 	db.type = defaultbutton"
-
-	# Themes
-	if [[ -e "$app_themes" ]]; then
-		for theme in "$HOME/Library/Application Support/cDock/themes/"*
-		do
-			theme_name=$(basename "$theme")
-			main_window="$main_window
-			pop0.option = $theme_name"
-		done
-	fi
 }
 
 main_window_update() {
@@ -423,7 +428,7 @@ main_window_update() {
 		main_window="$main_window
 		tb4.default = Dock position:
 		pop4.default = $pop4
-    chk13.default = $chk13"
+    	chk13.default = $chk13"
 	fi
 }
 

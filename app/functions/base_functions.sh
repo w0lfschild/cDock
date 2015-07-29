@@ -11,81 +11,59 @@ app_clean() {
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle \
 
-	plistbud "set" "cdockActive" "integer" "0" "$cdock_pl"
-	plistbud "set" "colorfulsidebarActive" "integer" "0" "$cdock_pl"
-	defaults write org.w0lf.cDock theme -string "None"
+	plistbud "set" "cd_enabled" "bool" "0" "$cdock_pl"
+	# plistbud "set" "cd_theme" "string" "None" "$cdock_pl"
 	osascript -e 'tell application "System Events" to delete login item "cDock Agent"'
 
 	echo "Clean up complete"
 }
 
 app_has_updated() {
-	# Read current theme if there is one
-	current_theme=$($PlistBuddy "Print theme:" "$cdock_pl" 2>/dev/null || echo -n None)
 	cdock_tmp="$HOME"/Library/"Application Support"/cDock_tmp
 
-	# Directory junk
-	dir_check "$cdock_tmp"/active
-	dir_check "$cdock_tmp"/themes
+	# Read current theme if there is one
+	current_theme=$($PlistBuddy "Print cd_theme:" "$cdock_pl" 2>/dev/null || echo -n None)
+
+	# Directories
+	dir_check "$cdock_tmp"
 	dir_check "$HOME"/Library/Application\ Support/cDock/theme_stash
 
-	# Save theme folder, logs, and current theme if one was active
-	if [[ $current_theme != "None" ]]; then
-		rsync -ru "$HOME"/Library/Application\ Support/cDock/themes/"$current_theme" "$cdock_tmp"/active
-	fi
+	# Save themes, logs and backups
 	rsync -ru "$HOME"/Library/Application\ Support/cDock/.bak "$cdock_tmp"
 	rsync -ru "$HOME"/Library/Application\ Support/cDock/themes "$cdock_tmp"
 	rsync -ru "$HOME"/Library/Application\ Support/cDock/logs "$cdock_tmp"
 
-	# Clean out everything cDock
-	app_clean
-	dir_setup
+	# Delete themes
+	rm -r "$HOME/Library/Application Support/cDock/themes/"
+	rm -r "$HOME/Library/Application Support/cDock/theme_stash/"
 
-	# Move back application support directory
+	# Move default themes
 	rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock
 
-	# Move back bundles if they were installed
-	(($colorfulsidebar_active)) && { move_file "$app_bundles/ColorfulSidebar.bundle" "/Library/Application Support/SIMBL/Plugins/"; defaults write org.w0lf.cDock colorfulsidebarActive 1; launch_agent; }
-	(($cdock_active)) && { move_file "$app_bundles/cDock.bundle" "/Library/Application Support/SIMBL/Plugins/"; plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"; launch_agent; }
-	defaults write org.w0lf.cDock theme "$current_theme"
-
-	# Move back theme folder, logs, and current theme if one was active
-	rsync -ru "$cdock_tmp"/themes/ "$HOME"/Library/Application\ Support/cDock/theme_stash
-	rsync -ru "$cdock_tmp"/logs "$HOME"/Library/Application\ Support/cDock
-	rsync -ru "$cdock_tmp"/.bak "$HOME"/Library/Application\ Support/cDock
-	if [[ $current_theme != "None" ]]; then
-		rsync -ru "$cdock_tmp"/active/"$current_theme" "$HOME"/Library/Application\ Support/cDock/themes
-	fi
-
-	# Delete legacy themes
-	if ! [[ -e "$app_themes" ]]; then echo "User themes folder doesn't exist!"; fi
-	for theme in "$HOME/Library/Application Support/cDock/themes/"*
+	# Move back user themes
+	for theme in "$cdock_tmp"/themes/*
 	do
 		theme_name=$(basename "$theme")
-		if [[ ! -e "$theme"/"$theme_name".plist ]]; then
-			if [[ "$theme" != "" ]]; then
-				echo "Removing legacy theme: $theme"
-				rm -r "$theme"
+		if [[ ! -e "$HOME"/Library/Application\ Support/cDock/themes/"$theme_name" ]]; then
+			if [[ -e "$theme"/"$theme_name".plist ]]; then
+				rsync -ru "$theme" "$HOME"/Library/"Application Support"/cDock/themes/
 			fi
 		fi
 	done
 
+	# Restore logs and backups
+	rsync -ru "$cdock_tmp"/logs "$HOME"/Library/Application\ Support/cDock
+	rsync -ru "$cdock_tmp"/.bak "$HOME"/Library/Application\ Support/cDock
+
+	# Delete temp folder
 	rm -r "$cdock_tmp"
 
+	# Remove legacy settings
 	plistbud "Delete" "null" "$cdock_pl"
 	plistbud "Delete" "beta_updates" "$cdock_pl"
-
-	if [[ ! -e "$HOME/Library/Application Support/cDock/themes/$current_theme" ]]; then
-		plistbud "Set" "theme" "string" "$current_theme" "$cdock_pl"
-		plistbud "Set" "cd_theme" "string" "$current_theme" "$cdock_pl"
-	else
-		plistbud "Set" "theme" "string" "default" "$cdock_pl"
-		plistbud "Set" "cd_theme" "string" "default" "$cdock_pl"
-	fi
-
-	if [[ "$current_theme" != "None" ]]; then
-		plistbud "Set" "cd_enabled" "bool" "1" "$cdock_pl"
-	fi
+	plistbud "Delete" "theme" "$cdock_pl"
+	plistbud "Delete" "cdockActive" "$cdock_pl"
+	plistbud "Delete" "colorfulsidebarActive" "$cdock_pl"
 
 	# Restart logging
 	app_logging
@@ -122,9 +100,6 @@ apply_main() {
 	elif [[ $pop0 = "None" ]]; then
 		install_dock=false
 		file_cleanup "/Library/Application Support/SIMBL/Plugins/cDock.bundle"
-		plistbud "Set" "cdockActive" "integer" "0" "$cdock_pl"
-		plistbud "Set" "theme" "string" "$dock_theme" "$cdock_pl"
-		plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
 		plistbud "Set" "cd_enabled" "bool" "0" "$cdock_pl"
 	else
 		install_dock=true
@@ -136,8 +111,8 @@ apply_main() {
 	plugin_list_1=""
 	displayWarning=$($PlistBuddy "Print displayWarning:" "$cdock_pl" 2>/dev/null || echo 1)
 	if [[ $displayWarning = "1" ]]; then
-		for item in "$HOME/Library/Application Support/SIMBL/Plugins/"*; do
-			if [[ "$item" != *cDock.bundle && "$item" != *ColorfulSidebar.bundle && "$item" != "$HOME/Library/Application Support/SIMBL/Plugins/*" ]]; then
+		for item in "/Library/Application Support/SIMBL/Plugins/"*; do
+			if [[ "$item" != *cDock.bundle && "$item" != *ColorfulSidebar.bundle && "$item" != "/Library/Application Support/SIMBL/Plugins/*" ]]; then
 				found_Warning=1
 				plugin_list="$item[return]$plugin_list"
 				plugin_list_1="$item $plugin_list_1"
@@ -342,11 +317,10 @@ apply_settings() {
 	(($swchk6)) && { app_clean; reboot_dock=true; }
 	(($swchk7)) && { rm "$dock_plist"; reboot_dock=true; }
 	if (($swchk8)); then
-		if [[ ! -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ]]; then install_finder_bundle; fi
+		if [[ ! -e /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ]]; then install_finder_bundle; fi
 	else
-		if [[ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ]]; then
-			file_cleanup "$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
-			plistbud "Set" "colorfulsidebarActive" "integer" "0" "$cdock_pl"
+		if [[ -e /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ]]; then
+			file_cleanup /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
 			reboot_finder=true
 		fi
 	fi
@@ -384,11 +358,6 @@ backup_dock_plist() {
 	cp "$dock_plist" "$save_folder"/"$my_time".plist
 }
 
-check_bundles() {
-  [ -e /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ] && { colorfulsidebar_active=1; plistbud "Set" "colorfulsidebarActive" "integer" "1" "$cdock_pl"; }
-  [ -e /Library/Application\ Support/SIMBL/Plugins/cDock.bundle ] && { cdock_active=1; plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"; }
-}
-
 closable_FinderTrash_ENABLE() {
 	if [[ $(ask_pass "cDock") = "_success" ]]; then
 		if [[ ! -e /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.backup.plist ]]; then
@@ -415,9 +384,10 @@ closable_FinderTrash_DISABLE() {
 dir_setup() {
 	dir_check "$HOME"/Library/Application\ Support/cDock
 	dir_check "$HOME"/Library/Application\ Support/cDock/logs
+	dir_check "$HOME"/Library/Application\ Support/cDock/themes
 	dir_check "$HOME"/Library/Application\ Support/cDock/.bak
-	dir_check "$HOME"/Library/Application\ Support/SIMBL/Plugins
 	dir_check "$HOME"/Library/Application\ Support/wUpdater/logs
+	dir_check /Library/Application\ Support/SIMBL/Plugins
 }
 
 email_me() {
@@ -481,7 +451,7 @@ get_preferences() {
 	if [[ $rez != [0-1] ]]; then
 		echo "creating cdock plist"
 		defaults write "$cdock_pl" null 0
-		defaults delete "$cdock_pl" null
+		plistbud "Delete" "null" "$cdock_pl"
 	fi
 
 	# Dock Preferences
@@ -581,7 +551,7 @@ install_cdock_bundle() {
 	reboot_dock=true
 	start_agent=true
 	launch_agent
-	rsync -ru "$app_support"/ "$HOME"/Library/Application\ Support/cDock
+	sync_themes
 	get_bundle_info
 
 	if [[ -h /Library/Application\ Support/SIMBL/Plugins ]]; then 
@@ -608,11 +578,8 @@ install_cdock_bundle() {
 		custom_dock=false
 	fi
 
-	plistbud "Set" "cdockActive" "integer" "1" "$cdock_pl"
 	plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
 	plistbud "Set" "cd_enabled" "bool" "true" "$cdock_pl"
-	# plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
-	defaults write org.w0lf.cDock theme -string "${dock_theme}"
 }
 
 install_finder_bundle() {
@@ -626,17 +593,13 @@ install_finder_bundle() {
 		dir_check /Library/Application\ Support/SIMBL/Plugins
 	fi
 
-	if [[ "$cf_bv0" != "$cf_bv1" ]]; then
-		move_file "$app_bundles/ColorfulSidebar.bundle"	"/Library/Application Support/SIMBL/Plugins/"
-		# cp -rf "$app_bundles"/ColorfulSidebar.bundle /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
-		cf_bv0="$cf_bv1"
-	fi
-
 	icns="icons10.9.plist"
 	if [[ $versionMinor != "9" ]]; then icns="icons10.10.plist"; fi
-
 	cp -f "$app_bundles"/"$icns" "$app_bundles"/ColorfulSidebar.bundle/Contents/Resources/icons.plist
-	plistbud "Set" "colorfulsidebarActive" "integer" "1" "$cdock_pl"
+
+	if [[ "$cf_bv0" != "$cf_bv1" ]]; then
+		move_file "$app_bundles/ColorfulSidebar.bundle"	"/Library/Application Support/SIMBL/Plugins/"
+	fi
 }
 
 install_finish() {
@@ -660,7 +623,6 @@ install_finish() {
 	{ sleep 1; exec "$injec_path"; }
 
 	# logging info
-	ls -l "$HOME"/Library/Application\ Support/SIMBL/Plugins
 	ls -l /Library/Application\ Support/SIMBL/Plugins
 
 	custom_dock=false
@@ -732,10 +694,6 @@ reset_icon_cache() {
 	sudo find /private/var/folders/ -name com.apple.iconservices -exec rm -rf {} \;
 	sudo "$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/Resource/trash /Library/Caches/com.apple.iconservices.store
 	#sudo mv /Library/Caches/com.apple.iconservices.store com.apple.ic
-}
-
-restore_stock_plist() {
-	echo "Sample Text"
 }
 
 simbl_disable() {

@@ -43,7 +43,6 @@ cd_theme="${app_themes}/${theme_name}/${theme_name}.plist"
 
 curver=$($PlistBuddy "Print CFBundleShortVersionString" "$app_directory"/Contents/Info.plist)
 mvr=$(verres $(sw_vers -productVersion) "10.10")
-# versionMajor=$(sw_vers -productVersion | cut -f1 -d.) # Don't think this is relevent
 versionMinor=$(sw_vers -productVersion | cut -f2 -d.)
 
 # Boolean variables
@@ -62,9 +61,9 @@ firstrun_check 												# Check if it's the firstrun
 get_preferences												# Read all the preferences we need to show
 get_bundle_info												# Check bundle versions
 dir_setup													# Setup all our directories
-check_bundles												# Check if budles are in place
 sync_themes													# Make sure themes are synced
 firstrun_display_check										# Check if app has been opened before and if it's a newer version than saved in the preferences
+app_has_updated
 window_setup												# Set up windows
 # first_run_window; exit									# Testing...
 launch_agent												# Setup that launch agent
