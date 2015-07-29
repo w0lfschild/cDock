@@ -759,7 +759,7 @@ where_are_we() {
 
 		if [[ $waw_ab = "1" ]]; then
 			echo "$app_directory"
-			move_file "$app_directory" "/Applications/"
+			/usr/bin/osascript -e "tell application \"Finder\" to move POSIX file \"$app_directory\" to POSIX file \"/Applications/\" with replacing"
 			/Applications/cDock.app/Contents/Resources/relaunch &
 			exit
 		fi

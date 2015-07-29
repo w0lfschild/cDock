@@ -57,12 +57,12 @@ refresh_win=false
 start_agent=false
 pwd_req=false
 folders_OT=0
-cf_bv0=0
-cf_bv1=1
-cd_bv0=0
-cd_bv1=1
-opee_local=0
-opee_curre=1
+# cf_bv0=0
+# cf_bv1=1
+# cd_bv0=0
+# cd_bv1=1
+# opee_local=0
+# opee_curre=1
 
 app_logging													# Start logging
 where_are_we												# Make sure we're in /Applications or ~/Applications
