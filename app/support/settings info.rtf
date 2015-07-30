@@ -1,38 +1,92 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\rtf1\ansi\ansicpg1252\cocoartf1389
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\margl1440\margr1440\vieww10800\viewh11580\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\margl1440\margr1440\vieww15000\viewh17720\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs22 \cf0 red				0-255 background color\
-green				0-255\
-blue				0-255\
-alpha				0-100\
-red				0-255 border color\
-green				0-255\
-blue				0-255\
-alpha				0-100\
-corner radius			0-10 (pixels)\
-border width			0-10 (pixels)\
-shadow radius			0-10 (pixels)\
-shadow opacity		0-100 (percent)\
-background			0 (color) / 1 (picture)\
-picture opacity 		0-100 (percent)\
-+dock width 			0-10000 (pixels)\
-+dock height			0-10000 (pixels)\
-+x Position 			0-10000 (pixels)\
-+y Position 			0-10000 (pixels)\
-indicators (Yosemite)		0 (system) / 0 (black) / 1 (white)\
-3D dock 			0 (off) / 1 (on)\
-picture fit			0 (stretched) / 1 (tiled)\
-fill screen			0 (off) / 1 (on)\
-draw separator		0 (off) / 1 (on)\
+\f0\fs22 \cf0 Rundown of cDock settings:\
+\
+cd_dockBG			color background		YES (yes) / NO (no)\
+cd_dockBGA			background alpha		0 (clear) > 100 (solid)\
+cd_dockBGB			background blue		0 (none)  > 255 (max)\
+cd_dockBGG			background green		0 (none)  > 255 (max)\
+cd_dockBGR			background red		0 (none)  > 255 (max)\
+\
+cd_labelBG			color labels			YES (yes) / NO (no)\
+cd_labelBGA			label alpha			0 (clear) > 100 (solid) \
+cd_labelBGB			label blue			0 (none)  > 255 (max)\
+cd_labelBGG			label green			0 (none)  > 255 (max)\
+cd_labelBGR			label red			0 (none)  > 255 (max)\
+\
+cd_iconShadow		icon shadows			YES (yes) / NO (no)\
+cd_iconShadowBGA		shadow alpha			0 (clear) > 100 (solid)\
+cd_iconShadowBGB		shadow blue			0 (none)  > 255 (max)\
+cd_iconShadowBGG		shadow green			0 (none)  > 255 (max)\
+cd_iconShadowBGR		shadow red			0 (none)  > 255 (max)\
+cd_iconShadowBGS		shadow size			size in pixels\
+\
+cd_cornerRadius		corner radius			size in pixels\
+\
+cd_isTransparent		hide background		YES (hide) / NO (show)\
+cd_fullWidth			full screen dock		YES (yes)  / NO (no)\
+cd_hideLabels			hide labels			YES (hide) / NO (show)\
+cd_iconReflection		show icon reflections		YES (show) / NO (hide)\
+cd_darkenMouseOver	darken items on mouseover	YES (dark) / NO (normal)\
+cd_customIndicator		use custom indicators		YES (yes)  / NO (no)\
+\
+cd_pictureBG			use picture background	YES (yes)  / NO (no)\
+cd_pictureTile			picture tiled			YES (Tile) / NO (Stretch)\
+\
+cd_showFrost			show blurred glass (10.10+)	YES (show) / NO (hide)\
+cd_showGlass			show glass layer		YES (show) / NO (hide)\
+cd_showSeparator 		draw separator		YES (show) / NO (hide)\
+\
+cd_darkMode			force Dark/Light mode	0 (system) / 1 (Light) / 2 (Dark)\
+\
+Note, depending on what you use to edit a plist YES / NO may be represented as:\
+YES	/	NO\
+1	/	0\
+TRUE	/	FALSE\
+\
+\
+Q: What is a cDock theme?\
+A: Folder with some files in it\
+\
+<theme name>			required\
+	<theme name>.plist		required\
+	background.png		optional\
+	background1.png		optional\
+	indicator_small.png 		optional\
+	indicator_medium.png 	optional\
+	indicator_large.png 		optional\
+	indicator_small.png 		optional\
+	indicator_medium.png 	optional\
+	indicator_large.png 		optional\
+\
+Q: How do I select a theme\
+A: With cDock or ...\
+	defaults write org.w0lf.cDock cd_enabled -bool true\
+	defaults write org.w0lf.cDock cd_theme -string <theme name>	\
+\
+Q: What are the background.png images\
+A: They're used for...\
+\
+	picture background \
+	- background.png 	> horizontal image\
+	- background1.png	> vertical image\
+	- overwritten by 	> cd_dockBG and cd_isTransparent\
+\
+Q: What are the indicator.png images\
+A: They're used for...\
+\
+	custom indicators\
+	- indicator_small.png 			> horizontal small image\
+	- indicator_medium.png 		> horizontal medium image\
+	- indicator_large.png 			> horizontal large image\
+	- indicator_small_simple.png 		> vertical small image\
+	- indicator_medium_simple.png 	> vertical medium image\
+\
 \
 DO NOT EDIT THIS DOCUMENT\
 \
-Additional Info:\
-Finding the perfect red/green/blue/alpha values - {\field{\*\fldinst{HYPERLINK "http://www.css3maker.com/css-3-rgba.html"}}{\fldrslt http://www.css3maker.com/css-3-rgba.html}}\
-Determining border size and radius - {\field{\*\fldinst{HYPERLINK "http://www.css3maker.com/border-radius.html"}}{\fldrslt http://www.css3maker.com/border-radius.html}}\
-Video tutorial - {\field{\*\fldinst{HYPERLINK "https://www.youtube.com/watch?v=wVwQ8sKsdtE"}}{\fldrslt https://www.youtube.com/watch?v=wVwQ8sKsdtE}}\
-\
-Thanks for using cDock.}
+Thanks for using cDock!}

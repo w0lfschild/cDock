@@ -38,6 +38,12 @@ cd_showSeparator 		draw separator			YES (show) / NO (hide)
 cd_darkMode			force Dark/Light mode		0 (system) / 1 (Light) / 2 (Dark)
 
 
+Note, depending on what you use to edit a plist YES / NO may be represented as:
+YES	/	NO
+1	/	0
+TRUE	/	FALSE
+
+
 Q: What is a cDock theme?
 A: Folder with some files in it
 
@@ -72,11 +78,8 @@ A: They're used for...
 	- indicator_small.png 		> horizontal small image
 	- indicator_medium.png 	> horizontal medium image
 	- indicator_large.png 		> horizontal large image
-	- indicator_small.png 		> vertical small image
-	- indicator_medium.png 	> vertical medium image
-	- indicator_large.png 		> vertical large image
-
-
+	- indicator_small_simple.png 	> vertical small image
+	- indicator_medium_simple.png 	> vertical medium image
 
 
 DO NOT EDIT THIS DOCUMENT
