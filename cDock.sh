@@ -62,14 +62,14 @@ get_preferences												# Read all the preferences we need to show
 get_bundle_info												# Check bundle versions
 dir_setup													# Setup all our directories
 sync_themes													# Make sure themes are synced
+window_setup												# Set up windows
 firstrun_display_check										# Check if app has been opened before and if it's a newer version than saved in the preferences
 # app_has_updated											# Testing...
-window_setup												# Set up windows
 # first_run_window; exit									# Testing...
 launch_agent												# Setup that launch agent
 plistbud "Set" "version" "string" "$curver" "$cdock_pl"		# Set version
-simbl_setup													# Make sure we got that sweet sweet SIMBL installed
-simbl_run &													# Make sure we got that sweet sweet SIMBL running and injected
+simbl_setup													# Make sure we got SIMBL installed
+simbl_run &													# Make sure we got SIMBL running
 open -a "$cdock_path" &										# Start Agent
 
 # Check for updates
@@ -84,9 +84,7 @@ echo -e "Approximate startup time is ${total_time} seconds\n"
 
 # Show main window
 if [[ $launch_menu_applet == "1" ]]; then
-	if [[ -z $(ps ax | grep [c]Dock_refresh) ]]; then
-		open ./helpers/cDock-Menubar.app
-	fi
+	killall -s cDock-Menubar || open ./helpers/cDock-Menubar.app
 fi
 
 main_window_draw
