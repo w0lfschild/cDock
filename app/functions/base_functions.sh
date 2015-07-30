@@ -20,6 +20,8 @@ app_clean() {
 }
 
 app_has_updated() {
+	echo "Update detected... cleaning up"
+
 	cdock_tmp="$HOME"/Library/"Application Support"/cDock_tmp
 
 	# Read current theme if there is one

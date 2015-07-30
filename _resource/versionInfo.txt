@@ -1,27 +1,22 @@
 ------------------------------------------------
 
-Version		: 9.1.2
-Build date	: Jul / 29 / 2015
+Version		: 9.1.3
+Build date	: Jul / 30 / 2015
 
 ------------------------------------------------
 
-- It might not look like much has changed but
-this update was a lot of work! In addition to working 
-mostly seamlessly across 3 versions of OS X it's 
-now got a bunch of new features.
+- Bugfixes
 
-💯
-
-- 10.11 support (that's not terrible! 🙌)
+- OS X 10.11 (El Capitan) support
 	- 10.11 requires that SIP aka "rootless" be
 	turned off during the initial install for
 	SIMBL and Opee
 
-- Dock customization changes (10.9 to 10.11)
+- Dock customization changes
 	Additions:
 	- customize application indicators
 	- customize label background
-	- icon reflections (similar to 10.9 and below)
+	- icon reflections
 	- icon shadows
 	- darken icons on mouse over
 	- option to show blurred glass layer
@@ -37,11 +32,10 @@ now got a bunch of new features.
 	- freely resize background
 	- customizable separator
 
-- Updated stock themes
-- Removed some stock themes
-- Fix cDock not working on Guest/Standard accounts
+- Updated / Removed some stock themes
+- Fix cDock not working properly on Guest and Standard accounts
 - Fix cDock not moving self to /Applications in some cases
-- Fix issues on 10.9 where dock might freeze after restarting
+- Fix issue on OS X 10.9 where dock might freeze after restarting
 - Fix themes not showing the first time the app is opened
 - Hopefully fixed cDock not opening in some cases
 - Prevent cDock from running in /applications/Utilities
@@ -59,7 +53,5 @@ now got a bunch of new features.
 	- removed update option
 	- icon changed to a basic gear
 	- open cDock option
-
-- 😘
 
 ------------------------------------------------
