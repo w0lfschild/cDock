@@ -462,7 +462,7 @@ main_window_draw() {
 	# Apply button clicked
 	if [[ $db -eq 1 ]]; then
 		echo -e "\nApply Button Clicked\n"
-		$PlistBuddy "Print" "$dock_plist" > "$log_dir"/apps.log &
+		$PlistBuddy "Print" "$dock_plist" > "$log_dir"/dockplist.log &
 		db=0
 		main_window_update
 		{ backup_dock_plist; apply_main; } &

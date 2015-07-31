@@ -38,7 +38,7 @@ app_themes="$HOME"/Library/'Application Support'/cDock/themes
 save_folder="$HOME"/Library/'Application Support'/cDock/.bak
 dock_plist="$HOME"/Library/Preferences/com.apple.dock.plist
 cdock_pl="$HOME"/Library/Preferences/org.w0lf.cDock.plist
-theme_name=$($PlistBuddy "Print theme" "$cdock_pl")
+theme_name=$($PlistBuddy "Print cd_theme" "$cdock_pl")
 cd_theme="${app_themes}/${theme_name}/${theme_name}.plist"
 
 curver=$($PlistBuddy "Print CFBundleShortVersionString" "$app_directory"/Contents/Info.plist)

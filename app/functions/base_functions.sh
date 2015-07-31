@@ -31,19 +31,19 @@ app_has_updated() {
 	dir_check "$cdock_tmp"
 	dir_check "$HOME"/Library/Application\ Support/cDock/theme_stash
 
-	# Save themes, logs and backups
-	rsync -ru "$HOME"/Library/Application\ Support/cDock/.bak "$cdock_tmp"
+	# Save user themes and backups
 	rsync -ru "$HOME"/Library/Application\ Support/cDock/themes "$cdock_tmp"
 	rsync -ru "$HOME"/Library/Application\ Support/cDock/logs "$cdock_tmp"
 
-	# Delete themes
+	# Delete user themes
 	rm -r "$HOME/Library/Application Support/cDock/themes/"
 	rm -r "$HOME/Library/Application Support/cDock/theme_stash/"
 
 	# Move default themes
 	rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock
 
-	# Move back user themes
+	# Restore user themes and backups
+	rsync -ru "$cdock_tmp"/.bak "$HOME"/Library/Application\ Support/cDock
 	for theme in "$cdock_tmp"/themes/*
 	do
 		theme_name=$(basename "$theme")
@@ -53,10 +53,6 @@ app_has_updated() {
 			fi
 		fi
 	done
-
-	# Restore logs and backups
-	rsync -ru "$cdock_tmp"/logs "$HOME"/Library/Application\ Support/cDock
-	rsync -ru "$cdock_tmp"/.bak "$HOME"/Library/Application\ Support/cDock
 
 	# Delete temp folder
 	rm -r "$cdock_tmp"
@@ -81,22 +77,20 @@ app_has_updated() {
 
 app_logging() {
 	log_dir="$HOME"/Library/Application\ Support/cDock/logs
+	dir_check "$log_dir"
 	for (( c=1; c<6; c++ )); do if [ ! -e "$log_dir"/${c}.log ]; then touch "$log_dir"/${c}.log; fi; done
 	for (( c=5; c>1; c-- )); do cat "$log_dir"/$((c - 1)).log > "$log_dir"/${c}.log; done
 	> "$log_dir"/1.log
 	exec &>"$log_dir"/1.log
-	echo -e "This is some basic logging information about your system and what is installed on it"
-	echo -e "This should also contain information about the last time cDock was run"
-	echo -e "This is not uploaded unless you email it to me\n"
-	echo -e "Feel free to browse through this and remove anything you do not feel comfortable sharing\n"
 	sw_vers
 	echo "ScriptDirectory: $scriptDirectory"
 	echo "Date: $(date)"
 	ls -dl "$HOME/Library/Application Support"
 	ls -dl "$HOME/Library/Preferences/org.w0lf.cDock.plist"
 	$PlistBuddy "Print" "$cdock_pl"
+	$PlistBuddy "Print" "$cd_theme"
 	echo -e "\n"
-	( set -o posix ; set ) | less > "$HOME"/Library/"Application Support"/cDock/logs/variables_functions.log
+	( set -o posix ; set ) | less > "$HOME"/Library/"Application Support"/cDock/logs/variables.log
 }
 
 apply_main() {
@@ -584,12 +578,13 @@ install_cdock_bundle() {
 	if ($custom_dock); then
 		open ./helpers/cDock-Menubar.app
 		open "$HOME"/Library/Application\ Support/cDock/themes/Custom/Custom.plist
-		open -e "$HOME"/Library/Application\ Support/cDock/settings\ info.rtf
+		open -e "$HOME"/Library/Application\ Support/cDock/settings\ info.txt
 		custom_dock=false
 	fi
 
 	plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
 	plistbud "Set" "cd_enabled" "bool" "true" "$cdock_pl"
+	$PlistBuddy "Print" "$cd_theme"
 }
 
 install_finder_bundle() {
