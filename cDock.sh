@@ -27,8 +27,7 @@ app_helpers="$scriptDirectory"/helpers
 app_directory="$scriptDirectory"
 for i in {1..2}; do app_directory=$(dirname "$app_directory"); done
 	
-simbl_inst="$app_directory"/Contents/Resources/helpers/SIMBL-0.9.9.pkg
-injec_path="$app_directory"/Contents/Resources/helpers/inject.sh
+simbl_inst="$app_directory"/Contents/Resources/helpers/cDock-Helper.app
 cdock_path="$app_directory"/Contents/Resources/helpers/"cDock Agent".app
 wupdt_path="$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/MacOS/wUpdater
 cocoa_path="$app_directory"/Contents/Resources/updates/wUpdater.app/Contents/Resource/cocoaDialog.app/Contents/MacOS/CocoaDialog

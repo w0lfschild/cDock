@@ -1,11 +1,23 @@
 ------------------------------------------------
 
-Version		: 9.1.2
-Build date	: Jul / 30 / 2015
+Version		: 9.2
+Build date	: Jul / 31 / 2015
 
 ------------------------------------------------
 
-- Bugfixes
+- 10.11 only requires rootless be disabled for initial install
+- Removed Opee
+- SIMBL install now done by 'cDock Helper'
+- Fix cDock Agent failing to update app
+- Fix welcome window failing to load
+- General bug fixes and improvements
+
+------------------------------------------------
+
+Version		: 9.0 - 9.1.2
+Build date	: Jul / 31 / 2015
+
+------------------------------------------------
 
 - OS X 10.11 (El Capitan) support
 	- 10.11 requires that SIP aka "rootless" be
@@ -45,7 +57,6 @@ Build date	: Jul / 30 / 2015
 - Remove some outdated self cleanup
 - Updated credits
 - Updated Italian translation
-- Bugfixes
 
 - Menu-bar applet
 	- Fix text in dark mode being black
