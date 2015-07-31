@@ -2,9 +2,8 @@
 
 # # # # # # # # # # # # # # # # # # # #
 #
+# cDock Agent
 # Maintained By			: Wolfgang Baird
-# Version				: 3.2
-# Updated				: Jul / 14 / 2014
 #
 # # # # # # # # # # # # # # # # # # # #
 
@@ -44,12 +43,13 @@ dockpid=0
 #	Strings
 resource_folder=$(cd "${0%/*}" && echo $PWD)
 for i in {1..4}; do resource_folder=$(dirname "$resource_folder"); done
+cdock_folder=$(dirname "$resource_folder")
+cdock_folder=$(dirname "$cdock_folder")
 
 source "$resource_folder"/functions/shared_functions.sh
 source "$resource_folder"/functions/simbl.sh
 
-simbl_inst="$resource_folder/helpers/SIMBL-0.9.9.pkg"
-injec_path="$resource_folder/helpers/inject.sh"
+simbl_inst="$resource_folder/helpers/cDock-Helper.app"
 wupdt_path="$resource_folder/updates/wUpdater.app/Contents/MacOS/wUpdater"
 PlistBuddy=/usr/libexec/PlistBuddy" -c"
 cdock_pl="$HOME"/Library/Preferences/org.w0lf.cDock.plist
@@ -65,7 +65,7 @@ update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null |
 update_auto_check=$($PlistBuddy "Print autoCheck" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add autoCheck integer 1" "$cdock_pl"; echo -n 1; } )
 curver=$($PlistBuddy "Print version" "$cdock_pl" 2>/dev/null || echo -n 1 )
 if [[ $update_auto_check == 1 ]]; then
-	update_check "$wupdt_path" "$resource_folder" "$curver" "$update_auto_install" "d" &
+	update_check "$wupdt_path" "$cdock_folder" "$curver" "$update_auto_install" "d" &
 fi
 
 # Main monitor loop
