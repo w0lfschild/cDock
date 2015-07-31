@@ -7,6 +7,10 @@
 #
 # # # # # # # # # # # # # # # # # # # #
 
+log_dir="$HOME"/Library/"Application Support"/cDock/logs
+if [[ ! -e "$log_dir" ]]; then mkdir -pv "$log_dir"; fi
+exec &>"$log_dir"/helper.log
+
 echo "Removing old files"
 if [[ -e /Library/ScriptingAdditions/SIMBL.osax ]]; then rm -r /Library/ScriptingAdditions/SIMBL.osax; fi
 if [[ -e /Library/Frameworks/Opee.framework ]]; then rm -r /Library/Frameworks/Opee.framework; fi
