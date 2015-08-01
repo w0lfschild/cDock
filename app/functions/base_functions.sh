@@ -24,6 +24,8 @@ app_has_updated() {
 
 	cdock_tmp="$HOME"/Library/"Application Support"/cDock_tmp
 
+	dir_setup
+
 	# Read current theme if there is one
 	current_theme=$($PlistBuddy "Print cd_theme:" "$cdock_pl" 2>/dev/null || echo -n None)
 
@@ -38,6 +40,8 @@ app_has_updated() {
 	# Delete user themes
 	rm -r "$HOME/Library/Application Support/cDock/themes/"
 	rm -r "$HOME/Library/Application Support/cDock/theme_stash/"
+
+	dir_setup
 
 	# Move default themes
 	rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock
@@ -73,6 +77,7 @@ app_has_updated() {
 
 	# Restart logging
 	app_logging
+	echo "Clean up finished"
 }
 
 app_logging() {
@@ -427,14 +432,7 @@ file_cleanup() {
 
 firstrun_check() {
   if [[ ! -e "$HOME"/Library/Preferences/org.w0lf.cDock.plist ]]; then
-    do_firstrun=true
-  else
-    do_firstrun=false
-  fi
-}
-
-firstrun_display_check() {
-  if [[ $do_firstrun = "true" ]]; then
+    window_setup
   	first_run_window
   else
   	vernum=$($PlistBuddy "Print version" "$cdock_pl")
@@ -517,9 +515,6 @@ get_bundle_info() {
 	
 	cf_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/ColorfulSidebar.bundle/Contents/Info.plist)
 	cd_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/cDock.bundle/Contents/Info.plist)
-
-	opee_local=$($PlistBuddy "Print CFBundleShortVersionString" /Library/Frameworks/Opee.framework/Versions/A/Resources/Info.plist)
-	opee_curre=$($PlistBuddy "Print CFBundleShortVersionString" "$app_bundles"/Opee.framework/Versions/A/Resources/Info.plist)
 }
 
 import_theme_() {
@@ -561,10 +556,6 @@ install_cdock_bundle() {
 	if [[ -h /Library/Application\ Support/SIMBL/Plugins ]]; then 
 		rm /Library/Application\ Support/SIMBL/Plugins
 		dir_check /Library/Application\ Support/SIMBL/Plugins
-	fi
-	
-	if [[ "$opee_local" != "$opee_curre" ]]; then
-		move_file "$app_bundles/Opee.framework" "/Library/Frameworks/"
 	fi
 
 	if [[ "$cd_bv0" != "$cd_bv1" ]]; then
@@ -711,9 +702,9 @@ simbl_disable() {
 }
 
 sync_themes() {
-  if [[ ! -e "$HOME/Library/Application Support/cDock/themes" ]]; then
-    rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock
-  fi
+	# if [[ ! -e "$HOME/Library/Application Support/cDock/themes" ]]; then
+		rsync -ru "$app_support"/ "$HOME"/Library/Application\ Support/cDock
+	# fi
 }
 
 where_are_we() {
