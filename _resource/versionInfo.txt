@@ -5,7 +5,7 @@ Build date	: Jul / 31 / 2015
 
 ------------------------------------------------
 
-- 10.11 only requires rootless be disabled for initial install
+- 10.11 should only require rootless be disabled for initial install
 - Removed Opee
 - Reduced app size ~1MB
 - SIMBL install now done by 'cDock Helper'

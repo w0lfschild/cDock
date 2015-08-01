@@ -75,6 +75,16 @@ app_has_updated() {
 		"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
 	fi
 
+	# Make sure latest cDock bundle is being used
+	if [[ $($PlistBuddy "Print cd_enabled:" "$cdock_pl") = "true" ]]; then
+		get_bundle_info
+		if [[ "$cd_bv0" != "$cd_bv1" ]]; then
+			move_file	"$app_bundles/cDock.bundle" "/Library/Application Support/SIMBL/Plugins/"
+			killall -KILL "Dock"
+			( (sleep 1; osascript -e 'tell application "Dock" to inject SIMBL into Snow Leopard') &)
+		fi
+	fi
+
 	# Restart logging
 	app_logging
 	echo "Clean up finished"
@@ -616,7 +626,7 @@ install_finish() {
 		fi
 	fi
 
-	{ sleep 1; osascript -e 'tell application "Dock" to inject SIMBL into Snow Leopard'; osascript -e 'tell application "Finder" to inject SIMBL into Snow Leopard'; }
+	( (sleep 1; osascript -e 'tell application "Dock" to inject SIMBL into Snow Leopard'; osascript -e 'tell application "Finder" to inject SIMBL into Snow Leopard') &)
 
 	# logging info
 	ls -l /Library/Application\ Support/SIMBL/Plugins
