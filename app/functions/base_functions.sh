@@ -79,6 +79,7 @@ app_has_updated() {
 	if [[ $($PlistBuddy "Print cd_enabled:" "$cdock_pl") = "true" ]]; then
 		get_bundle_info
 		if [[ "$cd_bv0" != "$cd_bv1" ]]; then
+			echo "Updating cDock bundles"
 			move_file	"$app_bundles/cDock.bundle" "/Library/Application Support/SIMBL/Plugins/"
 			killall -KILL "Dock"
 			( (sleep 1; osascript -e 'tell application "Dock" to inject SIMBL into Snow Leopard') &)

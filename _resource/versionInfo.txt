@@ -10,8 +10,9 @@ Build date	: Jul / 31 / 2015
 - Reduced app size ~1MB
 - SIMBL install now done by 'cDock Helper'
 - Fix cDock Agent failing to update app
+- Fix cDock bundles not updating until changes applied
 - Fix welcome window failing to load
-- General bug fixes and improvements
+- General fixes
 
 ------------------------------------------------
 
