@@ -13,6 +13,18 @@
 			<key>optional</key>
 			<true/>
 		</dict>
+		<key>Resources/Credits.rtf</key>
+		<data>
+		uXS7p6vaJaO61TKojL0w4iUFk6E=
+		</data>
+		<key>Resources/EULA.rtf</key>
+		<data>
+		aWd8CPjN1wyIwbwBPvMBfPJlAw8=
+		</data>
+		<key>Resources/PFAboutWindow.nib</key>
+		<data>
+		4qmazJSTX52E9MFpZehCD6Q2egg=
+		</data>
 		<key>Resources/icon.png</key>
 		<data>
 		Ccn+DXp884Ux73FtsbzSXaCQp0I=
@@ -29,6 +41,18 @@
 			<key>optional</key>
 			<true/>
 		</dict>
+		<key>Resources/Credits.rtf</key>
+		<data>
+		uXS7p6vaJaO61TKojL0w4iUFk6E=
+		</data>
+		<key>Resources/EULA.rtf</key>
+		<data>
+		aWd8CPjN1wyIwbwBPvMBfPJlAw8=
+		</data>
+		<key>Resources/PFAboutWindow.nib</key>
+		<data>
+		4qmazJSTX52E9MFpZehCD6Q2egg=
+		</data>
 		<key>Resources/icon.png</key>
 		<data>
 		Ccn+DXp884Ux73FtsbzSXaCQp0I=
