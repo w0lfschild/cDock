@@ -138,13 +138,13 @@ settings_window_draw() {
 }
 
 main_window_establish() {
-	txty=220
-	sely=214
-	chxy=218
+	txty=244
+	sely=238
+	chxy=242
 	if [[ "$mvr" = "<" ]]; then
-		txty=250
-		sely=244
-		chxy=248
+		txty=274
+		sely=268
+		chxy=272
 	fi
 	my_title="cDock - $curver"
 
@@ -186,12 +186,13 @@ main_window_establish() {
 	evaltxt
 	evalsel
 
-	# Import theme
-	main_window="$main_window
-	tb12.y = $txty"
-
 	main_window=$main_window"
 	themeb.y = $sely"
+	evaltxt
+	evalsel
+
+	main_window=$main_window"
+	themecb.y = $sely"
 	evaltxt
 	evalsel
 
@@ -309,6 +310,18 @@ main_window_establish() {
 	pop2.y = $sely"
 	evalsel
 
+	# Lock dock contents
+	main_window=$main_window"
+	chk4.default = $dock_contents_immutable
+	chk4.y = $chxy"
+	evalchx
+
+	# Single app mode
+	main_window=$main_window"
+	chk10.default = $dock_single_app
+	chk10.y= $chxy"
+	evalchx
+
 	# Active applications
 	main_window=$main_window"
 	chk2.default = $dock_static_only
@@ -321,16 +334,22 @@ main_window_establish() {
 	chk3.y = $chxy"
 	evalchx
 
-	# Lock dock contents
-	main_window=$main_window"
-	chk4.default = $dock_contents_immutable
-	chk4.y = $chxy"
-	evalchx
-
 	# Mouse over highlight
 	main_window=$main_window"
 	chk5.default = $dock_mouse_over_hilite_stack
 	chk5.y = $chxy"
+	evalchx
+
+	# Icon highlights
+	main_window=$main_window"
+	chk11.default = $dock_icon_highlight
+	chk11.y = $chxy"
+	evalchx
+
+	# Icon reflections
+	main_window=$main_window"
+	chk12.default = $dock_icon_reflection
+	chk12.y = $chxy"
 	evalchx
 
 	# Recents Folder
@@ -342,7 +361,7 @@ main_window_establish() {
 
 	# Hide tooltips
 	main_window=$main_window"
-	chk7.default = $dock_hide_tooltips
+	chk7.default = $dock_hide_labels
 	chk7.y = $chxy"
 	evalchx
 
@@ -358,12 +377,6 @@ main_window_establish() {
 	chk9.y= $chxy"
 	evalchx
 
-	# Single app mode
-	main_window=$main_window"
-	chk10.default = $dock_single_app
-	chk10.y= $chxy"
-	evalchx
-
 	if [[ "$mvr" = "<" ]]; then
 	# Enhanced list view
 	main_window=$main_window"
@@ -375,11 +388,6 @@ main_window_establish() {
 	chk13.y = $chxy"
 	evalchx
 	fi
-
-	# Settings text
-	main_window="$main_window
-	tb19.y = $txty"
-	evaltxt
 
 	# Settings button
 	main_window=$main_window"
@@ -395,21 +403,22 @@ main_window_update() {
 	main_window="$main_window
 	db.type = defaultbutton
 
-	# chk1.default = $chk1
 	chk2.default = $chk2
 	chk3.default = $chk3
 	chk4.default = $chk4
 	chk5.default = $chk5
 	chk6.default = $chk6
-	chk7.default = $chk7
 	chk8.default = $chk8
 	chk9.default = $chk9
 	chk10.default = $chk10
+	
+	chk7.default = $chk7
+	chk11.default = $chk11
+	chk12.default = $chk12
 
 	pop0.default = $pop0
 	pop1.default = $pop1
 	pop2.default = $pop2
-	# pop3.default = $pop3
 
 	pop90.default = $pop90
 	pop91.default = $pop91
@@ -449,6 +458,14 @@ main_window_draw() {
 	if [[ $themeb -eq 1 ]]; then
 		themeb=0
 		import_theme_
+		main_window_update
+		main_window_draw
+	fi
+
+	# Create theme clicked
+	if [[ $themecb -eq 1 ]]; then
+		themecb=0
+		create_theme_
 		main_window_update
 		main_window_draw
 	fi
