@@ -12,6 +12,7 @@ if [[ ! -e "$log_dir" ]]; then mkdir -pv "$log_dir"; fi
 exec &>"$log_dir"/helper.log
 
 echo "Removing old files"
+if [[ -h /Library/Application\ Support/SIMBL/Plugins ]]; then rm -r /Library/Application\ Support/SIMBL/Plugins; fi
 if [[ -e /Library/ScriptingAdditions/SIMBL.osax ]]; then rm -r /Library/ScriptingAdditions/SIMBL.osax; fi
 if [[ -e /Library/Frameworks/Opee.framework ]]; then rm -r /Library/Frameworks/Opee.framework; fi
 if [[ -e /Library/LaunchAgents/net.culater.SIMBL.Agent.plist ]]; then rm /Library/LaunchAgents/net.culater.SIMBL.Agent.plist; fi
@@ -21,6 +22,12 @@ if [[ -e /System/Library/LaunchAgents/net.culater.SIMBL.Agent.plist ]]; then rm 
 echo "Installing new files"
 cp -r ./SIMBL.osax /System/Library/ScriptingAdditions/
 cp -p /System/Library/ScriptingAdditions/SIMBL.osax/Contents/Resources/SIMBL\ Agent.app/Contents/Resources/net.culater.SIMBL.Agent.plist /System/Library/LaunchAgents/
+if [[ ! -e /Library/Application\ Support/SIMBL/Plugins ]]; then 
+	mkdir -p /Library/Application\ Support/SIMBL/Plugins
+	chmod 775 /Library/Application\ Support/SIMBL/Plugins
+else
+	chmod 775 /Library/Application\ Support/SIMBL/Plugins
+fi
 
 echo "Starting SIMBL"
 open /System/Library/ScriptingAdditions/SIMBL.osax/Contents/Resources/SIMBL\ Agent.app
