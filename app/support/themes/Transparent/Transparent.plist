@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>cd_darkMode</key>
-	<integer>0</integer>
+	<integer>2</integer>
 	<key>cd_isTransparent</key>
 	<true/>
 	<key>cd_customIndicator</key>

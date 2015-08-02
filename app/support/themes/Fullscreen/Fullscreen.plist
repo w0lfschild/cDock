@@ -2,12 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>cd_darkMode</key>
+	<integer>2</integer>
 	<key>cd_customIndicator</key>
 	<false/>
 	<key>cd_darkenMouseOver</key>
 	<true/>
 	<key>cd_dockBG</key>
-	<false/>
+	<true/>
 	<key>cd_dockBGA</key>
 	<integer>65</integer>
 	<key>cd_dockBGB</key>

@@ -41,13 +41,13 @@
 	<key>cd_labelBG</key>
 	<true/>
 	<key>cd_labelBGA</key>
-	<integer>25</integer>
+	<integer>45</integer>
 	<key>cd_labelBGB</key>
-	<integer>255</integer>
+	<integer>176</integer>
 	<key>cd_labelBGG</key>
-	<integer>120</integer>
+	<integer>232</integer>
 	<key>cd_labelBGR</key>
-	<integer>120</integer>
+	<integer>142</integer>
 	<key>cd_pictureBG</key>
 	<false/>
 	<key>cd_pictureTile</key>
