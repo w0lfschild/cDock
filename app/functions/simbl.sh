@@ -1,12 +1,10 @@
 #! /bin/bash
 
 simbl_setup() {
-  lib_plug="/Library/Application Support/SIMBL/Plugins"
-  if [[ ! -e /System/Library/ScriptingAdditions/SIMBL.osax || ! -e /System/Library/LaunchAgents/net.culater.SIMBL.Agent.plist ]]; then
+  if [[ ! -e /System/Library/ScriptingAdditions/SIMBL.osax || ! -e /System/Library/LaunchAgents/net.culater.SIMBL.Agent.plist || -h /Library/Application\ Support/SIMBL/Plugins ]]; then
     open "$simbl_inst"
     imma_let_you_finish    
   fi
-  dir_check "$lib_plug"
 }
 
 imma_let_you_finish() {
