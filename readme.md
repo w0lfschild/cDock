@@ -31,13 +31,12 @@ Mauro Ferreri - Italian
 [DarkDock](http://github.com/b3ll/DarkDock)    
 [ColorfulSidebar](http://cooviewerzoom.web.fc2.com/)    
 [Dockify](https://github.com/alexzielenski/dockify)    
-[modck](https://github.com/mstg/Modck)    
+[Modck](https://github.com/mstg/Modck)    
 
 [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)    
 [CocoaDialog](http://mstratman.github.io/cocoadialog/)    
 [Pashua](http://bluem.net/en/mac/pashua/)    
-[platypus](http://sveinbjorn.org/platypus)    
-[CocoaBackports](http://github.com/petroules/CocoaBackports)    
+[platypus](http://sveinbjorn.org/platypus)       
 [Icon](http://scafer31000.deviantart.com)    
 
 ### License:
