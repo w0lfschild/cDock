@@ -1,14 +1,23 @@
 ------------------------------------------------
 
-Version		: 9.2
+Version		: 9.2 - 9.3
 Build date	: Jul / 31 / 2015
 
 ------------------------------------------------
 
-- 10.11 should only require rootless be disabled for initial install
+- 10.11 requires rootless be disabled for initial install
+
+- Adjustments to several themes
+- Fix picture background full width
+- Fix picture background rounded corners
+- Update Menubar applet about page
+- Add UI to toggle Icon Highlight
+- Add UI to toggle Icon reflections
+- Fix cDock-Helper not fully installing SIMBL
+- UI adjustments
 - Removed Opee
 - Reduced app size ~1MB
-- SIMBL install now done by 'cDock Helper'
+- SIMBL install now done by 'cDock-Helper'
 - Fix cDock Agent failing to update app
 - Fix cDock bundles not updating until changes applied
 - Fix welcome window failing to load
@@ -22,9 +31,7 @@ Build date	: Jul / 31 / 2015
 ------------------------------------------------
 
 - OS X 10.11 (El Capitan) support
-	- 10.11 requires that SIP aka "rootless" be
-	turned off during the initial install for
-	SIMBL and Opee
+	- requires that rootless be turned off for the initial install
 
 - Dock customization changes
 	Additions:

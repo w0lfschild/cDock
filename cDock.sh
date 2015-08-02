@@ -24,6 +24,7 @@ scriptDirectory=$(cd "${0%/*}" && echo $PWD)
 app_support="$scriptDirectory"/support
 app_bundles="$scriptDirectory"/bundles
 app_helpers="$scriptDirectory"/helpers
+app_base___="$scriptDirectory"/themebase
 app_directory="$scriptDirectory"
 for i in {1..2}; do app_directory=$(dirname "$app_directory"); done
 	
