@@ -44,7 +44,7 @@ app_has_updated() {
 	dir_setup
 
 	# Move default themes
-	rsync -ruv "$app_support"/ "$HOME"/Library/Application\ Support/cDock
+	sync_themes
 
 	# Restore user themes and backups
 	rsync -ru "$cdock_tmp"/.bak "$HOME"/Library/Application\ Support/cDock
@@ -76,13 +76,17 @@ app_has_updated() {
 	fi
 
 	# Make sure latest cDock bundle is being used
-	if [[ $($PlistBuddy "Print cd_enabled:" "$cdock_pl") = "true" ]]; then
-		get_bundle_info
+	get_bundle_info
+	if [[ -e /Library/Application\ Support/SIMBL/Plugins/cDock.bundle ]]; then
 		if [[ "$cd_bv0" != "$cd_bv1" ]]; then
-			echo "Updating cDock bundles"
 			move_file	"$app_bundles/cDock.bundle" "/Library/Application Support/SIMBL/Plugins/"
 			killall -KILL "Dock"
 			( (sleep 1; osascript -e 'tell application "Dock" to inject SIMBL into Snow Leopard') &)
+		fi
+	fi
+	if [[ -e /Library/Application\ Support/SIMBL/Plugins/cDock.bundle ]]; then
+		if [[ "$cf_bv0" != "$cf_bv1" ]]; then
+			move_file "$app_bundles/ColorfulSidebar.bundle"	"/Library/Application Support/SIMBL/Plugins/"
 		fi
 	fi
 
@@ -114,10 +118,10 @@ apply_main() {
 
 	# Custom dock
 	dock_theme="${pop0}"
-	if [[ $pop0 = "Custom" ]]; then
-		custom_dock=true
-		install_dock=true
-	elif [[ $pop0 = "None" ]]; then
+	# if [[ $pop0 = "Custom" ]]; then
+	# 	custom_dock=true
+	# 	install_dock=true
+	if [[ $pop0 = "None" ]]; then
 		install_dock=false
 		file_cleanup "/Library/Application Support/SIMBL/Plugins/cDock.bundle"
 		plistbud "Set" "cd_enabled" "bool" "0" "$cdock_pl"
@@ -202,12 +206,26 @@ apply_main() {
 		plistbud "Set" "pinning" "string" "$pop4" "$pl_alt"
 	fi
 
-	# Labels
 	cd_theme="$app_themes"/"${pop0}"/"${pop0}".plist
+
+	# Labels
 	if [[ $chk7 -eq 1 ]]; then
 		plistbud "Set" "cd_hideLabels" "bool" "true" "$cd_theme"
 	else
 		plistbud "Set" "cd_hideLabels" "bool" "false" "$cd_theme"
+	fi
+
+	if [[ $chk11 -eq 1 ]]; then
+		plistbud "Set" "cd_darkenMouseOver" "bool" "true" "$cd_theme"
+	else
+		plistbud "Set" "cd_darkenMouseOver" "bool" "false" "$cd_theme"
+	fi
+
+	# Icon reflections
+	if [[ $chk12 -eq 1 ]]; then
+		plistbud "Set" "cd_iconReflection" "bool" "true" "$cd_theme"
+	else
+		plistbud "Set" "cd_iconReflection" "bool" "false" "$cd_theme"
 	fi
 
 	# App icon counts
@@ -447,7 +465,12 @@ firstrun_check() {
   	first_run_window
   else
   	vernum=$($PlistBuddy "Print version" "$cdock_pl")
-  	if [[ $(verres $curver $vernum) = ">" ]]; then app_has_updated; fi
+  	if [[ "$curver" != "$vernum" ]]; then 
+  		echo "App has updated"
+  		echo "Old: $vernum"
+  		echo "New: $curver"
+  		app_has_updated
+  	fi
   fi
 }
 
@@ -481,7 +504,9 @@ get_preferences() {
 	dock_autohide=$($PlistBuddy "Print autohide:" "$dock_plist" 2>/dev/null || echo 0)											# Autohide the dock
 
 	# Dock advanced pref
-	dock_hide_tooltips=$($PlistBuddy "Print cd_hideLabels:" "$cd_theme" 2>/dev/null || echo 0)
+	dock_hide_labels=$($PlistBuddy "Print cd_hideLabels:" "$cd_theme" 2>/dev/null || echo 0)
+	dock_icon_reflection=$($PlistBuddy "Print cd_iconReflection:" "$cd_theme" 2>/dev/null || echo 0)
+	dock_icon_highlight=$($PlistBuddy "Print cd_darkenMouseOver:" "$cd_theme" 2>/dev/null || echo 0)
 	dock_FT_can_kill=$($PlistBuddy "Print trash" /System/Library/CoreServices/Dock.app/Contents/Resources/DockMenus.plist | grep 1004 || echo "")
 
 	# Mavericks only dock preferences
@@ -500,7 +525,11 @@ get_preferences() {
 
 	# Change true/false to 1/0
 	if [[ $finder_folders_on_top = " Folder" ]]; then finder_folders_on_top=1; else finder_folders_on_top=0; fi
-	if [[ $dock_hide_tooltips = true ]]; then dock_hide_tooltips=1; else dock_hide_tooltips=0; fi
+
+	if [[ $dock_hide_labels = true ]]; then dock_hide_labels=1; else dock_hide_labels=0; fi
+	if [[ $dock_icon_reflection = true ]]; then dock_icon_reflection=1; else dock_icon_reflection=0; fi
+	if [[ $dock_icon_highlight = true ]]; then dock_icon_highlight=1; else dock_icon_highlight=0; fi
+
 	if [[ $dock_FT_can_kill = "" ]]; then dock_FT_can_kill=0; else dock_FT_can_kill=1; fi
 	if [[ $dock_single_app = true ]]; then dock_single_app=1; else dock_single_app=0; fi
 	if [[ $dock_no_bouncing = true ]]; then dock_no_bouncing=1; else dock_no_bouncing=0; fi
@@ -526,6 +555,19 @@ get_bundle_info() {
 	
 	cf_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/ColorfulSidebar.bundle/Contents/Info.plist)
 	cd_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/cDock.bundle/Contents/Info.plist)
+}
+
+create_theme_() {
+	my_theme="$USER"_$(date "+%y%m%d%H%M%S")
+	my_theme_folder="$HOME"/Library/"Application Support"/cDock/themes/"$my_theme"
+	mkdir -p "$my_theme_folder"
+	cp -r "$app_base___"/ "$my_theme_folder"
+	mv "$my_theme_folder"/plist.plist "$my_theme_folder"/"$my_theme".plist
+
+	open ./helpers/cDock-Menubar.app
+	open -R "$my_theme_folder"
+	open "$my_theme_folder"/"$my_theme".plist
+	open -e "$HOME"/Library/Application\ Support/cDock/settings\ info.txt
 }
 
 import_theme_() {
@@ -564,25 +606,12 @@ install_cdock_bundle() {
 	sync_themes
 	get_bundle_info
 
-	if [[ -h /Library/Application\ Support/SIMBL/Plugins ]]; then 
-		rm /Library/Application\ Support/SIMBL/Plugins
-		dir_check /Library/Application\ Support/SIMBL/Plugins
-	fi
-
 	if [[ "$cd_bv0" != "$cd_bv1" ]]; then
 		move_file	"$app_bundles/cDock.bundle" "/Library/Application Support/SIMBL/Plugins/"
 	fi
 
 	# DockMod check
 	if [[ $($PlistBuddy "Print dockmod-enabled:" "$dock_plist") != false ]]; then defaults write com.apple.dock dockmod-enabled -bool false; fi
-
-	# If custom dock is selected open settings and "instructions" for user also open dock refresher
-	if ($custom_dock); then
-		open ./helpers/cDock-Menubar.app
-		open "$HOME"/Library/Application\ Support/cDock/themes/Custom/Custom.plist
-		open -e "$HOME"/Library/Application\ Support/cDock/settings\ info.txt
-		custom_dock=false
-	fi
 
 	plistbud "Set" "cd_theme" "string" "$dock_theme" "$cdock_pl"
 	plistbud "Set" "cd_enabled" "bool" "true" "$cdock_pl"
@@ -594,11 +623,6 @@ install_finder_bundle() {
 	start_agent=true
 	launch_agent
 	get_bundle_info
-
-	if [[ -h /Library/Application\ Support/SIMBL/Plugins ]]; then 
-		rm /Library/Application\ Support/SIMBL/Plugins
-		dir_check /Library/Application\ Support/SIMBL/Plugins
-	fi
 
 	icns="icons10.9.plist"
 	if [[ $versionMinor != "9" ]]; then icns="icons10.10.plist"; fi
@@ -650,10 +674,10 @@ launch_agent() {
 	done
 	
 	# Add agent to startup items
-	login_items=$(osascript -e 'tell application "System Events" to get the name of every login item')
-	if [[ "$login_items" != *"$cDock Agent"* ]]; then
-		/usr/bin/osascript -e "tell application \"System Events\" to make new login item at end of login items with properties {path:\"$cdock_path\", hidden:false}"
-	fi
+	# login_items=$(osascript -e 'tell application "System Events" to get the name of every login item')
+	# if [[ "$login_items" != *"$cDock Agent"* ]]; then
+	osascript -e "tell application \"System Events\" to make new login item at end of login items with properties {path:\"$cdock_path\", hidden:false}"
+	# fi
 }
 
 move_file () {
