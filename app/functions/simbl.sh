@@ -1,7 +1,7 @@
 #! /bin/bash
 
 simbl_setup() {
-  if [[ ! -e /System/Library/ScriptingAdditions/SIMBL.osax || ! -e /System/Library/LaunchAgents/net.culater.SIMBL.Agent.plist || -h /Library/Application\ Support/SIMBL/Plugins ]]; then
+  if [[ -e /Library/ScriptingAdditions/SIMBL.osax || ! -e /System/Library/ScriptingAdditions/SIMBL.osax || ! -e /System/Library/LaunchAgents/net.culater.SIMBL.Agent.plist || ! -e /Library/Application\ Support/SIMBL/Plugins || -h /Library/Application\ Support/SIMBL/Plugins ]]; then
     open "$simbl_inst"
     imma_let_you_finish    
   fi

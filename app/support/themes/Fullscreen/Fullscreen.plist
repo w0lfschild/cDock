@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>cd_darkMode</key>
-	<integer>2</integer>
+	<integer>0</integer>
 	<key>cd_customIndicator</key>
 	<false/>
 	<key>cd_darkenMouseOver</key>

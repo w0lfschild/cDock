@@ -9,14 +9,14 @@ swtb0.text = Aggiornamenti:
 
 # Auto check for updates
 swchk0.type = checkbox
-swchk0.label = Controlla aggiornamenti Automaticamente
+swchk0.label = Controlla gli aggiornamenti automaticamente
 swchk0.tooltip = Quando abilitato, cDock controllerà automaticamente gli aggiornamenti una volta la settimana e più di una volta al giorno quando cDock è in funzione.
 swchk0.rely = -18
 swchk0.relx = 20
 
 # Auto install updates
 swchk2.type = checkbox
-swchk2.label = Installa Aggiornamenti Automaticamente
+swchk2.label = Installa gli aggiornamenti automaticamente
 swchk2.tooltip = Quando abilitato, cDock cercherà automaticamente di installare l’aggiornamento senza prima avvisare l’utente.
 swchk2.rely = -18
 swchk2.relx = 20

@@ -4,7 +4,6 @@
 
 app_clean() {
 	# This is going to become an uninstall cDock option
-
 	killall -KILL "cDock Agent"
 	file_cleanup \
 	/Library/ScriptingAdditions/EasySIMBL.osax \
@@ -68,11 +67,15 @@ app_has_updated() {
 	plistbud "Delete" "cdockActive" "$cdock_pl"
 	plistbud "Delete" "colorfulsidebarActive" "$cdock_pl"
 
-	# Make sure legacy bundles are gone
-	if [[ -e "$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle ]]; then
-		file_cleanup \
-		"$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
-		"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
+	# Make sure old bundles are gone
+	file_cleanup \
+	/Library/ScriptingAdditions/EasySIMBL.osax \
+	"$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
+	"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
+
+	# One small tweak
+	if [[ "$versionMinor" != "9" ]]; then
+		plistbud "Set" "cd_dockBG" "bool" "0" "$HOME/Library/Application Support/cDock/themes/Fullscreen/Fullscreen.plist"
 	fi
 
 	# Make sure latest cDock bundle is being used
@@ -84,7 +87,7 @@ app_has_updated() {
 			( (sleep 1; osascript -e 'tell application "Dock" to inject SIMBL into Snow Leopard') &)
 		fi
 	fi
-	if [[ -e /Library/Application\ Support/SIMBL/Plugins/cDock.bundle ]]; then
+	if [[ -e /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ]]; then
 		if [[ "$cf_bv0" != "$cf_bv1" ]]; then
 			move_file "$app_bundles/ColorfulSidebar.bundle"	"/Library/Application Support/SIMBL/Plugins/"
 		fi
@@ -550,8 +553,8 @@ get_preferences() {
 }
 
 get_bundle_info() {
-	cd_bv0=$($PlistBuddy "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/cDock.bundle/Contents/Info.plist)
 	cf_bv0=$($PlistBuddy "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle/Contents/Info.plist)
+	cd_bv0=$($PlistBuddy "Print CFBundleVersion" /Library/Application\ Support/SIMBL/Plugins/cDock.bundle/Contents/Info.plist)
 	
 	cf_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/ColorfulSidebar.bundle/Contents/Info.plist)
 	cd_bv1=$($PlistBuddy "Print CFBundleVersion" "$app_bundles"/cDock.bundle/Contents/Info.plist)
@@ -608,6 +611,10 @@ install_cdock_bundle() {
 
 	if [[ "$cd_bv0" != "$cd_bv1" ]]; then
 		move_file	"$app_bundles/cDock.bundle" "/Library/Application Support/SIMBL/Plugins/"
+	fi
+
+	if [[ "$versionMinor" != "9" ]]; then
+		plistbud "Set" "cd_dockBG" "bool" "0" "$HOME/Library/Application Support/cDock/themes/Fullscreen/Fullscreen.plist"
 	fi
 
 	# DockMod check
@@ -671,6 +678,7 @@ launch_agent() {
 		$PlistBuddy "Add SIMBLApplicationIdentifierBlacklist array" "$zzz" &>/dev/null
 		plistbud "Set" "SIMBLApplicationIdentifierBlacklist:0" "string" "com.skype.skype" "$zzz"
 		plistbud "Set" "SIMBLApplicationIdentifierBlacklist:1" "string" "com.FilterForge.FilterForge4" "$zzz"
+		plistbud "Set" "SIMBLApplicationIdentifierBlacklist:2" "string" "com.apple.logic10" "$zzz"
 	done
 	
 	# Add agent to startup items
@@ -683,7 +691,7 @@ launch_agent() {
 move_file () {
 	if [[ -e "$1" ]]; then
 		if [[ "$2" != "" ]]; then
-			/usr/bin/osascript -e "tell application \"Finder\" to duplicate POSIX file \"$1\" to POSIX file \"$2\" with replacing"
+			cp -rvf "$1" "$2" || osascript -e "tell application \"Finder\" to duplicate POSIX file \"$1\" to POSIX file \"$2\" with replacing"	
 		fi
 	fi
 }

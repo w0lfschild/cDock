@@ -1,27 +1,33 @@
 ------------------------------------------------
 
-Version		: 9.2 - 9.3
-Build date	: Jul / 31 / 2015
+Version		: 9.2 - 9.3.1
+Build date	: Aug / 03 / 2015
 
 ------------------------------------------------
 
 - 10.11 requires rootless be disabled for initial install
+- 10.11 does not support Colorfulsidebar
 
 - Adjustments to several themes
+- Icon reflections are now a reflection instead of rotation
+
+- Fix fullscreen dock overlapping fully expanded windows
+- Fix Logic Pro X crash
+- Fix menubar app about page not getting focus
+- Fix bundles not installing for some users
 - Fix picture background full width
 - Fix picture background rounded corners
-- Update Menubar applet about page
-- Add UI to toggle Icon Highlight
-- Add UI to toggle Icon reflections
 - Fix cDock-Helper not fully installing SIMBL
-- UI adjustments
-- Removed Opee
-- Reduced app size ~1MB
-- SIMBL install now done by 'cDock-Helper'
 - Fix cDock Agent failing to update app
 - Fix cDock bundles not updating until changes applied
 - Fix welcome window failing to load
-- General fixes
+
+- Add UI to toggle Icon Highlight
+- Add UI to toggle Icon reflections
+- UI adjustments
+
+- SIMBL install now done by 'cDock-Helper'
+- Updated Italian Translations
 
 ------------------------------------------------
 

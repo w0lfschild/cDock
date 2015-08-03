@@ -22,7 +22,7 @@ themeb.x = 78
 
 # Create theme
 themecb.type = button
-themecb.label = Creare tema
+themecb.label = Crea tema
 themecb.x = 85
 
 # Autohide
@@ -84,14 +84,14 @@ pop2.width = 50
 pop2.x = 150
 	
 # Active applications
-chk2.tooltip = Quando abilitato, il Dock mostrerà solo le icone delle applicazioni attive. Il resto tranne il cestino sarà nascosto.
+chk2.tooltip = Quando abilitato, il Dock mostrerà solo le icone delle Applicazioni attive. Il resto tranne il cestino sarà nascosto.
 chk2.type = checkbox
-chk2.label = Mostra solo le applicazioni attive
+chk2.label = Mostra solo le Applicazioni attive
 chk2.x = 225
 
 	
 # Dim hidden items
-chk3.tooltip = Quando abilitato, le applicazioni che sono nascoste (⌘+H) appariranno oscurate.
+chk3.tooltip = Quando abilitato, le Applicazioni che sono nascoste (⌘+H) appariranno oscurate.
 chk3.type = checkbox
 chk3.label = Oscura gli elementi nascosti
 chk3.x = 225
@@ -103,7 +103,7 @@ chk4.label = Blocca il contenuto del Dock.
 chk4.x = 225
 
 # Mouse over highlight
-chk5.tooltip = Quando abilitato, il passaggio del Mouse evidenzierà le cartelle/file nel Dock usando la vista griglia.
+chk5.tooltip = Quando abilitato, il passaggio del mouse evidenzierà le cartelle/file nel Dock usando la vista griglia.
 chk5.type = checkbox
 chk5.label = Evidenzia al passaggio del Mouse
 chk5.x = 225
@@ -139,27 +139,27 @@ chk9.x = 225
 # Single app mode
 chk10.tooltip = Quando abilitato, cliccando su un’Applicazione nel Dock, aprirà l’Applicazione stessa mentre nasconderà tutte le altre finestre.
 chk10.type = checkbox
-chk10.label = modalità singola Applicazione
+chk10.label = Modalità singola Applicazione
 chk10.disabled = 0
 chk10.x = 225
 
 # Icon mouse over highlight
-chk11.tooltip = Quando attivato un punto culminante del mouse -over sarà visibile sulle icone del dock.
+chk11.tooltip = Quando abilitato, al passaggio del mouse verrà evidenziata l’icona nel dock.
 chk11.type = checkbox
-chk11.label = Icona evidenzia
+chk11.label = Evidenzia Icone
 chk11.x = 225
 chk11.y = $chxy"
 
 # Icon reflections
-chk12.tooltip = Quando icone abilitate mostreranno una riflessione al di sotto o accanto a loro.
+chk12.tooltip = Quando abilitato, mostrerà un riflesso sotto o a fianco delle icone.
 chk12.type = checkbox
-chk12.label = Icona riflessioni
+chk12.label = Riflesso Icone
 chk12.x = 225
 chk12.y = $chxy"
 	
 # Settings button
 settingb.type = button
-settingb.label = impostazioni
+settingb.label = Impostazioni
 settingb.x = 84
 	
 # Email button	
@@ -179,7 +179,7 @@ db.type = defaultbutton
 db.label = Applica
 
 # Text
-tb0.text = Tema Dock:
+tb0.text = Scelgi Dock:
 tb1.text = Spazi Applicazione:
 tb2.text = Spazi Documenti:
 tb10.text = Grandezza Icona:
