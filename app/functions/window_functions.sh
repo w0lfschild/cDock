@@ -212,26 +212,26 @@ main_window_establish() {
 	evalsel
 
 	# Dock position
-	if [[ "$mvr" = "<" ]]; then
-	main_window="$main_window
-	tb4.tooltip = SAMPLE TEXT
-	tb4.type = text
-	tb4.height = 0
-	tb4.width = 150
-	tb4.x = 0
-	tb4.default = Dock position:
-	tb4.y = $txty"
-	main_window="$main_window
-	pop4.type = popup
-	pop4.width = 75
-	pop4.option = start
-	pop4.option = middle
-	pop4.option = end
-	pop4.default = $dock_pinning
-	pop4.x = 125
-	pop4.y = $sely"
-	evaltxt
-	evalsel
+	if [[ "$versionMinor" = "9" ]]; then
+		main_window="$main_window
+		tb4.tooltip = Adjust the docks position
+		tb4.type = text
+		tb4.height = 0
+		tb4.width = 150
+		tb4.x = 0
+		tb4.label = Dock position:
+		tb4.y = $txty"
+		main_window="$main_window
+		pop4.type = popup
+		pop4.width = 75
+		pop4.option = start
+		pop4.option = middle
+		pop4.option = end
+		pop4.default = $dock_pinning
+		pop4.x = 125
+		pop4.y = $sely"
+		evaltxt
+		evalsel
 	fi
 
 	# Magnification
@@ -242,19 +242,19 @@ main_window_establish() {
 	pop91.y = $sely"
 
 	for val in {16..248}; do
-	main_window="$main_window
-	pop91.option = $val";
+		main_window="$main_window
+		pop91.option = $val";
 	done
 
 	mag=$($PlistBuddy "Print magnification:" "$dock_plist")
 	if [[ $mag = true ]]; then
-	tsize=$($PlistBuddy "Print largesize:" "$dock_plist")
-	tsize=${tsize%%.*}
-	main_window="$main_window
-	pop91.default = $tsize"
+		tsize=$($PlistBuddy "Print largesize:" "$dock_plist")
+		tsize=${tsize%%.*}
+		main_window="$main_window
+		pop91.default = $tsize"
 	else
-	main_window="$main_window
-	pop91.default = Off"
+		main_window="$main_window
+		pop91.default = Off"
 	fi
 	evaltxt
 	evalsel
@@ -377,16 +377,16 @@ main_window_establish() {
 	chk9.y= $chxy"
 	evalchx
 
-	if [[ "$mvr" = "<" ]]; then
-	# Enhanced list view
-	main_window=$main_window"
-	chk13.tooltip = When enabled folders set to list view will use larger icons and allow dragging icons just like in grid view.
-	chk13.type = checkbox
-	chk13.label = Improved list view
-	chk13.default = $dock_use_new_list_stack
-	chk13.x = 225
-	chk13.y = $chxy"
-	evalchx
+	if [[ "$versionMinor" = "9" ]]; then
+		# Enhanced list view
+		main_window=$main_window"
+		chk13.tooltip = When enabled folders set to list view will use larger icons and allow dragging icons just like in grid view.
+		chk13.type = checkbox
+		chk13.label = Improved list view
+		chk13.default = $dock_use_new_list_stack
+		chk13.x = 225
+		chk13.y = $chxy"
+		evalchx
 	fi
 
 	# Settings button
@@ -424,6 +424,12 @@ main_window_update() {
 	pop91.default = $pop91
 	pop92.default = $pop92"
 
+	if [[ "$versionMinor" = "9" ]]; then
+		main_window="$main_window
+		pop4.default = $pop4
+    	chk13.default = $chk13"
+	fi
+
 	# Themes
 	if ! [[ -e "$app_themes" ]]; then echo "User themes folder doesn't exist!"; fi
 	for theme in "$HOME/Library/Application Support/cDock/themes/"*
@@ -432,13 +438,6 @@ main_window_update() {
 		main_window="$main_window
 		pop0.option = $theme_name"
 	done
-
-	if [[ "$mvr" = "<" ]]; then
-		main_window="$main_window
-		tb4.default = Dock position:
-		pop4.default = $pop4
-    	chk13.default = $chk13"
-	fi
 }
 
 main_window_draw() {

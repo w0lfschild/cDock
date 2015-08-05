@@ -47,7 +47,8 @@ tb11.x = 0
 pop91.type = popup
 pop91.width = 60
 pop91.x = 140
-pop91.option =关闭
+pop91.option = Off
+# 关闭
 	
 # Tile Size	
 tb10.tooltip =Dock图标尺寸是正方形像素。

@@ -9,13 +9,13 @@
 	<key>cd_dockBG</key>
 	<false/>
 	<key>cd_dockBGA</key>
-	<integer>0</integer>
+	<integer>100</integer>
 	<key>cd_dockBGB</key>
 	<integer>0</integer>
 	<key>cd_dockBGG</key>
 	<integer>0</integer>
 	<key>cd_dockBGR</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>cd_fullWidth</key>
 	<false/>
 	<key>cd_hideLabels</key>
@@ -31,7 +31,7 @@
 	<key>cd_iconShadowBGG</key>
 	<integer>0</integer>
 	<key>cd_iconShadowBGR</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>cd_iconShadowBGS</key>
 	<integer>0</integer>
 	<key>cd_labelBG</key>
@@ -39,9 +39,9 @@
 	<key>cd_labelBGA</key>
 	<integer>0</integer>
 	<key>cd_labelBGB</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>cd_labelBGG</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>cd_labelBGR</key>
 	<integer>0</integer>
 	<key>cd_pictureBG</key>

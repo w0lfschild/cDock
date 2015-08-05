@@ -1,6 +1,6 @@
 ------------------------------------------------
 
-Version		: 9.2 - 9.3.1
+Version		: 9.2 - 9.3.2
 Build date	: Aug / 03 / 2015
 
 ------------------------------------------------
@@ -11,6 +11,9 @@ Build date	: Aug / 03 / 2015
 - Adjustments to several themes
 - Icon reflections are now a reflection instead of rotation
 
+- Fix issue with magnification setting
+- Fix picture themes not showing (10.9)
+- Fix custom indicators drawing behind icons (10.9)
 - Fix fullscreen dock overlapping fully expanded windows
 - Fix Logic Pro X crash
 - Fix menubar app about page not getting focus
@@ -27,7 +30,7 @@ Build date	: Aug / 03 / 2015
 - UI adjustments
 
 - SIMBL install now done by 'cDock-Helper'
-- Updated Italian Translations
+- Updated Translations
 
 ------------------------------------------------
 

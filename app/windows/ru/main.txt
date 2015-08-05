@@ -47,7 +47,9 @@ tb11.x = 0
 pop91.type = popup
 pop91.width = 60
 pop91.x = 140
-pop91.option = Выкл.
+pop91.option = Off
+
+#Выкл
 	
 # Tile Size	
 tb10.tooltip = Размер значков Dock в пикселах.

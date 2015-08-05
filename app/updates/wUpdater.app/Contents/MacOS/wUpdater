@@ -425,7 +425,7 @@ else
 	# Necessary information
 	# 4 - Local version of application to be updated
 	# 5 - URL to view current version
-  # 6 - URL to view changelog
+  	# 6 - URL to view changelog
 	# 7 - URL to download current version
 	# 8 - Install without prompt
 	currentVersion="$4"

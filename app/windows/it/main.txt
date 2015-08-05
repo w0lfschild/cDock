@@ -23,7 +23,7 @@ themeb.x = 78
 # Create theme
 themecb.type = button
 themecb.label = Crea tema
-themecb.x = 85
+themecb.x = 97
 
 # Autohide
 tb20.tooltip = Nascondi automaticamente le impostazioni del Dock.
@@ -47,7 +47,7 @@ tb11.x = 0
 pop91.type = popup
 pop91.width = 60
 pop91.x = 140
-pop91.option = Nullo
+pop91.option = Off
 	
 # Tile Size	
 tb10.tooltip = La grandezza delle icone del Dock sono in pixel quadrati.
@@ -179,7 +179,7 @@ db.type = defaultbutton
 db.label = Applica
 
 # Text
-tb0.text = Scelgi Dock:
+tb0.text = Scegli Dock:
 tb1.text = Spazi Applicazione:
 tb2.text = Spazi Documenti:
 tb10.text = Grandezza Icona:

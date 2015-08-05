@@ -317,11 +317,12 @@ apply_main() {
 	fi
 
 	# Magnification level
-	if [[ $pop91 = "Off" ]]; then
-		plistbud "Set" "magnification" "bool" "false" "$pl_alt"
-	else
+	if [ $pop91 -eq $pop91 ] 2>/dev/null; then 
 		plistbud "Set" "magnification" "bool" "true" "$pl_alt"
 		plistbud "Set" "largesize" "integer" "$pop91" "$pl_alt"
+	else
+		# Not a number
+		plistbud "Set" "magnification" "bool" "false" "$pl_alt"
 	fi
 
 	# Autohide
