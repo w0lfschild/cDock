@@ -149,6 +149,23 @@ plistbud() {
 # 4 update_auto_install
 # 5 update_interval
 
+is_rootless() {
+	if [[ $(sw_vers -productVersion | cut -f2 -d.) -gt "10" ]]; then
+		# El Capitan or newer detected
+
+		sys_isrootless=true
+		error_capture=$( touch /System/test 2>&1 )
+		if [[ $error_capture == *"Operation not permitted"* ]]; then
+			# Expected output is Permission denied on system with rootless off
+			sys_isrootless=false
+		fi
+
+		if [[ $sys_isrootless == false ]]; then
+			echo "fail"
+		fi
+	fi
+}
+
 update_check() {
 	cur_date=$(date "+%y%m%d")
   	lastupdateCheck=$($PlistBuddy "Print lastupdateCheck:" "$cdock_pl" 2>/dev/null || defaults write org.w0lf.cDock "lastupdateCheck" 0 2>/dev/null)

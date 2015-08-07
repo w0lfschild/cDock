@@ -63,6 +63,10 @@ alert_window() {
 	fi
 }
 
+rootless_window() {
+	echo "SAMPLE TEXT"
+}
+
 first_run_window() {
 	welcome=$(cat "$app_windows"/welcome.txt)
 	donor_list=$(tr -d '\n' < "$app_windows"/donors.txt)
