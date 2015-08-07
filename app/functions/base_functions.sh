@@ -4,7 +4,8 @@
 
 app_clean() {
 	# This is going to become an uninstall cDock option
-	killall -KILL "cDock Agent"
+
+	# Try to delete all things cDock
 	file_cleanup \
 	/Library/ScriptingAdditions/EasySIMBL.osax \
 	/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
@@ -12,8 +13,17 @@ app_clean() {
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
 
+	# Turn off Dock themimg
 	plistbud "set" "cd_enabled" "bool" "0" "$cdock_pl"
+
+	# Remove cDock agent from login items
 	osascript -e 'tell application "System Events" to delete login item "cDock Agent"'
+
+	# Close things potentially effected by cDock
+	killall -KILL "cDock Agent"
+	killall -Kill "SIMBL Agent"
+	killall -Kill "Dock"
+	killall -Kill "Finder"
 
 	echo "Clean up complete"
 }
