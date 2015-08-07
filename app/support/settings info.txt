@@ -1,4 +1,33 @@
-Rundown of cDock settings:
+Rundown of cDock settings
+Many of these are not accessible in the cDock UI
+
+-----
+
+// 10.9
+cd_dockSeparator		use custom separator		YES (yes) / NO (no)
+//
+
+// 10.10 +
+cd_colorIndicator		color indicator			YES (yes) / NO (no)
+cd_indicatorBGA			label alpha			0 (clear) > 100 (solid) 
+cd_indicatorBGB			label blue			0 (none)  > 255 (max)
+cd_indicatorBGG			label green			0 (none)  > 255 (max)
+cd_indicatorBGR			label red			0 (none)  > 255 (max)
+
+cd_sizeIndicator		resize default indicator	YES (yes) / NO (no)
+cd_indicatorWidth		indicator width			size in pixels
+cd_indicatorHeight		indicator height		size in pixels
+
+cd_showFrost			show blurred glass		YES (show) / NO (hide)
+cd_darkMode			force Dark/Light mode		0 (system) / 1 (Light) / 2 (Dark) / 3 (inverse of system)
+// 
+
+// 10.9 +
+cd_borderSize			add border to dock		size in pixels
+cd_borderBGA			border alpha			0 (clear) > 100 (solid)
+cd_borderBGB			border blue			0 (none)  > 255 (max)
+cd_borderBGG			border green			0 (none)  > 255 (max)
+cd_borderBGR			border red			0 (none)  > 255 (max)
 
 cd_dockBG			color background		YES (yes) / NO (no)
 cd_dockBGA			background alpha		0 (clear) > 100 (solid)
@@ -20,7 +49,6 @@ cd_iconShadowBGR		shadow red			0 (none)  > 255 (max)
 cd_iconShadowBGS		shadow size			size in pixels
 
 cd_cornerRadius			corner radius			size in pixels
-
 cd_isTransparent		hide background			YES (hide) / NO (show)
 cd_fullWidth			full screen dock		YES (yes)  / NO (no)
 cd_hideLabels			hide labels			YES (hide) / NO (show)
@@ -31,12 +59,9 @@ cd_customIndicator		use custom indicators		YES (yes)  / NO (no)
 cd_pictureBG			use picture background		YES (yes)  / NO (no)
 cd_pictureTile			picture tiled			YES (Tile) / NO (Stretch)
 
-cd_showFrost			show blurred glass (10.10+)	YES (show) / NO (hide)
 cd_showGlass			show glass layer		YES (show) / NO (hide)
 cd_showSeparator 		draw separator			YES (show) / NO (hide)
-
-cd_darkMode			force Dark/Light mode		0 (system) / 1 (Light) / 2 (Dark)
-
+//
 
 Note, depending on what you use to edit a plist YES / NO may be represented as:
 YES	/	NO
@@ -80,8 +105,5 @@ A: They're used for...
 	- indicator_large.png 		> horizontal large image
 	- indicator_small_simple.png 	> vertical small image
 	- indicator_medium_simple.png 	> vertical medium image
-
-
-DO NOT EDIT THIS DOCUMENT
 
 Thanks for using cDock!
