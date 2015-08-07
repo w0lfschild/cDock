@@ -145,7 +145,7 @@ main_window_establish() {
 	txty=244
 	sely=238
 	chxy=242
-	if [[ "$mvr" = "<" ]]; then
+	if [[ "$versionMinor" = "9" ]]; then
 		txty=274
 		sely=268
 		chxy=272
@@ -223,7 +223,7 @@ main_window_establish() {
 		tb4.height = 0
 		tb4.width = 150
 		tb4.x = 0
-		tb4.label = Dock position:
+		tb4.text = Dock position:
 		tb4.y = $txty"
 		main_window="$main_window
 		pop4.type = popup

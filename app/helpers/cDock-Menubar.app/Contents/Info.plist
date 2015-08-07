@@ -8,6 +8,8 @@
 	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>cDock-Menubar</string>
+	<key>CFBundleIconFile</key>
+	<string>../../../../appIcon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.w0lf.cDock-Menubar</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -46,7 +48,5 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>CFBundleIconFile</key>
-	<string>../../../../appIcon.icns</string>
 </dict>
 </plist>
