@@ -28,8 +28,6 @@
 	<dict>
 		<key>Events</key>
 		<dict>
-			<key>SIMeleop</key>
-			<string>InjectEventHandler</string>
 			<key>SIMeload</key>
 			<dict>
 				<key>Context</key>
