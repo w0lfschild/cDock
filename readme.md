@@ -1,5 +1,7 @@
 # [cDock](http://w0lfschild.github.io/pages/cdock.html)
 
+[![Join the chat at https://gitter.im/w0lfschild/cDock](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/w0lfschild/cDock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://img.shields.io/github/release/w0lfschild/cDock.svg)](https://github.com/w0lfschild/cDock/releases/latest)   
 [![Build Status](https://img.shields.io/github/downloads/w0lfschild/cDock/latest/total.svg)](https://github.com/w0lfschild/cDock/archive/master.zip)    
 
