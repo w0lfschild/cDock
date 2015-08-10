@@ -537,6 +537,8 @@ get_preferences() {
 	displayWarning=$($PlistBuddy "Print displayWarning:" "$cdock_pl" 2>/dev/null || echo 1) 																# Display SIMBL warnings
 	launch_menu_applet=$($PlistBuddy "Print menu_applet:" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add menu_applet integer 1" "$cdock_pl"; echo 1; })		# Launch menubar applet
 
+	if [[ -e /Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle ]]; then colorfulsidebar_active=1; else colorfulsidebar_active=0; fi
+
 	# Change true/false to 1/0
 	if [[ $finder_folders_on_top = " Folder" ]]; then finder_folders_on_top=1; else finder_folders_on_top=0; fi
 
@@ -659,6 +661,7 @@ install_finish() {
 	if ($reboot_dock); then killall -KILL "Dock"; fi
 	if ($reboot_finder); then
 		if [[ $(lsof -c Finder | grep MacOS/XtraFinder) ]]; then
+			killall -KILL "XtraFinder"
 			killall -KILL "Finder"
 			open -b com.trankynam.XtraFinder
 		elif [[ $(lsof -c Finder | grep MacOS/TotalFinder) ]]; then
@@ -695,6 +698,7 @@ launch_agent() {
 	# Add agent to startup items
 	# login_items=$(osascript -e 'tell application "System Events" to get the name of every login item')
 	# if [[ "$login_items" != *"$cDock Agent"* ]]; then
+	osascript -e "tell application \"System Events\" to delete login items \"cDock Agent\""
 	osascript -e "tell application \"System Events\" to make new login item at end of login items with properties {path:\"$cdock_path\", hidden:false}"
 	# fi
 }
