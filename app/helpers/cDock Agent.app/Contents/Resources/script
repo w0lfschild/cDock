@@ -59,6 +59,7 @@ scriptDirectory="$resource_folder"
 #	App execution
 echo $restart_count >/tmp/dmpipe
 simbl_setup
+killall -Kill Dock
 simbl_run
 
 update_auto_install=$($PlistBuddy "Print autoInstall:" "$cdock_pl" 2>/dev/null || { $PlistBuddy "Add autoInstall integer 0" "$cdock_pl"; echo -n 0; } )

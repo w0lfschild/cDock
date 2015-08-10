@@ -17,14 +17,13 @@ pop0.x = 80
 
 # Import theme
 themeb.type = button
-themeb.label = Импорт
-themeb.x = 108
+themeb.label = Импорт тема
+themeb.x = 74
 
-tb12.tooltip = Импорт пользовательской темы, предоставленной другим пользователем.
-tb12.type = text
-tb12.height = 0
-tb12.width = 150
-tb12.x = 0
+# Create theme
+themecb.type = button
+themecb.label = Создать тему
+themecb.x = 73
 
 # Autohide
 tb20.tooltip = Настройки автоматического скрытия панели Dock.
@@ -48,7 +47,9 @@ tb11.x = 0
 pop91.type = popup
 pop91.width = 60
 pop91.x = 140
-pop91.option = Выкл.
+pop91.option = Off
+
+#Выкл
 	
 # Tile Size	
 tb10.tooltip = Размер значков Dock в пикселах.
@@ -90,7 +91,6 @@ chk2.type = checkbox
 chk2.label = Показывать только активные приложения
 chk2.x = 225
 
-	
 # Dim hidden items
 chk3.tooltip = Если этот флажок установлен, запущенные приложения, которые скрыты (⌘+H), будут затенены в панели Dock.
 chk3.type = checkbox
@@ -143,18 +143,25 @@ chk10.type = checkbox
 chk10.label = Режим одного приложения
 chk10.disabled = 0
 chk10.x = 225
-	
-# Settings text
-tb19.tooltip =
-tb19.type = text
-tb19.height = 0
-tb19.width = 150
-tb19.x = 0
+
+# Icon mouse over highlight
+chk11.tooltip = При включениимыши над моментом будет виден на иконах на скамье подсудимых.
+chk11.type = checkbox
+chk11.label = выделите знак
+chk11.x = 225
+chk11.y = $chxy"
+
+# Icon reflections
+chk12.tooltip = Когда включен иконки покажет отражение ниже или рядом с ними.
+chk12.type = checkbox
+chk12.label = значок размышления
+chk12.x = 225
+chk12.y = $chxy"
 	
 # Settings button
 settingb.type = button
-settingb.label = Просмотр
-settingb.x = 108
+settingb.label = настройки
+settingb.x = 92
 	
 # Email button	
 emailb.type = button
@@ -178,6 +185,4 @@ tb1.text = Разделители приложений:
 tb2.text = Разделители документов:
 tb10.text = Размер значка:
 tb11.text = Увеличение:
-tb12.text = Импорт темы:
-tb19.text = Дополнительные настройки:
-tb20.text = Автоматическое скрытие:
+tb20.text = авто-скрытие:

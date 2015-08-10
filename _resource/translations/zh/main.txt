@@ -17,14 +17,13 @@ pop0.x = 80
 
 # Import theme
 themeb.type = button
-themeb.label =导入
-themeb.x = 108
+themeb.label = 进口的主题
+themeb.x = 94
 
-tb12.tooltip =导入他人分享的自定义主题。
-tb12.type = text
-tb12.height = 0
-tb12.width = 150
-tb12.x = 0
+# Create theme
+themecb.type = button
+themecb.label = 创建主题
+themecb.x = 108
 
 # Autohide
 tb20.tooltip =将Dock栏设置为自动隐藏。
@@ -48,7 +47,8 @@ tb11.x = 0
 pop91.type = popup
 pop91.width = 60
 pop91.x = 140
-pop91.option =关闭
+pop91.option = Off
+# 关闭
 	
 # Tile Size	
 tb10.tooltip =Dock图标尺寸是正方形像素。
@@ -90,7 +90,6 @@ chk2.type = checkbox
 chk2.label =只显示激活的应用程序
 chk2.x = 225
 
-	
 # Dim hidden items
 chk3.tooltip =启动被隐藏的应用程序时 (⌘+H)，Dock栏里的应用程序图标会变暗。
 chk3.type = checkbox
@@ -144,16 +143,23 @@ chk10.label =单一应用程序 模式
 chk10.disabled = 0
 chk10.x = 225
 	
-# Settings text
-tb19.tooltip =
-tb19.type = text
-tb19.height = 0
-tb19.width = 150
-tb19.x = 0
-	
+# Icon mouse over highlight
+chk11.tooltip = 当启用了鼠标悬停重点将是可见的停靠图标.
+chk11.type = checkbox
+chk11.label = 图标亮点
+chk11.x = 225
+chk11.y = $chxy"
+
+# Icon reflections
+chk12.tooltip = 当启用时将图标下面展示或旁边的反映.
+chk12.type = checkbox
+chk12.label = 图标感言
+chk12.x = 225
+chk12.y = $chxy"
+
 # Settings button
 settingb.type = button
-settingb.label =视图
+settingb.label = 视图设置
 settingb.x = 108
 	
 # Email button	
@@ -178,6 +184,4 @@ tb1.text =应用程序分隔条：
 tb2.text =档案分隔条：
 tb10.text =图标尺寸：
 tb11.text =放大：
-tb12.text =导入主题：
-tb19.text =其他设置：
 tb20.text =自动隐藏：
