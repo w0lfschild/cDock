@@ -1,13 +1,34 @@
 ------------------------------------------------
 
-Version		: 9.4
-Build date	: Aug / 06 / 2015
+Version		: 9.5
+Build date	: Aug / 11 / 2015
 Notes		:
 
 - cDock 9+ require administrator credentials to install SIMBL
 - SIMBL install is done by 'cDock-Helper'
 - OS X 10.11 requires rootless be disabled for initial install
 - OS X 10.11 does not support Colorfulsidebar
+
+------------------------------------------------
+
+- OS X 10.9 and above
+	- fix cDock not applying until something caused the dock to redraw if injected after dock loaded
+	- fix heavy CPU usage with picture backgrounds
+	- fix picture backgrounds drawing too low
+	- fix Colorfulsidebar setting always showing as disabled
+	- bug fixes
+
+- OS X 10.10 and above
+	- new option `cd_is3D` will extend the dock width 2.5%
+
+- Known issues
+	- Separator layer is behind background layer (10.9+)
+	- CPU usage when moving mouse over or resizing Dock with custom indicator (10.9)
+
+------------------------------------------------
+
+Version		: 9.4
+Build date	: Aug / 06 / 2015
 
 ------------------------------------------------
 
@@ -45,11 +66,6 @@ Notes		:
 	- More notes
 
 - Small tweaks and bug fixes
-
-- Known issues
-	- Separator layer is behind background layer (10.9+)
-	- CPU usage when moving mouse over or resizing Dock with picture background (10.9+)
-	- CPU usage when moving mouse over or resizing Dock with custom indicator (10.9)
 
 ------------------------------------------------
 
