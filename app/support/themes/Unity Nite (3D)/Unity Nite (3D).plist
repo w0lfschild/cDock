@@ -56,5 +56,7 @@
 	<false/>
 	<key>cd_showSeparator</key>
 	<false/>
+	<key>cd_is3D</key>
+	<true/>
 </dict>
 </plist>
