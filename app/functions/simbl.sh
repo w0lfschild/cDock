@@ -19,18 +19,19 @@ imma_let_you_finish() {
 }
 
 inject_intoPROC() {
-  # Try injecting into process once every 3 seconds for 60 seconds max
+  # Kill process then wait for process to inject
   count=0
+  killall -s "$1"
   while [[ $count < 20 ]]; do
+    if [[ $count < 20 ]]; then
+      sleep 0.5
+    fi
     if [[ $(killall -s "$1") = *"-TERM"* ]]; then
       count=20
     fi
     count=$(( count + 1 ))
-    if [[ $count < 20 ]]; then
-      sleep 3
-    fi
   done
-  killall -s "$1" && osascript -e "tell application \"$1\" to inject SIMBL into Snow Leopard"
+  osascript -e "tell application \"$1\" to inject SIMBL into Snow Leopard"
 }
 
 simbl_run() {
