@@ -77,9 +77,12 @@ app_has_updated() {
 	plistbud "Delete" "cdockActive" "$cdock_pl"
 	plistbud "Delete" "colorfulsidebarActive" "$cdock_pl"
 
-	# Make sure old bundles are gone
+	# Make sure old SIMBL and bundles are gone
 	file_cleanup \
+	/Library/ScriptingAdditions/SIMBL.osax \
 	/Library/ScriptingAdditions/EasySIMBL.osax \
+	"$HOME"/Library/ScriptingAdditions/SIMBL.osax \
+	"$HOME"/Library/ScriptingAdditions/EasySIMBL.osax \
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/cDock.bundle \
 	"$HOME"/Library/Application\ Support/SIMBL/Plugins/ColorfulSidebar.bundle
 
