@@ -4,11 +4,11 @@ Version		: 9.5
 Build date	: Aug / 12 / 2015
 Notes		:
 
-- cDock 9+ require administrator credentials to install SIMBL
+- cDock require administrator credentials to install SIMBL
 - SIMBL install is done by 'cDock-Helper'
 - OS X 10.11 
 	- requires rootless be disabled for initial install
-	- rootless may be re-enabled after SIMBL has installed
+	- rootless may be enabled after SIMBL has been installed
 	- does not support Colorfulsidebar
 
 ------------------------------------------------
@@ -19,6 +19,7 @@ Notes		:
 	- fix picture backgrounds drawing too low
 	- fix separator layer drawing behind background layer
 	- fix Colorfulsidebar setting always showing as disabled
+	- adjusted menu application icon
 	- other bug fixes and improvements
 
 - OS X 10.10 and above
