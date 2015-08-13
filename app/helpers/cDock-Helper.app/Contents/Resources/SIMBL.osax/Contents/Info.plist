@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>SIMBL</string>
 	<key>CFBundleGetInfoString</key>
-	<string>SIMBL 0.9.9, ©2003-2009 Mike Solomon</string>
+	<string>SIMBL 0.9.10, ©2003-2009 Mike Solomon</string>
 	<key>CFBundleIdentifier</key>
 	<string>net.culater.SIMBL.osax</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>osax</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9.9</string>
+	<string>0.9.10</string>
 	<key>CFBundleSignature</key>
 	<string>SIM∞</string>
 	<key>CFBundleVersion</key>
-	<string>0.9.9</string>
+	<string>0.9.10</string>
 	<key>OSAScriptingDefinition</key>
 	<string>SIMBL.sdef</string>
 	<key>OSAXHandlers</key>
