@@ -675,8 +675,9 @@ install_finish() {
 		fi
 	fi
 
-	( (sleep 1; osascript -e 'tell application "Dock" to inject SIMBL into Snow Leopard'; osascript -e 'tell application "Finder" to inject SIMBL into Snow Leopard') &)
-
+	inject_intoPROC "Dock" &
+	inject_intoPROC "Finder" &
+	
 	# logging info
 	ls -l /Library/Application\ Support/SIMBL/Plugins
 
