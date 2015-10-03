@@ -16,10 +16,8 @@
 	    * **10.10** to **10.10.5**
 	    * **10.11**
 * [Donate](http://w0lfschild.github.io/pages/donate.html)
-
-### Note:
-* This project isn't meant to be downloaded and built, the UI is hacked together with a combination of Pashua and Platypus. This is more of a hosting / distribution for the project
-* The bundle that actually controls the dock can be found here : [cDock2](http://github.com/w0lfschild/cDock2)
+* This project isn't meant to be downloaded and built. This repo is for hosting / distribution for the project
+* Source for the bundle that controls the dock can be found here : [cDock2](http://github.com/w0lfschild/cDock2)
 
 ### Translations:
 *Wolfgang Baird* - English    
@@ -31,7 +29,6 @@
 [DarkDock](http://github.com/b3ll/DarkDock)    
 [Dockify](https://github.com/alexzielenski/dockify)    
 [Modck](https://github.com/mstg/Modck)    
-
 [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)    
 [CocoaDialog](http://mstratman.github.io/cocoadialog/)    
 [Pashua](http://bluem.net/en/mac/pashua/)    
