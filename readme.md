@@ -12,13 +12,13 @@ cDock2
 
 ### Information:
 * [Donate](http://w0lfschild.github.io/pages/donate.html)
-* cDock installs [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if it is not already installed.
-* cDock works for both the Bottom Dock and Side dock.
-* cDock theming requires OS X 10.9+.
+* cDock installs [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if it is not already installed
+* cDock works for both the Bottom Dock and Side dock
+* cDock theming requires OS X 10.9+
 * cDock requires rootless be disbaled on 10.11 for SIMBL install
 * Not all features are available on all versions of OS X
-* cDock may break in the future, and it may not be updated.
-* This project isn't meant to be downloaded and built. This repo is for hosting / distribution for the project
+* cDock may break in the future, and it may not be updated
+* This repo is for hosting / distribution for the project
 * Source for the bundle that controls the dock can be found here : [cDock2](http://github.com/w0lfschild/cDock2)
 
 ### Translations:
