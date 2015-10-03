@@ -3,8 +3,8 @@
 [![Join the chat at https://gitter.im/w0lfschild/cDock](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/w0lfschild/cDock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
 
 cDock    
-[![Latest Release](https://img.shields.io/github/release/w0lfschild/cDock.svg)](https://github.com/w0lfschild/cDock/releases/latest)   
-[![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock/latest/total.svg)](https://github.com/w0lfschild/cDock/archive/master.zip)    
+[![Latest Release](https://img.shields.io/github/release/w0lfschild/cDock.svg)](https://github.com/w0lfschild/cDock/releases/latest) 
+[![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock/v9.5/total.svg)](https://github.com/w0lfschild/cDock/archive/master.zip)    
 
 cDock2    
 [![Latest Release](https://img.shields.io/github/release/w0lfschild/cDock2.svg)](https://github.com/w0lfschild/cDock/releases/latest)   
