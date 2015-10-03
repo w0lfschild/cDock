@@ -7,7 +7,7 @@ cDock
 [![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock/v9.5/total.svg)](https://github.com/w0lfschild/cDock/archive/master.zip)    
 
 cDock2    
-[![Latest Release](https://img.shields.io/github/release/w0lfschild/cDock2.svg)](https://github.com/w0lfschild/cDock/releases/latest)   
+[![Latest Release](https://img.shields.io/github/release/w0lfschild/cDock2.svg)](https://github.com/w0lfschild/cDock/releases/latest) 
 [![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock2/latest/total.svg)](https://github.com/w0lfschild/cDock2/blob/master/release/release.zip?raw=true)  
 
 ### Information:
