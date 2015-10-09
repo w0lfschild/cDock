@@ -4,11 +4,11 @@
 
 cDock    
 [![Latest Release](https://img.shields.io/github/release/w0lfschild/cDock.svg)](https://github.com/w0lfschild/cDock/releases/latest) 
-[![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock/v9.5/total.svg)](https://github.com/w0lfschild/cDock/archive/master.zip)    
+[![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock/v9.5/total.svg)](https://github.com/w0lfschild/cDock/releases/download/v9.5/cDock_v9.5.zip)    
 
 cDock2    
 [![Latest Release](https://img.shields.io/github/release/w0lfschild/cDock2.svg)](https://github.com/w0lfschild/cDock/releases/latest) 
-[![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock/cDock2-0.9.6/total.svg)](https://github.com/w0lfschild/cDock2/blob/master/release/release.zip?raw=true)  
+[![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock/cDock2-0.9.7/total.svg)](https://github.com/w0lfschild/cDock/releases/download/cDock2-0.9.7/cDock.zip)  
 
 ### Information:
 * [Donate](http://w0lfschild.github.io/pages/donate.html)
