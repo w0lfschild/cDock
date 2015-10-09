@@ -1,8 +1,8 @@
 ------------------------------------------------
 
 App	: cDock 2
-Version	: 0.9.6
-Build 	: 1190
+Version	: 0.9.7
+Build 	: 1205
 Status	: Public
 Date 	: Oct / 03 / 2015
 
