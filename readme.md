@@ -3,12 +3,10 @@
 [![Join the chat at https://gitter.im/w0lfschild/cDock](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/w0lfschild/cDock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
 
 cDock    
-[![Latest Release](https://img.shields.io/github/release/w0lfschild/cDock.svg)](https://github.com/w0lfschild/cDock/releases/latest) 
 [![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock/v9.5/total.svg)](https://github.com/w0lfschild/cDock/releases/download/v9.5/cDock_v9.5.zip)    
 
 cDock2    
-[![Latest Release](https://img.shields.io/github/release/w0lfschild/cDock2.svg)](https://github.com/w0lfschild/cDock/releases/latest) 
-[![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock/cDock2-0.9.7/total.svg)](https://github.com/w0lfschild/cDock/releases/download/cDock2-0.9.7/cDock.zip)  
+[![Downloads](https://img.shields.io/github/downloads/w0lfschild/cDock2/v0.9.8/total.svg)](https://github.com/w0lfschild/cDock2/releases/download/v0.9.8/cDock.zip)  
 
 ### Information:
 * [Donate](http://w0lfschild.github.io/pages/donate.html)
