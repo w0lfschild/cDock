@@ -11,7 +11,7 @@
 * cDock installs [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if it is not already installed
 * cDock works for both the Bottom Dock and Side dock
 * cDock theming requires OS X 10.9+
-* cDock requires rootless be disbaled on 10.11 for SIMBL install
+* cDock requires rootless be disabled on 10.11 for SIMBL install
 * Not all features are available on all versions of OS X
 * cDock may break in the future, and it may not be updated
 * This repo is for hosting / distribution for the project
