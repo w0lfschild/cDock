@@ -1,6 +1,4 @@
-# [cDock](http://w0lfschild.github.io/cdock.html)
-
-[![Join the chat at https://gitter.im/w0lfschild/cDock](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/w0lfschild/cDock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
+# [cDock](http://w0lfschild.github.io/cdock.html) [![Join the chat at https://gitter.im/w0lfschild/cDock](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/w0lfschild/cDock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ### Downloads:
 * [cDock](https://github.com/w0lfschild/cDock/releases/download/v9.5/cDock_v9.5.zip)    
