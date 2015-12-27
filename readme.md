@@ -1,10 +1,8 @@
-# [cDock](http://w0lfschild.github.io/cdock.html) [![Join the chat at https://gitter.im/w0lfschild/cDock](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/w0lfschild/cDock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# [cDock](http://w0lfschild.github.io/cdock.html) (*[donate](http://w0lfschild.github.io/pages/donate.html)*) (*[chat](https://gitter.im/w0lfschild/cDock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)*)
 
 ### Downloads:
 * [cDock](https://github.com/w0lfschild/cDock/releases/download/v9.5/cDock_v9.5.zip)    
 * [cDock2](https://github.com/w0lfschild/cDock2/releases/download/v0.9.8/cDock.zip)  
-
-### [Donate](http://w0lfschild.github.io/pages/donate.html):
 
 ### Information:
 * cDock theming requires OS X 10.9+
