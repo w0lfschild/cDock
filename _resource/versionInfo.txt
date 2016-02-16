@@ -1,35 +1,40 @@
 ------------------------------------------------
 
 App	: cDock 2
-Version	: 0.9.7
-Build 	: 1205
-Status	: Public
-Date 	: Oct / 03 / 2015
+Version	: 0.10.3
+Date 	: Feb / 15 / 2015
 
 ------------------------------------------------
 
-- New -
+- UI
+     - rewritten in Objective C
+     - Tabbed view
+     - SIMBL information
+     - Rootless information
+     - More dock settings
 
-🆕 UI rewritten in Objective C
-🆕 Vibrant window option on Yosemite and above
-🆕 SIMBL information window
-🆕 Rootless information windows
-🆕 Theme changes applied without dock restarts
-🆕 Edit every theme variable in-app
-🆕 Show themes folder
-🆕 Name themes when creating them
-🆕 3D docks improvements
-🆕 10.9 dock appearance is more in line with 10.10+ docks 
-🆕 Separator layer can be colored
-🆕 Separator layer can be full height of dock
-🆕 Separator layer is displayed in 3D docks
-🆕 Icon reflections bounce
-🆕 Bug fixes and performance improvements
+- Enhancements
+     - Merged helper agent and SIMBL installer
+     - Lower agent energy use 
+     - Sparkle updates
+     - Remeber window position
+     - Bug fixes and performance improvements
 
-- Removed -
+- Themes
+     - Most theme changes are applied without dock restarts
+     - Edit every theme variable in-app
+     - Show themes folder
+     - Create new themes with ease
+     - 3D docks improvements
+     - 10.9 dock appearance is more in line with 10.10+ 
+     - Separator layer can be colored
+     - Separator layer can be full height of dock
+     - Separator layer is displayed in 3D docks
+     - Icon reflections bounce
 
-❌ Menubar application
-❌ Dock plist backups
-❌ Reset icon cache option
-❌ Finder Folders on top
-❌ Finder Colored sidebar (Use XtraFinder)
+- Removed 
+     - Menubar application (No longer useful)
+     - Plist backups
+     - Reset icon cache option
+     - Finder folders on top (Use XtraFinder)
+     - Finder colored sidebar (Use XtraFinder)
