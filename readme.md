@@ -1,5 +1,7 @@
 cDock has moved > [cDock 3](https://w0lfschild.github.io/app_cDock.html)
-cDock on Github > [cDock 3](https://github.com/w0lfschild/cDock2)
+-
+cDock on Github > [cDock 2](https://github.com/w0lfschild/cDock2)
+-
 Download > [cDock 3](https://github.com/w0lfschild/app_updates/raw/master/cDock/cDock_master.zip)
 -
 
