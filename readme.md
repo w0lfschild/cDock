@@ -1,17 +1,15 @@
-cDock has moved > [cDock2](https://github.com/w0lfschild/cDock2)
--
-Download > [cDock2](https://github.com/w0lfschild/app_updates/raw/master/cDock/cDock_0.11.3.zip)
+cDock has moved > [cDock 3](https://w0lfschild.github.io/app_cDock.html)
+cDock on Github > [cDock 3](https://github.com/w0lfschild/cDock2)
+Download > [cDock 3](https://github.com/w0lfschild/app_updates/raw/master/cDock/cDock_master.zip)
 -
 
-Information >
+Info >
 -
 * [Donate](https://www.paypal.me/w0lfspapa)
 * [Chat](https://gitter.im/w0lfschild/cDock)
 * [Issues](https://github.com/w0lfschild/cDock2/issues)
-* cDock installs [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)
-* cDock requires OS X 10.9+
+* cDock requires OS X 10.10+
 * cDock requires System Integrity Protection be disbaled on 10.11 for SIMBL install
-* cDock may break in the future
 
 License >
 -
