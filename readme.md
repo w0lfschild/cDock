@@ -1,4 +1,4 @@
-cDock has moved > [cDock 3](https://w0lfschild.github.io/app_cDock.html)
+cDock has moved > [cDock 3](https://www.macenhance.com/cdock.html)
 -
 cDock on Github > [cDock 2](https://github.com/w0lfschild/cDock2)
 -
@@ -11,7 +11,7 @@ Info >
 * [Chat](https://gitter.im/w0lfschild/cDock)
 * [Issues](https://github.com/w0lfschild/cDock2/issues)
 * cDock requires OS X 10.10+
-* cDock requires System Integrity Protection be disabled on 10.11 for SIMBL install
+* cDock requires System Integrity Protection be disabled on macOS 10.11+ for system component installation
 
 License >
 -
