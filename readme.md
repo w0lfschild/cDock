@@ -11,7 +11,7 @@ Info >
 * [Chat](https://gitter.im/w0lfschild/cDock)
 * [Issues](https://github.com/w0lfschild/cDock2/issues)
 * cDock requires OS X 10.10+
-* cDock requires System Integrity Protection be disbaled on 10.11 for SIMBL install
+* cDock requires System Integrity Protection be disabled on 10.11 for SIMBL install
 
 License >
 -
